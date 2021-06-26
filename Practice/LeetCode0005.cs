@@ -49,11 +49,61 @@ namespace Practice
     {
         public LeetCode0005()
         {
-
+            String input = "A palindrome is when something can be read the same forwards as backwards, so for example Racecar.";
+            String output = LongestPalindrome(input);
+            Console.WriteLine("Input: " + input);
+            Console.WriteLine("Output: " + output);
         }
         public string LongestPalindrome(string s)
         {
-            return "";
+            int x = 0;
+            int length = 1;
+            for(int i = 1; i < s.Length - 1; i++) //Checking for odd palindromes
+            {
+                int t = 1;
+                while (i - t >= 0 && i + t < s.Length && s[i - t] == s[i + t])
+                    t++;
+                t--;
+                if((t*2)+1>length)
+                {
+                    x = i - t;
+                    length = (t * 2) + 1;
+                }
+            }
+            for(int i = 0; i < s.Length - 1; i++) //Checking for even palindromes
+            {
+                if(s[i] == s[i+1])
+                {
+                    int t = 1;
+                    while (i - t >= 0 && i + t + 1 < s.Length && s[i - t] == s[i + t + 1])
+                        t++;
+                    t--;
+                    if((t*2)+2>length)
+                    {
+                        x = i - t;
+                        length = (t * 2) + 2;
+                    }
+                }
+            }
+            return s.Substring(x, length);
+
+            /*First attempt.  48/176 tests passed before the time limit was hit.  This does work though, just not as efficient
+            for(int i = s.Length; i >= 0; i--) //Start at a max length of i and go down from there
+                for(int j = 0; j + i <= s.Length; j++) //Start at 0 to i-1 and shift until there are no substrings of length i
+                {
+                    String sub = s.Substring(j, i).ToLower();
+                    Boolean palindrome = true;
+                    for(int x = 0; x < sub.Length / 2; x++)
+                    {
+                        int y = sub.Length - x - 1;
+                        if (sub[x] != sub[y])
+                            palindrome = false;
+                    }
+                    if (palindrome)
+                        return s.Substring(j, i); //Returns the first one found since this will be the longest
+                }
+            return null;
+            */
         }
     }
 }
