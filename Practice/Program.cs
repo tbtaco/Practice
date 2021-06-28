@@ -27,6 +27,8 @@ namespace Practice
                             case 3: new LeetCode0003(); break;
                             case 4: new LeetCode0004(); break;
                             case 5: new LeetCode0005(); break;
+                            case 6: new LeetCode0006(); break;
+                            case 7: new LeetCode0007(); break;
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
                         }
                     }
