@@ -23,8 +23,8 @@ This determines if the final result is negative or positive respectively. Assume
 Read in next the characters until the next non-digit charcter or the end of the input is reached. The rest of the string is ignored.
 Convert these digits into an integer (i.e. "123" -> 123, "0032" -> 32). If no digits were read, then the integer is 0.
 Change the sign as necessary (from step 2).
-If the integer is out of the 32-bit signed integer range [-231, 231 - 1], then clamp the integer so that it remains in the range.
-Specifically, integers less than -231 should be clamped to -231, and integers greater than 231 - 1 should be clamped to 231 - 1.
+If the integer is out of the 32-bit signed integer range [-2^31, 2^31 - 1], then clamp the integer so that it remains in the range.
+Specifically, integers less than -2^31 should be clamped to -2^31, and integers greater than 2^31 - 1 should be clamped to 2^31 - 1.
 Return the integer as the final result.
 
 Note:
@@ -123,6 +123,35 @@ namespace Practice
         }
         public int MyAtoi(string s)
         {
+            String number = "";
+            for(int i = 0; i < s.Length; i++)
+                if (s[i] != ' ')
+                {
+                    Boolean readingNumbers = false;
+                    while ((!readingNumbers && (s[i] == '+' || s[i] == '-')) || (s[i] >= 48 && s[i] <= 57)) //ASCII Values 0-9
+                    {
+                        number += s[i];
+                        if (!readingNumbers)
+                            readingNumbers = true;
+                        i++;
+                    }
+                    i = s.Length;
+                }
+            if (number == "" || number == "+" || number == "-" || number == "0") //Get some easy cases out of the way
+                return 0;
+            if (number[0] != '+' || number[0] != '-')
+                number = '+' + number;
+            while (number.Length >= 3 && number[1] == '0') //Gets rid of unnecessary zeros
+                number = number[0] + number.Substring(2);
+            if(number.Length > 10) //2,147,483,647 upper limit, -2,147,483,648 lower limit.  Anything above 10 chars then, with sign
+            {
+                if(number.Length > 11)
+                {
+
+                }
+            }
+
+
 
 
 
