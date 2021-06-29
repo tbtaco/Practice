@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 7
- * 6/28/2021
+ * 6/29/2021
  */
 
 using System;
@@ -49,14 +49,10 @@ namespace Practice
     {
         public LeetCode0007()
         {
-            Random r = new Random(); //Work In Progress
-            int multiplier = 1;
-            int input = 0;
-            int len = r.Next(9) + 1;
-            for (int i = 0; i < len; i++) //At most 9 digits should stay under 2^31
-                input += r.Next(10) * multiplier++;
-            if (r.Next(2) == 1)
-                input *= -1;
+            Random r = new Random();
+            int input = r.Next(500000) - 250000; //Just to test
+
+            //input = 1534236469;
 
             int result = Reverse(input);
 
@@ -65,16 +61,28 @@ namespace Practice
         }
         public int Reverse(int x)
         {
-            if (x < 0)
+            List<int> nums = new List<int>();
+            Boolean negative = x < 0;
+            if (negative)
                 x *= -1;
-            int digit3 = x / 100; //Assumed 3 digits.  This is no longer the case!
-            int digit2 = (x % 100) / 10;
-            int digit1 = x % 10;
-            int result = (digit1 * 100) + (digit2 * 10) + digit3; //What about something like 5?  Would it be 5 or 500?
-            if (x < 0)
-                result *= -1;
-            if (result > 230 || result < -231)
+            while(x != 0)
+            {
+                nums.Add(x % 10);
+                x /= 10;
+            }
+            if (nums.Count >= 10 && nums[0] > 2)
                 return 0;
+            int mult = 1;
+            int result = 0;
+            for(int i = nums.Count - 1; i >= 0; i--)
+            {
+                if (Int32.MaxValue - result - nums[i] * mult <= 0)
+                    return 0;
+                result += nums[i] * mult;
+                mult *= 10;
+            }
+            if (negative)
+                result *= -1;
             return result;
         }
     }
