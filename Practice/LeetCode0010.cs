@@ -63,17 +63,68 @@ namespace Practice
     {
         public LeetCode0010()
         {
-            throw new Exception("TODO");
+            String[][] tests = {
+                new String[] { "aa", "a" }, //False
+                new String[] { "aa", "a*" }, //True
+                new String[] { "ab", ".*" }, //True
+                new String[] { "aab", "c*a*b" }, //True
+                new String[] { "mississippi", "mis*is*p*." }, //False
+                new String[] { "testing testing one two three", "....... ....... ... ... ....." }, //True
+                new String[] { "this is a test string aaaaaaaaaaaaaaaaaaaaaaaabc", "this is a test string a*bc" }, //True
+                new String[] { "aaaaaabbbbbbbbbbbbbbccccccccccccdddddddddddddddeeefg", "a*b*c*d*e*f*g*" }, //True
+                new String[] { "this one should always be true for anything", ".*" }, //True
+                new String[] { "programming is fun", "prog..m*ing....fun." }}; //False
+            foreach(String[] test in tests)
+                Console.WriteLine("S: \"" + test[0] + "\", P: \"" + test[1] + "\", Result: " + IsMatch(test[0], test[1]));
         }
         public bool IsMatch(string s, string p)
         {
-
-
-
-
-
-
-
+            int i = 0;
+            int j = 0;
+            while (i < s.Length && j < p.Length)
+                if (p[j] == '.')
+                {
+                    i++;
+                    j++;
+                }
+                else if (p[j] == '*')
+                {
+                    if (p[j - 1] == '.')
+                        return true; //Incorrect assumption.  ".*c" for example
+                    if (i - 1 >= 0 && s[i] == s[i - 1])
+                        i++;
+                    else if (i - 1 < 0)
+                        i++;
+                    else
+                        j++;
+                }
+                else
+                {
+                    if (s[i] == p[j])
+                    {
+                        i++;
+                        j++;
+                    }
+                    else if (j + 1 < p.Length && p[j+1] == '*')
+                    {
+                        j++;
+                    }
+                    else
+                        return false;
+                }
+            if (i == s.Length && j == p.Length)
+                return true;
+            else if (j == p.Length && p[j - 1] == '*')
+            {
+                while (i < s.Length)
+                    if (s[i] == s[i - 1])
+                        i++;
+                    else
+                        return false;
+                return true;
+            }
+            else if (i == s.Length && p[j] == '*' && j == p.Length - 1)
+                return true;
             return false;
         }
     }
