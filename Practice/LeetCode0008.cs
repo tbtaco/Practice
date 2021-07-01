@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 8
- * 6/29/2021
+ * 7/1/2021
  */
 
 using System;
@@ -119,7 +119,14 @@ namespace Practice
     {
         public LeetCode0008()
         {
-
+            String[] tests = {"1", "0213", "Testing", "8372819283745884", "-28384758588372771", "+8475838271773848327", "+12", "-48",
+                "18Test", "The lucky number of the day is: 7", "         7 is awesome!", "       321        ", "2 3 4 5",
+                "2147483646"};
+            foreach(String test in tests)
+            {
+                Console.Write("Test: \"" + test + "\", ");
+                Console.WriteLine("Result: " + MyAtoi(test));
+            }
         }
         public int MyAtoi(string s)
         {
@@ -128,7 +135,7 @@ namespace Practice
                 if (s[i] != ' ')
                 {
                     Boolean readingNumbers = false;
-                    while ((!readingNumbers && (s[i] == '+' || s[i] == '-')) || (s[i] >= 48 && s[i] <= 57)) //ASCII Values 0-9
+                    while (i < s.Length && ((!readingNumbers && (s[i] == '+' || s[i] == '-')) || (s[i] >= 48 && s[i] <= 57))) //ASCII Values 0-9
                     {
                         number += s[i];
                         if (!readingNumbers)
@@ -139,32 +146,43 @@ namespace Practice
                 }
             if (number == "" || number == "+" || number == "-" || number == "0") //Get some easy cases out of the way
                 return 0;
-            if (number[0] != '+' || number[0] != '-')
+            if (number[0] != '+' && number[0] != '-')
                 number = '+' + number;
             while (number.Length >= 3 && number[1] == '0') //Gets rid of unnecessary zeros
                 number = number[0] + number.Substring(2);
-            if(number.Length > 10) //2,147,483,647 upper limit, -2,147,483,648 lower limit.  Anything above 10 chars then, with sign
+            if (number.Length > 10) //2,147,483,647 upper limit, -2,147,483,648 lower limit.  Anything above 10 chars then, with sign
             {
-                if(number.Length > 11)
+                if(number.Length > 11 || number[1] - 48 > 2)
                 {
-
+                    if (number[0] == '+')
+                        return Int32.MaxValue;
+                    return Int32.MinValue;
+                }
+                if(number[1] - 48 == 2)
+                {
+                    int temp = 0;
+                    int mul = 1;
+                    for(int i = number.Length - 1; i >= 2; i--)
+                    {
+                        temp += (number[i] - 48) * mul;
+                        mul *= 10;
+                    }
+                    if (number[0] == '+' && temp > Int32.MaxValue - 2000000000)
+                        return Int32.MaxValue;
+                    else if (number[0] == '-' && -1 * temp < Int32.MinValue + 2000000000)
+                        return Int32.MinValue;
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            return 0;
+            int result = 0;
+            int mult = 1;
+            for(int i = number.Length - 1; i >= 1; i--)
+            {
+                result += (number[i] - 48) * mult;
+                mult *= 10;
+            }
+            if (number[0] == '-')
+                result *= -1;
+            return result;
         }
     }
 }
