@@ -63,19 +63,24 @@ namespace Practice
     {
         public LeetCode0010()
         {
-            String[][] tests = {
-                new String[] { "aa", "a" }, //False
-                new String[] { "aa", "a*" }, //True
-                new String[] { "ab", ".*" }, //True
-                new String[] { "aab", "c*a*b" }, //True
-                new String[] { "mississippi", "mis*is*p*." }, //False
-                new String[] { "testing testing one two three", "....... ....... ... ... ....." }, //True
-                new String[] { "this is a test string aaaaaaaaaaaaaaaaaaaaaaaabc", "this is a test string a*bc" }, //True
-                new String[] { "aaaaaabbbbbbbbbbbbbbccccccccccccdddddddddddddddeeefg", "a*b*c*d*e*f*g*" }, //True
-                new String[] { "this one should always be true for anything", ".*" }, //True
-                new String[] { "programming is fun", "prog..m*ing....fun." }}; //False
+            String[][] tests = { //S, P, Expected
+                new String[] { "aaa", "ab*a*c*a", "True" },
+                new String[] { "abc", ".*c", "True"},
+                new String[] { "aaa", "a*a", "True"},
+                new String[] { "aaa", "ab*a", "False"},
+                new String[] { "aa", "a", "False"},
+                new String[] { "aa", "a*", "True"},
+                new String[] { "ab", ".*", "True"},
+                new String[] { "aab", "c*a*b", "True"},
+                new String[] { "mississippi", "mis*is*p*.", "False"},
+                new String[] { "testing testing one two three", "....... ....... ... ... .....", "True"},
+                new String[] { "this is a test string aaaaaaaaaaaaaaaaaaaaaaaabc", "this is a test string a*bc", "True"},
+                new String[] { "aaaaaabbbbbbbbbbbbbbccccccccccccdddddddddddddddeeefg", "a*b*c*d*e*f*g*", "True"},
+                new String[] { "this one should always be true for anything", ".*", "True"},
+                new String[] { "programming is fun", "prog..m*ing....fun.", "False"}};
             foreach(String[] test in tests)
-                Console.WriteLine("S: \"" + test[0] + "\", P: \"" + test[1] + "\", Result: " + IsMatch(test[0], test[1]));
+                Console.WriteLine("S: \"" + test[0] + "\", P: \"" + test[1] + "\", Result: " + IsMatch(test[0], test[1]) +
+                    ", Expected: " + test[2]);
         }
         public bool IsMatch(string s, string p)
         {
@@ -90,8 +95,18 @@ namespace Practice
                 else if (p[j] == '*')
                 {
                     if (p[j - 1] == '.')
-                        return true; //Incorrect assumption.  ".*c" for example
-                    if (i - 1 >= 0 && s[i] == s[i - 1])
+                    {
+                        if (j + 1 == p.Length)
+                            return true;
+                        while (i < s.Length && s[i] != p[j + 1])
+                        {
+                            i++;
+                            if (i < s.Length && s[i] == p[j + 1])
+                                return IsMatch(s.Substring(i), p.Substring(j + 1));
+                        }
+                        return false;
+                    }
+                    if (i - 1 >= 0 && j > 0 && s[i] == p[j - 1])
                         i++;
                     else if (i - 1 < 0)
                         i++;
@@ -125,6 +140,14 @@ namespace Practice
             }
             else if (i == s.Length && p[j] == '*' && j == p.Length - 1)
                 return true;
+            else if(i==s.Length && p[j] == '*')
+            {
+                if (p.Substring(j + 1).Length == 1)
+                    return s[s.Length - 1] == p.Substring(j + 1).ToCharArray()[0];
+
+                throw new Exception("Still working on this...");
+
+            }
             return false;
         }
     }
