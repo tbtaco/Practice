@@ -22,7 +22,7 @@ namespace Practice
                     {
                         switch (i)
                         {
-                            case 1: new LeetCode0001(); break;
+                            case 1: new LeetCode0001(); break; //All solutions are mine unless noted otherwise
                             case 2: new LeetCode0002(); break;
                             case 3: new LeetCode0003(); break;
                             case 4: new LeetCode0004(); break;
@@ -31,7 +31,8 @@ namespace Practice
                             case 7: new LeetCode0007(); break;
                             case 8: new LeetCode0008(); break;
                             case 9: new LeetCode0009(); break;
-                            case 10: new LeetCode0010(); break;
+                            case 10: new LeetCode0010(); break; //Did not solve this one myself
+                            case 11: new LeetCode0011(); break;
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
                         }
                     }

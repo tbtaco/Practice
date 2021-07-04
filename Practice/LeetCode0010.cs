@@ -1,7 +1,12 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 10
- * 7/1/2021
+ * 7/4/2021
+ * 
+ * Note: I was stuck on this one for a good while and ended up asking others for some ideas on a direction to go to solve this
+ * Credit for this solution should go to https://redquark.org/leetcode/0010-regular-expression-matching/
+ * My original way of solving this was needlessly complex and would still run into issues if multiple * or .* were inserted with normal chars at the end
+ * My last attempt was going to use recursive calls to tackle it little by little, but that became a mess very quickly
  */
 
 using System;
@@ -74,14 +79,53 @@ namespace Practice
                 new String[] { "aab", "c*a*b", "True"},
                 new String[] { "mississippi", "mis*is*p*.", "False"},
                 new String[] { "testing testing one two three", "....... ....... ... ... .....", "True"},
-                new String[] { "this is a test string aaaaaaaaaaaaaaaaaaaaaaaabc", "this is a test string a*bc", "True"},
-                new String[] { "aaaaaabbbbbbbbbbbbbbccccccccccccdddddddddddddddeeefg", "a*b*c*d*e*f*g*", "True"},
+                new String[] { "this is a test string aaaaaaaaaaaaaaaaaaabc", "this is a test string a*bc", "True"},
+                new String[] { "aaaaaabbbbbbbbbbcccccccccccddddddddddddeeefg", "a*b*c*d*e*f*g*", "True"},
                 new String[] { "this one should always be true for anything", ".*", "True"},
                 new String[] { "programming is fun", "prog..m*ing....fun.", "False"}};
             foreach(String[] test in tests)
                 Console.WriteLine("S: \"" + test[0] + "\", P: \"" + test[1] + "\", Result: " + IsMatch(test[0], test[1]) +
                     ", Expected: " + test[2]);
         }
+        public bool IsMatch(string s, string p)
+        {
+
+            throw new Exception("Note: I can't take credit for this solution.  See my comments in LeetCode0010.cs for more info.  " +
+                "Comment out this thrown exception on line 93 and 94 of LeetCode0010.cs to run the solution anyway.");
+
+            if (s.Length == 0 && p.Length == 0) //Both strings are empty
+                return true;
+            if (p.Length == 0) //p is empty, but s is not
+                return false;
+
+            Boolean[][] testTable = new Boolean[s.Length + 1][]; //A 2D array will be used to keep track of tests.
+            for (int i = 0; i < testTable.Length; i++) //0 and 0 will represent an empty char "" and everything else is a char of s or p
+                testTable[i] = new Boolean[p.Length + 1];
+            for (int i = 0; i < testTable.Length; i++) //Initialize (good habit at least, even if all cells are false by default)
+                for (int j = 0; j < testTable[i].Length; j++)
+                    testTable[i][j] = false;
+
+            testTable[0][0] = true; //Matching "" to ""
+
+            for (int i = 2; i < p.Length + 1; i++) //Matching "" to "*"
+                if (p[i - 1] == '*')
+                    testTable[0][i] = testTable[0][i - 2];
+
+            for(int i = 1; i < s.Length + 1; i++)
+                for(int j = 1; j < p.Length + 1; j++)
+                    if (s[i - 1] == p[j - 1] || p[j - 1] == '.') //Check the site included on line 7 above for credit for this if/else if section
+                        testTable[i][j] = testTable[i - 1][j - 1]; //They include a full explanation that is worth a reading
+                    else if (j > 1 && p[j - 1] == '*')
+                    {
+                        testTable[i][j] = testTable[i][j - 2];
+                        if (p[j - 2] == '.' || p[j - 2] == s[i - 1])
+                            testTable[i][j] = testTable[i][j] || testTable[i - 1][j];
+                    }
+
+            return testTable[s.Length][p.Length];
+        }
+
+        /* Below is one of my failed attempts at solving this problem
         public bool IsMatch(string s, string p)
         {
             int i = 0;
@@ -150,5 +194,6 @@ namespace Practice
             }
             return false;
         }
+        */
     }
 }
