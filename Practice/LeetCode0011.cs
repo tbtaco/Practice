@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,34 +55,66 @@ namespace Practice
     {
         public LeetCode0011()
         {
-            MaxArea(new int[] { 0 });
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
 
+            int[][] tests = new int[][]
+            {
+                new int[] { 1, 2, 3 },
+                new int[] { 1, 1, 2 },
+                new int[] { 7, 2, 7, 8, 1, 1, 1, 9 },
+                new int[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 },
+                new int[] { 0, 0, 0 },
+                new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+                new int[] { 10, 1, 10, 1000, 1, 1000 },
+                GetNums(30),
+                GetNums(200),
+                GetNums(100000)
+            };
 
+            foreach(int[] test in tests)
+            {
+                if(test.Length < 500)
+                {
+                    Console.Write("Test: [" + test[0]);
+                    for (int i = 1; i < test.Length; i++)
+                        Console.Write(", " + test[i]);
+                    Console.WriteLine("] Result: " + MaxArea(test));
+                }
+            }
 
+            sw.Stop(); //About 15ms before changes
+            Console.WriteLine("Total Time: " + sw.ElapsedMilliseconds + "ms");
+            Console.WriteLine("Starting new timer.  This may take a while...");
+            sw.Restart();
 
+            Console.WriteLine("Final Test Result: " + MaxArea(tests[tests.Length - 1]));
 
-
-
-
+            sw.Stop(); //About 15.8s before changes (Not ms!)
+            Console.WriteLine("Total Time: " + sw.ElapsedMilliseconds + "ms");
+        }
+        private int[] GetNums(int max)
+        {
+            Random r = new Random();
+            int[] result = new int[max];
+            for (int i = 0; i < result.Length; i++)
+                result[i] = r.Next(10000 + 1);
+            return result;
         }
         public int MaxArea(int[] height)
         {
-            throw new Exception("TODO");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            int max = 0;
+            for(int i = 0; i < height.Length; i++)
+                for (int j = i + 1; j < height.Length; j++)
+                {
+                    int h = height[i];
+                    if (height[j] < h)
+                        h = height[j];
+                    h *= j - i;
+                    if (h > max)
+                        max = h;
+                }
+            return max;
         }
     }
 }
