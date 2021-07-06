@@ -33,6 +33,8 @@ namespace Practice
                             case 9: new LeetCode0009(); break;
                             case 10: new LeetCode0010(); break; //Did not solve this one myself
                             case 11: new LeetCode0011(); break;
+                            case 12: new LeetCode0012(); break;
+                            case 13: new LeetCode0013(); break;
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
                         }
                     }

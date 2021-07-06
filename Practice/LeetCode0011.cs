@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 11
- * 7/4/2021
+ * 7/6/2021
  */
 
 using System;
@@ -83,14 +83,14 @@ namespace Practice
                 }
             }
 
-            sw.Stop(); //About 15ms before changes
+            sw.Stop(); //About 15ms before changes (After my changes it's slower for short arrays, but could probably be sped up by changing how I handle variables.  Change it to use the Math class more for example)
             Console.WriteLine("Total Time: " + sw.ElapsedMilliseconds + "ms");
             Console.WriteLine("Starting new timer.  This may take a while...");
             sw.Restart();
 
             Console.WriteLine("Final Test Result: " + MaxArea(tests[tests.Length - 1]));
 
-            sw.Stop(); //About 15.8s before changes (Not ms!)
+            sw.Stop(); //About 15.8s before changes (Not ms!) (After my changes, it runs larger arrays in 5ms or less)
             Console.WriteLine("Total Time: " + sw.ElapsedMilliseconds + "ms");
         }
         private int[] GetNums(int max)
@@ -101,6 +101,30 @@ namespace Practice
                 result[i] = r.Next(10000 + 1);
             return result;
         }
+        public int MaxArea(int[] height)
+        {
+            int max = 0;
+            int i = 0;
+            int j = height.Length - 1;
+
+            while(i < j)
+            {
+                int h = height[i];
+                if (height[j] < h)
+                    h = height[j];
+                h *= j - i;
+                if (h > max)
+                    max = h;
+
+                if (height[i] > height[j]) //Doing it this way saves a Lot of time on larger arrays
+                    j--;
+                else
+                    i++;
+            }
+            return max;
+        }
+
+        /* My first attempt works, but is slow.  Slow enough that the LeetCode system does not accept it.  Redoing above
         public int MaxArea(int[] height)
         {
             int max = 0;
@@ -116,5 +140,6 @@ namespace Practice
                 }
             return max;
         }
+        */
     }
 }
