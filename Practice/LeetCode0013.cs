@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 13
- * 7/6/2021
+ * 7/12/2021
  */
 
 using System;
@@ -93,83 +93,37 @@ namespace Practice
         public int RomanToInt(string s)
         {
             int result = 0;
-
-            /* From LeetCode 12.  Just reverse it
-            String result = "";
-
-            int temp = num / 1000; //Block M
-            for (int i = temp; i > 0; i--)
-                result += "M";
-            if (temp > 0)
-                num -= temp * 1000;
-            if (num >= 900)
+            while(s.Length > 0)
             {
-                result += "CM";
-                num -= 900;
+                Boolean edited = true;
+                if(s.Length >= 2)
+                    switch(s.Substring(0, 2))
+                    {
+                        case "CM": result += 900; break;
+                        case "CD": result += 400; break;
+                        case "XC": result += 90; break;
+                        case "XL": result += 40; break;
+                        case "IX": result += 9; break;
+                        case "IV": result += 4; break;
+                        default: edited = false; break;
+                    }
+                if(s.Length >= 2 && edited)
+                    s = s.Substring(2);
+                else
+                {
+                    switch(s.Substring(0, 1))
+                    {
+                        case "M": result += 1000; break;
+                        case "D": result += 500; break;
+                        case "C": result += 100; break;
+                        case "L": result += 50; break;
+                        case "X": result += 10; break;
+                        case "V": result += 5; break;
+                        case "I": result += 1; break;
+                    }
+                    s = s.Substring(1);
+                }
             }
-
-            temp = num / 500; //Block D
-            for (int i = temp; i > 0; i--)
-                result += "D";
-            if (temp > 0)
-                num -= temp * 500;
-            if (num >= 400)
-            {
-                result += "CD";
-                num -= 400;
-            }
-
-            temp = num / 100; //Block C
-            for (int i = temp; i > 0; i--)
-                result += "C";
-            if (temp > 0)
-                num -= temp * 100;
-            if (num >= 90)
-            {
-                result += "XC";
-                num -= 90;
-            }
-
-            temp = num / 50; //Block L
-            for (int i = temp; i > 0; i--)
-                result += "L";
-            if (temp > 0)
-                num -= temp * 50;
-            if (num >= 40)
-            {
-                result += "XL";
-                num -= 40;
-            }
-
-            temp = num / 10; //Block X
-            for (int i = temp; i > 0; i--)
-                result += "X";
-            if (temp > 0)
-                num -= temp * 10;
-            if (num >= 9)
-            {
-                result += "IX";
-                num -= 9;
-            }
-
-            temp = num / 5; //Block V
-            for (int i = temp; i > 0; i--)
-                result += "V";
-            if (temp > 0)
-                num -= temp * 5;
-            if (num >= 4)
-            {
-                result += "IV";
-                num -= 4;
-            }
-
-            for (int i = num; i > 0; i--) //Block I
-                result += "I";
-
-            return result;
-            */
-
-
             return result;
         }
     }
