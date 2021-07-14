@@ -45,27 +45,77 @@ namespace Practice
     {
         public LeetCode0015()
         {
+            int maxLength = 30; //3000; //Must be Positive
+            int min = -40; //-10000; //Must be Negative
+            int max = 40; //10000; //Must be Positive
+            int testCount = 21; //4; //First will be length 0.  Rest will be random
+
             Random r = new Random();
-            int nextLength = 0;
-            for(int i = 0; i < 5; i++)
+            int nextLength = 0; //First test will be length of 0
+            for(int i = 0; i < testCount; i++)
             {
-                throw new Exception("TODO");
+                int[] nums = new int[nextLength];
+                for(int j = 0; j < nums.Length; j++)
+                    nums[j] = r.Next(max - min + 1) + min;
 
-
-                nextLength = r.Next(3001);
+                Console.Write("Input: [");
+                for(int j = 0; j < nums.Length; j++)
+                {
+                    if (j > 0)
+                        Console.Write(", ");
+                    Console.Write(nums[j]);
+                }
+                Console.Write("] Output: [");
+                IList<IList<int>> result = ThreeSum(nums);
+                for(int j = 0; j < result.Count; j++)
+                {
+                    if (j > 0)
+                        Console.Write(", ");
+                    Console.Write("[");
+                    for (int k = 0; k < result[j].Count; k++)
+                    {
+                        if (k > 0)
+                            Console.Write(", ");
+                        Console.Write(result[j][k]);
+                    }
+                    Console.Write("]");
+                }
+                Console.WriteLine("]\n");
+                nextLength = r.Next(maxLength + 1);
             }
         }
         public IList<IList<int>> ThreeSum(int[] nums)
         {
-            List<List<int>> list = new List<List<int>>();
+            IList<IList<int>> list = new List<IList<int>>();
             if (nums.Length < 3)
-                return (IList<IList<int>>)list;
-            for(int i = 0; i < nums.Length; i++)
-                for(int j = i + 1; j < nums.Length; j++)
-                    for(int k = j + 1; k < nums.Length; k++)
-                        if (nums[i] != nums[j] && nums[i] != nums[k] && nums[j] != nums[k] && nums[i] + nums[j] + nums[k] == 0)
-                            list.Add(new List<int> { nums[i], nums[j], nums[k] });
-            return (IList<IList<int>>)list;
+                return list;
+
+            //If I sort the array of nums first, I could rule out any all positive or all negative cases, for a start
+
+            for (int i = 0; i < nums.Length - 2; i++)
+                for (int j = i + 1; j < nums.Length - 1; j++)
+                    for (int k = j + 1; k < nums.Length; k++)
+                        if(i != j && i != k && j != k && nums[i] + nums[j] + nums[k] == 0)
+                        {
+                            List<int> l = new List<int> { nums[i], nums[j], nums[k] };
+                            l.Sort();
+                            Boolean alreadyAdded = false;
+                            for(int x = 0; x < list.Count; x++)
+                                if (ListsEqual(list[x], l))
+                                    alreadyAdded = true;
+                            if (!alreadyAdded)
+                                list.Add(l);
+                        }
+            return list;
+        }
+        private Boolean ListsEqual(IList<int> l, IList<int> m)
+        {
+            if (l.Count != m.Count)
+                return false;
+            for (int i = 0; i < l.Count; i++)
+                if (l[i] != m[i])
+                    return false;
+            return true;
         }
     }
 }
