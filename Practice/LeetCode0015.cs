@@ -90,8 +90,8 @@ namespace Practice
             if (nums.Length < 3)
                 return list;
 
+            /*
             //If I sort the array of nums first, I could rule out any all positive or all negative cases, for a start
-
             for (int i = 0; i < nums.Length - 2; i++)
                 for (int j = i + 1; j < nums.Length - 1; j++)
                     for (int k = j + 1; k < nums.Length; k++)
@@ -106,6 +106,21 @@ namespace Practice
                             if (!alreadyAdded)
                                 list.Add(l);
                         }
+            */
+
+            for(int i = 0; i < nums.Length; i++)
+            {
+
+            }
+
+
+
+
+
+
+
+
+
             return list;
         }
         private Boolean ListsEqual(IList<int> l, IList<int> m)
