@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 19
- * 8/3/2021
+ * 8/6/2021
  */
 
 using System;
@@ -53,38 +53,61 @@ Follow up: Could you do this in one pass?
  * }
  */
 
+//Note: ListNode was defined in LeetCode0002.cs
+
 namespace Practice
 {
     class LeetCode0019
     {
         public LeetCode0019()
         {
-
-
-
-
-
-
-
-
-
-
-
-            throw new Exception("TODO");
+            Random r = new Random();
+            for(int i = 0; i < 10; i++)
+            {
+                int nodes = r.Next(30) + 1;
+                int toRemove = r.Next(nodes) + 1;
+                ListNode head = new ListNode(r.Next(101), null);
+                ListNode current = head;
+                Console.Write("Input: [" + head.val);
+                for (int j = 1; j < nodes; j++)
+                {
+                    current.next = new ListNode(r.Next(101), null);
+                    current = current.next;
+                    Console.Write(", " + current.val);
+                }
+                Console.Write("]\nRemove: " + toRemove + "\nResult: [");
+                ListNode result = RemoveNthFromEnd(head, toRemove);
+                for(int j = 0; j < nodes - 1; j++)
+                {
+                    if (result == null)
+                        throw new Exception("Error: There were fewer values than expected.  Check code!");
+                    if (j > 0)
+                        Console.Write(", ");
+                    Console.Write(result.val);
+                    result = result.next;
+                }
+                if (result != null)
+                    throw new Exception("Error: There were more values than expected.  Check code!");
+                Console.WriteLine("]\n");
+            }
         }
         public ListNode RemoveNthFromEnd(ListNode head, int n)
         {
-
-
-
-
-
-
-
-
-
-
-
+            ListNode temp = head;
+            int size = 0;
+            while (temp != null) //I don't know how long it is, so this is necessary
+            {
+                temp = temp.next;
+                size++;
+            }
+            if (size == 1)
+                return null;
+            if (size == n)
+                return head.next;
+            temp = head; //Reset and now I'll go to the n'th from the end, minus 1, and change it's next value to skip the n'th node
+            for(int i = 0; i < size - n - 1; i++)
+                temp = temp.next;
+            temp.next = temp.next.next;
             return head;
         }
     }
