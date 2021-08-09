@@ -93,6 +93,7 @@ namespace Practice
             throw new Exception("Note: I can't take credit for this solution.  See my comments in LeetCode0010.cs for more info.  " +
                 "Comment out this thrown exception on line 93 and 94 of LeetCode0010.cs to run the solution anyway.");
 
+            #pragma warning disable CS0162
             if (s.Length == 0 && p.Length == 0) //Both strings are empty
                 return true;
             if (p.Length == 0) //p is empty, but s is not

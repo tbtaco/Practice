@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 20
- * 8/6/2021
+ * 8/9/2021
  */
 
 using System;
@@ -58,28 +58,54 @@ namespace Practice
     {
         public LeetCode0020()
         {
-            throw new Exception("TODO");
+            List<List<String>> tests = new List<List<String>>();
+            tests.Add(new List<String>() { "(){}[]", "True" });
+            tests.Add(new List<String>() { "({[]})", "True" });
+            tests.Add(new List<String>() { "(()", "False" });
+            tests.Add(new List<String>() { "(", "False" });
+            tests.Add(new List<String>() { "[]][][][[]][][][[]]", "False" });
+            tests.Add(new List<String>() { "(()())", "True" });
+            tests.Add(new List<String>() { "[({[]}{})()]", "True" });
+            foreach(List<String> test in tests)
+                Console.WriteLine("Input: " + test[0] + ", Expected: " + test[1] + ", Output: " + IsValid(test[0]));
         }
-        public bool IsValid(string s) //Only works if there is complete symmetry, which may not be the case
+        public bool IsValid(string s)
         {
-            if (s.Length == 0)
-                return true;
-            switch(s[0])
+            if (s.Length % 2 == 1)
+                return false;
+            List<char> openingChars = new List<char>(); //After completing, I see C# does have a Stack library which would be easier to use than using a List as a Stack.  Concept is the same here, but I could have simply Pushed and Popped
+            foreach(char c in s.ToCharArray())
             {
-                case '(':
-                    if (s[s.Length - 1] == ')')
-                        return IsValid(s.Substring(1, s.Length - 2));
-                    break;
-                case '{':
-                    if (s[s.Length - 1] == '}')
-                        return IsValid(s.Substring(1, s.Length - 2));
-                    break;
-                case '[':
-                    if (s[s.Length - 1] == ']')
-                        return IsValid(s.Substring(1, s.Length - 2));
-                    break;
+                if (c == '(' || c == '{' || c == '[')
+                    openingChars.Add(c);
+                else
+                {
+                    if (openingChars.Count == 0)
+                        return false;
+                    switch(openingChars[openingChars.Count - 1])
+                    {
+                        case '(':
+                            if (c == ')')
+                                openingChars.RemoveAt(openingChars.Count - 1);
+                            else
+                                return false;
+                            break;
+                        case '{':
+                            if (c == '}')
+                                openingChars.RemoveAt(openingChars.Count - 1);
+                            else
+                                return false;
+                            break;
+                        case '[':
+                            if (c == ']')
+                                openingChars.RemoveAt(openingChars.Count - 1);
+                            else
+                                return false;
+                            break;
+                    }
+                }
             }
-            return false;
+            return openingChars.Count == 0;
         }
     }
 }
