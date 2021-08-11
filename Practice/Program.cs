@@ -43,6 +43,7 @@ namespace Practice
                             case 19: new LeetCode0019(); break;
                             case 20: new LeetCode0020(); break;
                             case 21: new LeetCode0021(); break;
+                            case 22: new LeetCode0022(); break;
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
                         }
                     }
