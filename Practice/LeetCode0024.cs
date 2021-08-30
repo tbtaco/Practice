@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 24
- * 8/20/2021
+ * 8/30/2021
  */
 
 using System;
@@ -68,40 +68,62 @@ namespace Practice
             for(int i = 0; i < 10; i++)
             {
                 int count = r.Next(maxCount - minCount + 1) + minCount;
-                ListNode result;
+                ListNode head;
+                ListNode current;
                 if (count == 0)
-                    result = SwapPairs(null);
+                    head = null;
                 else
                 {
-                    result = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
-                    ListNode current = result;
+                    head = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
+                    current = head;
                     count--;
-                    while(count > 0)
+                    while (count > 0)
                     {
                         current.next = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
                         current = current.next;
                         count--;
                     }
                 }
-                throw new Exception("TODO");
-
-
-
-
-
+                Console.Write("Input: [");
+                current = null;
+                if (head != null)
+                {
+                    Console.Write(head.val);
+                    current = head.next;
+                }
+                while(current != null)
+                {
+                    Console.Write(", " + current.val);
+                    current = current.next;
+                }
+                Console.Write("]\nOutput: [");
+                ListNode result = SwapPairs(head);
+                current = null;
+                if (result != null)
+                {
+                    Console.Write(result.val);
+                    current = result.next;
+                }
+                while (current != null)
+                {
+                    Console.Write(", " + current.val);
+                    current = current.next;
+                }
+                Console.WriteLine("]\n");
             }
         }
         public ListNode SwapPairs(ListNode head)
         {
-            throw new Exception("TODO");
+            if (head == null)
+                return null;
+            if (head.next == null)
+                return head;
+            ListNode temp = head;
+            head = head.next;
+            temp.next = head.next;
+            head.next = temp;
+            head.next.next = SwapPairs(head.next.next);
             return head;
-
-
-
-
-
-
-
         }
     }
 }
