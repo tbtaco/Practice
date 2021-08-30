@@ -141,6 +141,7 @@ namespace Practice
         {
             if (k == 1)
                 return head;
+
             int count = 0;
             ListNode current = head;
             while(current != null)
@@ -156,18 +157,22 @@ namespace Practice
                 current = current.next;
             ListNode next = ReverseKGroup(current.next, k);
 
-            ListNode newHead = head;
-            current = newHead;
-            for(int i = 1; i < k; i++)
+            ListNode newHead = null;
+            for(int i = 0; i < k; i++)
             {
                 ListNode temp = head;
-                for(int j = k - i - 1; j > 0; j--)
+                for(int j = 0; j < k - i - 1; j++)
+                    temp = temp.next;
+                if (i == 0)
                 {
-                    if(temp != null) //Should never be null...
-                        temp = temp.next;
+                    newHead = temp;
+                    current = newHead;
                 }
-                current.next = temp;
-                current = current.next;
+                else
+                {
+                    current.next = temp;
+                    current = current.next;
+                }
             }
 
             current = newHead;
