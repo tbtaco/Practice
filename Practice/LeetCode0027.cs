@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 27
- * 8/30/2021
+ * 9/1/2021
  */
 
 using System;
@@ -72,34 +72,45 @@ namespace Practice
 {
     class LeetCode0027
     {
-        public LeetCode0027()
+        public int[] test = new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
+        public LeetCode0027() //Copied and modified from LeetCode0026.cs
         {
-
-
-
-
-
-
-
-
-
-
-            throw new Exception("TODO");
+            Console.Write("Input: [");
+            for (int i = 0; i < test.Length; i++)
+                if (i == 0)
+                    Console.Write(test[i]);
+                else
+                    Console.Write(", " + test[i]);
+            int toRemove = 1;
+            Console.Write("]\nTo Remove: " + toRemove + "\nOutput k: ");
+            int k = RemoveElement(test, toRemove);
+            Console.Write(k + "\nOutput: [");
+            for (int i = 0; i < k; i++)
+                if (i == 0)
+                    Console.Write(test[i]);
+                else
+                    Console.Write(", " + test[i]);
+            Console.WriteLine("]");
+            Console.WriteLine("(Just 1 test this time, but this one is easy)");
         }
-        public int RemoveElement(int[] nums, int val)
+        public int RemoveElement(int[] nums, int val) //Entire thing is similar to LeetCode0026.cs
         {
-
-
-
-
-
-
-
-
-
-
-
-            return -1;
+            if (nums.Length == 0)
+                return 0;
+            int removed = 0;
+            for (int i = 0; i < nums.Length - removed; i++)
+                if (nums[i] == val)
+                {
+                    shiftNumsLeft(nums, i);
+                    i--;
+                    removed++;
+                }
+            return nums.Length - removed;
+        }
+        private void shiftNumsLeft(int[] nums, int index) //Copied from LeetCode0026.cs
+        {
+            for (int j = index; j < nums.Length - 1; j++)
+                nums[j] = nums[j + 1];
         }
     }
 }

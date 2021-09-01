@@ -49,6 +49,7 @@ namespace Practice
                             case 25: new LeetCode0025(); break;
                             case 26: new LeetCode0026(); break;
                             case 27: new LeetCode0027(); break;
+                            case 28: new LeetCode0028(); break;
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
                         }
                     }
