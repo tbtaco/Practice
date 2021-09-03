@@ -39,7 +39,7 @@ namespace Practice
                             case 15: new LeetCode0015(); break;
                             case 16: new LeetCode0016(); break;
                             case 17: new LeetCode0017(); break;
-                            case 18: new LeetCode0018(); break; //Have not done yet.  Similar to 3Sum
+                            case 18: new LeetCode0018(); break;
                             case 19: new LeetCode0019(); break;
                             case 20: new LeetCode0020(); break;
                             case 21: new LeetCode0021(); break;
