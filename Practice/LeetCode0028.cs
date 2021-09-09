@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 28
- * 9/1/2021
+ * 9/9/2021
  */
 
 using System;
@@ -52,21 +52,17 @@ namespace Practice
     {
         public LeetCode0028()
         {
-
-
-
-
-
-            throw new Exception("TODO");
+            const String haystack = "Example String for Needle in a Haystack.";
+            const String needle = "Need";
+            Console.WriteLine("Haystack: \"" + haystack + "\", Needle: \"" + needle + "\", Result: " + StrStr(haystack, needle));
         }
         public int StrStr(string haystack, string needle)
         {
-
-
-
-
-
-
+            if (needle == null || needle.Length == 0)
+                return 0;
+            for(int i = 0; i <= haystack.Length - needle.Length; i++)
+                if (haystack.Substring(i, needle.Length).Equals(needle))
+                    return i;
             return -1;
         }
     }
