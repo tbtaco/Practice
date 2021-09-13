@@ -74,86 +74,65 @@ namespace Practice
             Console.WriteLine("Extra. Min (-) / 1 = " + Divide(int.MinValue, 1));
             Console.WriteLine("Extra. Max (+) / 2 = " + Divide(int.MaxValue, 2) + " (Should end with a 3)");
             Console.WriteLine("Extra. Min (-) / 2 = " + Divide(int.MinValue, 2) + " (Should end with a 4)");
+            Console.WriteLine("Extra. Max (+) / 3 = " + Divide(int.MaxValue, 3) + " (Tests failed at this due to taking too long)");
         }
         public int Divide(int dividend, int divisor)
         {
-            throw new Exception("TODO");
-            /* Attempt 2
-            if (divisor == 0)
+            if (divisor == 0) //Take care of simple 0, 1, and -1 cases
                 return int.MaxValue;
             if (divisor == 1)
                 return dividend;
-            if (divisor == -1)
+            if(divisor == -1)
             {
                 if (dividend == int.MinValue)
                     return int.MaxValue;
                 return 0 - dividend;
             }
-            int result = 0;
+
+            //int.MinValue is 1 more than int.MaxValue, so to avoid issues of losing that 1
+            //I'll work in negatives, then fix the sign later
             bool negative = (dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0);
-            if (dividend == int.MinValue)
-                dividend = int.MaxValue;
-            else if (dividend < 0)
+
+            if (dividend > 0)
                 dividend = 0 - dividend;
-            if (divisor == int.MinValue)
-                divisor = int.MaxValue;
-            else if (divisor < 0)
+            if (divisor > 0)
                 divisor = 0 - divisor;
+
+            if (divisor < dividend)
+                return 0;
+            if (divisor == dividend)
+            {
+                if (negative)
+                    return -1;
+                return 1;
+            }
 
             int tempDiv = divisor;
             int tempMult = 1;
-            while (dividend > tempDiv + tempDiv) //This should help with large numbers as I can get to the result exponentially faster
+            int result = 0;
+            while(dividend < tempDiv + tempDiv)
             {
-                if(tempDiv < 0)
-                {
-                    tempMult = 1; //Will force me to do things the hard way instead of skipping steps with multipliers
-                    break;
-                }
                 tempDiv += tempDiv;
                 tempMult += tempMult;
             }
-            if(tempMult != 1)
+            if (tempMult != 1) //If the above While loop helped, save this and move forward.
+                               //Do things the long way below if the While loop didn't help,
+                               //or if it did, do the below with the remainder
             {
                 dividend -= tempDiv;
                 result += tempMult;
             }
-            
-            while (dividend >= 0) //Now back to my original idea since the numbers are smaller
-            {
-                dividend -= divisor;
-                result++;
-            }
-            result--;
-            if (negative)
-                return 0 - result;
-            return result;
-            */
 
-            /* I could definitely simplify this some, and it works, but it's slow enough to not pass the LeetCode tests
-            if (divisor == 0)
-                return 0;
-            if (divisor == 1)
-                return dividend;
-            int result = 0;
-            bool negative = (dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0);
-            if (dividend == int.MinValue)
-                dividend = int.MaxValue;
-            if (divisor == int.MinValue)
-                divisor = int.MaxValue;
-            if (dividend < 0)
-                dividend = 0 - dividend;
-            if (divisor < 0)
-                divisor = 0 - divisor;
-            while(dividend >= 0)
+            while (dividend <= 0) //Now back to my original idea since the numbers are small enough to work with
             {
                 dividend -= divisor;
                 result++;
             }
-            result--;
+            result--; //Went 1 too far, so it's fixed here (With some exceptions?  Will test...)
             if (negative)
-                return 0 - result;
+                result = 0 - result;
+
             return result;
-            */
         }
     }
 }
