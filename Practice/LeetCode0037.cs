@@ -63,30 +63,105 @@ namespace Practice
             SolveSudoku(board);
             Console.WriteLine("Code ran without issues.  Check results in debugging.");
         }
+        private SudokuCell[][] cells = new SudokuCell[9][];
         public void SolveSudoku(char[][] board)
         {
+            cells = new SudokuCell[9][];
+            for(int i = 0; i < cells.Length; i++)
+            {
+                cells[i] = new SudokuCell[9];
+                for(int j = 0; j < cells[i].Length; j++)
+                    cells[i][j] = new SudokuCell(board[i][j]);
+            }
+            int loop = 1;
             while(!BoardSolved(board))
             {
-                throw new Exception("TODO");
+                for (int i = 0; i < board.Length; i++) //Rows
+                    for (int j = 0; j < board[i].Length; j++)
+                        for (int k = 0; k < board[i].Length; k++)
+                            if (j != k)
+                                cells[i][j].AddLimit(board[i][k]);
 
+                for (int j = 0; j < board.Length; j++) //Columns
+                    for (int i = 0; i < board[j].Length; i++)
+                        for (int k = 0; k < board[i].Length; k++)
+                            if (j != k)
+                                cells[i][j].AddLimit(board[i][k]);
 
+                for (int iStart = 0; iStart < 9; iStart += 3) //Blocks
+                    for (int jStart = 0; jStart < 9; jStart += 3)
+                        for (int i = iStart; i < iStart + 3; i++)
+                            for (int j = jStart; j < jStart + 3; j++)
+                                for (int k = jStart; k < jStart + 3; k++)
+                                    if (j != k)
+                                        cells[i][j].AddLimit(board[i][k]);
 
-                //Ideas: Create a class to represent a cell.  Have bool 1-9 of if it's even possible.  Once only one is true, it's set.
+                //I feel like I'm missing an important step.  Stopping here for now, I'll look at this again when I find more time
 
-
-
-
-
-
+                loop++;
+                if (loop > 10000)
+                    throw new Exception("Loop limit exceeded!");
             }
         }
         private bool BoardSolved(char[][] board)
         {
+            bool result = true;
             for (int i = 0; i < 9; i++)
                 for (int j = 0; j < 9; j++)
                     if (board[i][j] == '.')
-                        return false;
+                    {
+                        if (cells[i][j].Validate())
+                        {
+                            board[i][j] = cells[i][j].GetVal();
+                            Console.WriteLine("Cell " + i + " and " + j + " has been set to " + cells[i][j].GetVal());
+                        }
+                        else
+                            result = false;
+                    }
+            return result;
+        }
+    }
+    class SudokuCell
+    {
+        private bool[] possibilities = new bool[9];
+        private int value = 0;
+        public SudokuCell(char c)
+        {
+            if (c == '.')
+                for (int i = 0; i < possibilities.Length; i++)
+                    possibilities[i] = true; //Initialize all possibilities.  Could be 1-9
+            else
+            {
+                value = c - '0';
+                possibilities[value - 1] = true; //Not necessary, but may use it later somewhere
+            }
+        }
+        public bool Validate() //Returns True if the cell has been solved for.  False if more work needs to be done
+        {
+            if (value > 0)
+                return true;
+            int trueVals = 0;
+            for (int i = 0; i < possibilities.Length; i++)
+                if (possibilities[i])
+                    trueVals++;
+            if(trueVals == 0)
+                throw new Exception("This cell can't be solved for!  Is the Sudoku puzzle valid?");
+            if (trueVals > 1)
+                return false;
+            for (int i = 0; i < possibilities.Length; i++)
+                if (possibilities[i])
+                    value = i + 1;
             return true;
+        }
+        public char GetVal()
+        {
+            return (char)value;
+        }
+        public void AddLimit(char c)
+        {
+            if (c == '.')
+                return;
+            possibilities[c - '0' - 1] = false;
         }
     }
 }
