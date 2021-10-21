@@ -96,10 +96,9 @@ namespace Practice
             Console.WriteLine("\nSudoku puzzle 2 after solving:\n");
             PrintBoard(board);
         }
-        private SudokuCell[][] cells = new SudokuCell[9][];
         public void SolveSudoku(char[][] board)
         {
-            cells = new SudokuCell[9][];
+            SudokuCell[][] cells = new SudokuCell[9][];
             for(int i = 0; i < 9; i++)
             {
                 cells[i] = new SudokuCell[9];
@@ -107,7 +106,7 @@ namespace Practice
                     cells[i][j] = new SudokuCell(board[i][j]);
             }
             int loop = 1;
-            while(!BoardSolved(board))
+            while(!BoardSolved(board, cells))
             {
                 for (int i = 0; i < 9; i++) //Adds limits on cells of a row.  A solved number can't be used in this row again
                     for (int j = 0; j < 9; j++)
@@ -184,8 +183,9 @@ namespace Practice
                         }
 
                 loop++;
-                if (loop > 1000)
+                if (loop > 20) //In the event I can't solve it by simply narrowing down possibilities, I'll guess a number and give it a try...  Some puzzles are impossible to solve without guessing at some point
                 {
+                    /*
                     Console.WriteLine("\nCurrent Board:\n");
                     PrintBoard(board);
                     Console.WriteLine("");
@@ -195,8 +195,42 @@ namespace Practice
                         PrintPossibilities(cells, i);
                         Console.WriteLine("");
                     }
-
                     throw new Exception("Loop limit exceeded!");
+                    */
+
+                    for (int i = 0; i < 9; i++)
+                        for(int j = 0; j < 9; j++)
+                            if(board[i][j] == '.')
+                            {
+                                for(int k = 1; k <= 9; k++)
+                                {
+                                    char[][] tempBoard = new char[9][];
+                                    for (int x = 0; x < 9; x++)
+                                    {
+                                        tempBoard[x] = new char[9];
+                                        for (int y = 0; y < 9; y++)
+                                            tempBoard[x][y] = board[x][y];
+                                    }
+
+                                    try
+                                    {
+                                        tempBoard[i][j] = (char)('0' + k);
+
+                                        SolveSudoku(tempBoard); //Recursive call with a copy of the board, to see if it can be solved with cell [i][j] set to k as a guess
+
+                                        //No thrown exceptions, so we've got the solution now
+                                        for (int x = 0; x < 9; x++)
+                                            for (int y = 0; y < 9; y++)
+                                                board[x][y] = tempBoard[x][y];
+                                        return;
+                                    }
+                                    catch(Exception)
+                                    {
+                                        if (k == 9)
+                                            throw new Exception("This cell can't be solved for!  Is the Sudoku puzzle valid?");
+                                    }
+                                }
+                            }
                 }
             }
         }
@@ -209,6 +243,7 @@ namespace Practice
                 Console.WriteLine("");
             }
         }
+        /*
         private void PrintPossibilities(SudokuCell[][] cells, int num)
         {
             for (int i = 0; i < 9; i++)
@@ -226,7 +261,8 @@ namespace Practice
                 Console.WriteLine("");
             }
         }
-        private bool BoardSolved(char[][] board)
+        */
+        private bool BoardSolved(char[][] board, SudokuCell[][] cells)
         {
             bool result = true;
             for (int i = 0; i < 9; i++) //If the board has an unsolved cell, check if there's only 1 possibility left for that cell and set it if so
@@ -237,12 +273,14 @@ namespace Practice
                         {
                             board[i][j] = cells[i][j].GetVal();
 
+                            /*
                             Console.WriteLine("Cell [" + i + "][" + j + "] has been set to " + cells[i][j].GetVal());
                             Console.WriteLine("\nCurrent Board:\n");
                             PrintBoard(board);
                             Console.WriteLine("\nPossibilities for the number " + (int)(cells[i][j].GetVal() - '0') + "\n");
                             PrintPossibilities(cells, (int)(cells[i][j].GetVal() - '0'));
                             Console.WriteLine("");
+                            */
                         }
                         else
                             result = false;
