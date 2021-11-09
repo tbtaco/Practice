@@ -52,11 +52,12 @@ namespace Practice
                             case 28: new LeetCode0028(); break;
                             case 29: new LeetCode0029(); break; //Not finished yet.  Works, but runs too slow for the LeetCode tests
                             case 31: new LeetCode0031(); break;
-                            case 33: new LeetCode0033(); break; //Most recently worked on
+                            case 33: new LeetCode0033(); break;
                             case 34: new LeetCode0034(); break;
                             case 35: new LeetCode0035(); break;
                             case 36: new LeetCode0036(); break;
                             case 37: new LeetCode0037(); break;
+                            case 38: new LeetCode0038(); break; //Most recently worked on
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
                         }
                     }
