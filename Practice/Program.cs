@@ -22,6 +22,7 @@ namespace Practice
                     {
                         switch (i)
                         {
+                            case -1: new SDVProb1(); break; //This is a separate practice problem, unrelated to LeetCode
                             case 1: new LeetCode0001(); break; //All solutions are mine unless noted otherwise
                             case 2: new LeetCode0002(); break;
                             case 3: new LeetCode0003(); break;
