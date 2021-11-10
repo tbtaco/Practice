@@ -117,11 +117,69 @@ namespace Practice
             char[][][] solutions;
             int numberToTry = CountChars(map, 'E');
 
+            //I'm going to simply try every possibility.  If no solutions are found, decrement the number to try and try again
 
-            throw new Exception("TODO");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             return null;
+        }
+        private bool AllEntitiesAccessable(char[][] map)
+        {
+            bool[][] possibilities = new bool[map.Length][];
+            for(int i = 0; i < possibilities.Length; i++)
+            {
+                possibilities[i] = new bool[map[i].Length];
+                for(int j = 0; j < possibilities[i].Length; j++)
+                    if (map[i][j] == 'C')
+                        possibilities[i][j] = false;
+                    else
+                        possibilities[i][j] = true;
+            }
+            for(int i = 0; i < map.Length; i++)
+                for(int j = 0; j < map[i].Length; j++)
+                    if(map[i][j] == 'S') //Only 1 possible, so the above loops are just to find the coords
+                        AddPossibilities(map, possibilities, i, j, 200);
+            bool result = true;
+            for (int i = 0; i < map.Length; i++)
+                for (int j = 0; j < map[i].Length; j++)
+                    if (!possibilities[i][j])
+                        result = false;
+            return result;
+        }
+        private void AddPossibilities(char[][] map, bool[][] possibilities, int i, int j, int limit)
+            //To prevent going forever, I'll assume the longest path is somewhere around 200 movements.  I'll use this to recursively call
+            //this function and add all possibilities that way.  It'll be called a LOT more than needed, but should find what I want it to find
+        {
+            if (map[i][j] != 'E' || map[i][j] != 'S' || limit <= 0)
+                return;
+            for(int x = -1; x <= 1; x++)
+                for(int y = -1; y <= 1; y++)
+                    if (x != 0 && y != 0 && !possibilities[i + x][j + y])
+                        possibilities[i + x][j + y] = map[i + x][j + y] == 'C';
+            AddPossibilities(map, possibilities, i + 1, j, limit - 1);
+            AddPossibilities(map, possibilities, i - 1, j, limit - 1);
+            AddPossibilities(map, possibilities, i, j + 1, limit - 1);
+            AddPossibilities(map, possibilities, i, j - 1, limit - 1);
         }
         private char[][][] AddSolution(char[][][] solutions, char[][] s)
         {
