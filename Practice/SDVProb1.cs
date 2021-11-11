@@ -92,16 +92,7 @@ namespace Practice
             //Will output solutions to look a little better than a lot of letters
             //Output a summary as well.  Count total spaces, used spaces, unused spaces, and number of solutions
 
-
-
-
-
-
-
-
-
-
-
+            throw new Exception("TODO: Output");
 
 
 
@@ -114,34 +105,76 @@ namespace Practice
                 throw new Exception("Input map must have 1 start point and have a complete border containing only X.  " +
                     "Each array in the 2D array must also be the same length.");
 
-            char[][][] solutions;
-            int numberToTry = CountChars(map, 'E');
+            char[][][] solutions = new char[0][][];
 
             //I'm going to simply try every possibility.  If no solutions are found, decrement the number to try and try again
 
+            for(int i = CountChars(map, 'E'); i >= 0; i--)
+            {
+                if (solutions.Length > 0)
+                    return solutions;
+                if (i == 0)
+                    return AddSolution(solutions, map);
 
 
 
 
 
+                //These are ready.  Now to use them
+
+                bool[] permutations = InitializePermutation(CountChars(map, 'E'), i);
+
+                bool thereIsAnotherPermutation = NextPermutation(permutations, i);
 
 
 
 
 
-
-
-
-
-
-
-
+            }
 
 
 
 
 
             return null;
+        }
+        private bool[] InitializePermutation(int t, int n)
+        {
+            bool[] p = new bool[t];
+            for(int i = 0; i < p.Length; i++)
+            {
+                if(p.Length - n - i <= 0)
+                    p[i] = true;
+                else
+                    p[i] = false;
+            }
+            return p;
+        }
+        private bool NextPermutation(bool[] p, int n)
+        {
+            if (Count(p) == p.Length)
+                return false;
+            for(int i = p.Length - 1; i >= 0; i++)
+            {
+                if(!p[i])
+                {
+                    p[i] = true;
+                    for (int j = i + 1; j < p.Length; j++)
+                        p[j] = false;
+                    break;
+                }
+            }
+            if(Count(p) == n)
+                return true;
+            return NextPermutation(p, n);
+        }
+        private int Count(bool[] p)
+        {
+            int count = 0;
+            foreach (bool b in p)
+                if (b)
+                    count++;
+            return count;
         }
         private bool AllEntitiesAccessable(char[][] map)
         {
@@ -169,6 +202,7 @@ namespace Practice
         private void AddPossibilities(char[][] map, bool[][] possibilities, int i, int j, int limit)
             //To prevent going forever, I'll assume the longest path is somewhere around 200 movements.  I'll use this to recursively call
             //this function and add all possibilities that way.  It'll be called a LOT more than needed, but should find what I want it to find
+            //I'll consider redoing this someday to not check any location that's already been checked
         {
             if (map[i][j] != 'E' || map[i][j] != 'S' || limit <= 0)
                 return;
@@ -183,7 +217,7 @@ namespace Practice
         }
         private char[][][] AddSolution(char[][][] solutions, char[][] s)
         {
-            if (solutions == null)
+            if (solutions.Length == 0)
                 return new char[][][] { s };
             if(!AlreadyAdded(solutions, s))
             {
