@@ -115,27 +115,34 @@ namespace Practice
                     return solutions;
                 if (i == 0)
                     return AddSolution(solutions, map);
-
-
-
-
-
-                //These are ready.  Now to use them
-
-                bool[] permutations = InitializePermutation(CountChars(map, 'E'), i);
-
-                bool thereIsAnotherPermutation = NextPermutation(permutations, i);
-
-
-
-
-
+                bool[] p = InitializePermutation(CountChars(map, 'E'), i);
+                while (true)
+                {
+                    char[][] newMap = new char[map.Length][];
+                    int index = 0;
+                    for(int j = 0; j < newMap.Length; j++)
+                    {
+                        newMap[j] = new char[map[j].Length];
+                        for (int k = 0; k < map[j].Length; k++)
+                        {
+                            if (map[j][k] == 'E')
+                            {
+                                if (p[index])
+                                    newMap[j][k] = 'C';
+                                else
+                                    newMap[j][k] = 'E';
+                                index++;
+                            }
+                            else
+                                newMap[j][k] = map[j][k];
+                        }
+                    }
+                    if (AllEntitiesAccessable(newMap))
+                        solutions = AddSolution(solutions, newMap);
+                    if (!NextPermutation(p, i))
+                        break;
+                }
             }
-
-
-
-
-
             return null;
         }
         private bool[] InitializePermutation(int t, int n)
@@ -154,7 +161,7 @@ namespace Practice
         {
             if (Count(p) == p.Length)
                 return false;
-            for(int i = p.Length - 1; i >= 0; i++)
+            for(int i = p.Length - 1; i >= 0; i--)
             {
                 if(!p[i])
                 {
@@ -164,9 +171,45 @@ namespace Practice
                     break;
                 }
             }
+
+            PrintPermutation(p);
+
             if(Count(p) == n)
                 return true;
             return NextPermutation(p, n);
+        }
+        private void PrintPermutation(bool[] p)
+        {
+            Console.Write("[");
+            if(p.Length <= 20)
+                for(int i = 0; i < p.Length; i++)
+                {
+                    if (i > 0)
+                        Console.Write(", ");
+                    if(p[i])
+                        Console.Write("1");
+                    else
+                        Console.Write("0");
+                }
+            else
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    if (i > 0)
+                        Console.Write(", ");
+                    if (p[i])
+                        Console.Write("1");
+                    else
+                        Console.Write("0");
+                }
+                Console.Write("...");
+                for (int i = p.Length - 8; i < p.Length; i++)
+                    if (p[i])
+                        Console.Write(", 1");
+                    else
+                        Console.Write(", 0");
+            }
+            Console.WriteLine("]");
         }
         private int Count(bool[] p)
         {
