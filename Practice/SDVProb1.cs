@@ -107,10 +107,10 @@ namespace Practice
 
             char[][][] solutions = new char[0][][];
 
-            //I'm going to simply try every possibility.  If no solutions are found, decrement the number to try and try again
-
             for(int i = CountChars(map, 'E'); i >= 0; i--)
             {
+                Console.WriteLine("For loop for i = " + i);
+
                 if (solutions.Length > 0)
                     return solutions;
                 if (i == 0)
@@ -118,6 +118,8 @@ namespace Practice
                 bool[] p = InitializePermutation(CountChars(map, 'E'), i);
                 while (true)
                 {
+                    PrintPermutation(p, i);
+
                     char[][] newMap = new char[map.Length][];
                     int index = 0;
                     for(int j = 0; j < newMap.Length; j++)
@@ -139,6 +141,7 @@ namespace Practice
                     }
                     if (AllEntitiesAccessable(newMap))
                         solutions = AddSolution(solutions, newMap);
+
                     if (!NextPermutation(p, i))
                         break;
                 }
@@ -172,15 +175,22 @@ namespace Practice
                 }
             }
 
-            PrintPermutation(p);
+            //Just brainstorming, I'll look at this more later
+            //The problem is I'm currently going through each permutation one by one running far too much code
+            //It takes forever and this can definitely be sped up quite a bit.  I have ideas, just need time
 
-            if(Count(p) == n)
-                return true;
-            return NextPermutation(p, n);
+            //add true values to the lsb false values until count == n
+            //if count == length return true for now but it'll be false next time this runs.  don't recursive call if count == length?  or maybe it's fine since count != n
+
+            //what if count is higher than n, not lower?  return next permutation maybe?
+
+
+
+            return true;
         }
-        private void PrintPermutation(bool[] p)
+        private void PrintPermutation(bool[] p, int n)
         {
-            Console.Write("[");
+            Console.Write("i: " + n + " [");
             if(p.Length <= 20)
                 for(int i = 0; i < p.Length; i++)
                 {
@@ -209,7 +219,7 @@ namespace Practice
                     else
                         Console.Write(", 0");
             }
-            Console.WriteLine("]");
+            Console.WriteLine("] c: " + Count(p));
         }
         private int Count(bool[] p)
         {
@@ -260,6 +270,8 @@ namespace Practice
         }
         private char[][][] AddSolution(char[][][] solutions, char[][] s)
         {
+            Console.WriteLine("Adding Solution...");
+
             if (solutions.Length == 0)
                 return new char[][][] { s };
             if(!AlreadyAdded(solutions, s))
