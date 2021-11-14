@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 /*
 Given a 2D array to represent space, where X denotes a wall or otherwise unusable location, S denotes the starting point,
@@ -109,7 +110,9 @@ namespace Practice
 
             for(int i = CountChars(map, 'E'); i >= 0; i--)
             {
-                Console.WriteLine("For loop for i = " + i);
+                Stopwatch s = new Stopwatch();
+                s.Start();
+                Console.Write("Checking possibilities for " + i + " entities...");
 
                 if (solutions.Length > 0)
                     return solutions;
@@ -118,7 +121,7 @@ namespace Practice
                 bool[] p = InitializePermutation(CountChars(map, 'E'), i);
                 while (true)
                 {
-                    PrintPermutation(p, i);
+                    //PrintPermutation(p, i);
 
                     char[][] newMap = new char[map.Length][];
                     int index = 0;
@@ -145,6 +148,8 @@ namespace Practice
                     if (!NextPermutation(p, i))
                         break;
                 }
+                s.Stop();
+                Console.WriteLine(" Elapsed time: " + Math.Round(s.ElapsedMilliseconds / 1000.0, 0) + " seconds.");
             }
             return null;
         }
@@ -175,18 +180,22 @@ namespace Practice
                 }
             }
 
-            //Just brainstorming, I'll look at this more later
-            //The problem is I'm currently going through each permutation one by one running far too much code
-            //It takes forever and this can definitely be sped up quite a bit.  I have ideas, just need time
-
-            //add true values to the lsb false values until count == n
-            //if count == length return true for now but it'll be false next time this runs.  don't recursive call if count == length?  or maybe it's fine since count != n
-
-            //what if count is higher than n, not lower?  return next permutation maybe?
-
-
-
-            return true;
+            while (Count(p) < n)
+                AddToPermutation(p);
+            if (Count(p) == n)
+                return true;
+            return NextPermutation(p, n);
+        }
+        private void AddToPermutation(bool[] p)
+        {
+            if (Count(p) == p.Length)
+                throw new Exception("Unable to add to the permutation as the Count(p) is equal to the p.Length");
+            for(int i = p.Length - 1; i >= 0; i--)
+                if(!p[i])
+                {
+                    p[i] = true;
+                    return;
+                }
         }
         private void PrintPermutation(bool[] p, int n)
         {
