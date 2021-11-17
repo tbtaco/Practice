@@ -53,11 +53,8 @@ namespace Practice
 {
     class SDVProb1
     {
-        private Stopwatch s = new Stopwatch();
         public SDVProb1()
         {
-            //s.Start();
-
             char[][] case1 = {
                 new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
                 new char[] {'X','X','X','S','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
@@ -74,27 +71,19 @@ namespace Practice
                 new char[] {'X','X','X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
                 new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'}};
 
-            //Test();
-
-            /*
-            char[][] case1 = {
-                new char[] {'X','X','X','X','X'},
-                new char[] {'X','S','X','X','X'},
-                new char[] {'X','E','E','E','X'},
-                new char[] {'X','E','X','E','X'},
-                new char[] {'X','E','E','E','X'},
-                new char[] {'X','E','X','X','X'},
-                new char[] {'X','X','X','X','X'}};
-            */
-
             char[][][] result1 = GetAllBestSolutions(case1);
             
-            for(int i = 0; i < result1.Length; i++) //Each solution
+            for(int i = 0; i < result1.Length; i++)
             {
                 Console.WriteLine("\nSolution " + (i + 1) + ":");
                 PrintMap(result1[i]);
             }
-            //Console.WriteLine("");
+
+
+
+            throw new Exception("TODO");
+
+
 
             char[][] case2 = {
                 new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
@@ -112,9 +101,21 @@ namespace Practice
                 new char[] {'X','X','X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
                 new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'}};
 
-            //char[][][] result2 = GetAllBestSolutions(case2);
+            char[][][] result2 = GetAllBestSolutions(case2);
 
-            //throw new Exception("TODO");
+            for (int i = 0; i < result2.Length; i++)
+            {
+                Console.WriteLine("\nSolution " + (i + 1) + ":");
+                PrintMap(result2[i]);
+            }
+
+            
+
+
+
+
+
+
 
 
 
@@ -135,13 +136,6 @@ namespace Practice
                 Console.WriteLine("]");
             }
         }
-        private void Test()
-        {
-            bool[] test = InitializePermutation(6, 4);
-            PrintPermutation(test);
-            while (NextPermutation(test))
-                PrintPermutation(test);
-        }
         private char[][][] GetAllBestSolutions(char[][] map)
         {
             if (!IsValid(map))
@@ -150,10 +144,28 @@ namespace Practice
 
             char[][][] solutions = new char[0][][];
 
-            for(int i = CountChars(map, 'E'); i >= 0; i--)
+            /*
+            Notes
+
+            I believe my code will now work the way I intended.  It'll just take an insanely long amount of time to get the solution.
+            Main reason for this is there are billions (and higher) of permutations for each amount of C added to the map.
+            Everytime int i is incremented, it doubles the base time and also exponentially increases the calculation time.
+            While int i is very low, or very high (close to CountChars(map, 'E')) there are fewer permutations to check.
+            It will take the most time when int i is equal to CountChars(map, 'E') / 2, meaning there are an equal number of E and C.
+            The solution I'm looking for will probably fall within this range so either I'll try running the program on a faster device
+            for several days, or I'll need to find a way to narrow down permutations.  One easy fix would be if there is a
+            C right below S, my test case shows that this would result in very few accessable C meaning it won't be a solution.
+            Such a simple assumption (that holds true for my test cases only, but will work for what I want to find) will already cut
+            calculation times in half!  (Removes a bit, meaning half the permutations)  I'm sure there are other ways of narrowing
+            down the possibilities, but I plan on leaving things as they are for now.  The next step I'd be very interested in taking
+            would be utilizing multiple threads to power through the calculations.  For now I'll try running the program starting
+            at specific int i values and see if I can get results.  If it's taking too long and I find more spare time, I'll
+            consider multiple threads more.
+            */
+
+            for(int i = 130; i >= 0; i--) // CountChars(map, 'E') instead of the constant I'm using now during testing
             {
                 Console.WriteLine("Starting loop " + i);
-                //LogTime("Start of loop " + i + " with a time of ");
 
                 if (solutions.Length > 0)
                     return solutions;
@@ -182,8 +194,6 @@ namespace Practice
                         }
                     }
 
-                    //PrintMap(newMap);
-
                     if (AllEntitiesAccessable(newMap))
                         solutions = AddSolution(solutions, newMap);
 
@@ -204,11 +214,6 @@ namespace Practice
                     p[i] = false;
             }
             return p;
-        }
-        private void LogTime(String str)
-        {
-            Console.WriteLine(str + s.ElapsedMilliseconds + "ms");
-            s.Restart();
         }
         public bool NextPermutation(bool[] p) //Base idea from LeetCode0031.cs
         {
@@ -284,16 +289,6 @@ namespace Practice
                 for (int j = 0; j < map[i].Length; j++)
                     if (!possibilities[i][j] && map[i][j] == 'C')
                         result = false;
-
-            /*
-            int count = 0;
-            for (int i = 0; i < map.Length; i++)
-                for (int j = 0; j < map[i].Length; j++)
-                    if (!possibilities[i][j] && map[i][j] == 'C')
-                        count++;
-            Console.WriteLine("  " + count + " out of " + (map.Length * map[0].Length) + " unvisitable");
-            */
-
             return result;
         }
         private void AddPossibilities(char[][] map, bool[][] possibilities, int i, int j, bool[][] checkedMap)
@@ -315,11 +310,9 @@ namespace Practice
         }
         private char[][][] AddSolution(char[][][] solutions, char[][] s)
         {
-            //Console.WriteLine("    Adding Solution...");
-
             if (solutions.Length == 0)
                 return new char[][][] { s };
-            if(!AlreadyAdded(solutions, s)) //Should not be necessary, but just in case
+            if(!AlreadyAdded(solutions, s))
             {
                 char[][][] newSol = new char[solutions.Length + 1][][];
                 for(int i = 0; i < newSol.Length; i++)
@@ -391,365 +384,5 @@ namespace Practice
                         count++;
             return count;
         }
-        private void PrintPermutation(bool[] p)
-        {
-            Console.Write("[");
-            if (p.Length <= 20)
-                for (int i = 0; i < p.Length; i++)
-                {
-                    if (i > 0)
-                        Console.Write(", ");
-                    if (p[i])
-                        Console.Write("1");
-                    else
-                        Console.Write("0");
-                }
-            else
-            {
-                for (int i = 0; i < 7; i++)
-                {
-                    if (i > 0)
-                        Console.Write(", ");
-                    if (p[i])
-                        Console.Write("1");
-                    else
-                        Console.Write("0");
-                }
-                Console.Write("...");
-                for (int i = p.Length - 8; i < p.Length; i++)
-                    if (p[i])
-                        Console.Write(", 1");
-                    else
-                        Console.Write(", 0");
-            }
-            Console.WriteLine("]: " + Count(p));
-        }
     }
 }
-/*
-It's very clear right about now that my current method of doing things below will never work
-It simply takes too long to go through every possibility while checking everything
-I'll redo the program to not check a location more than once, and only return valid permutations better
-
-namespace Practice
-{
-    class SDVProb1
-    {
-        public SDVProb1()
-        {
-            char[][] case1 = {
-                new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
-                new char[] {'X','X','X','S','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
-                new char[] {'X','X','E','E','E','E','X','E','E','E','E','X','E','E','E','E','X','X','X','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','X','X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'}};
-
-            char[][] case2 = { //Could have modified case1 to move the start position
-                new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
-                new char[] {'X','X','X','X','S','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
-                new char[] {'X','X','E','E','E','E','X','E','E','E','E','X','E','E','E','E','X','X','X','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','X','X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
-                new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'}};
-
-            char[][][] result1 = GetAllBestSolutions(case1);
-            char[][][] result2 = GetAllBestSolutions(case2);
-
-            //Will output solutions to look a little better than a lot of letters
-            //Output a summary as well.  Count total spaces, used spaces, unused spaces, and number of solutions
-
-            throw new Exception("TODO: Output");
-
-
-
-
-
-        }
-        private char[][][] GetAllBestSolutions(char[][] map)
-        {
-            if (!IsValid(map))
-                throw new Exception("Input map must have 1 start point and have a complete border containing only X.  " +
-                    "Each array in the 2D array must also be the same length.");
-
-            char[][][] solutions = new char[0][][];
-
-            for (int i = CountChars(map, 'E'); i >= 0; i--)
-            {
-                Stopwatch s = new Stopwatch();
-                s.Start();
-                Console.Write("Checking possibilities for " + i + " entities...");
-
-                if (solutions.Length > 0)
-                    return solutions;
-                if (i == 0)
-                    return AddSolution(solutions, map);
-                bool[] p = InitializePermutation(CountChars(map, 'E'), i);
-                while (true)
-                {
-                    //PrintPermutation(p, i);
-
-                    char[][] newMap = new char[map.Length][];
-                    int index = 0;
-                    for (int j = 0; j < newMap.Length; j++)
-                    {
-                        newMap[j] = new char[map[j].Length];
-                        for (int k = 0; k < map[j].Length; k++)
-                        {
-                            if (map[j][k] == 'E')
-                            {
-                                if (p[index])
-                                    newMap[j][k] = 'C';
-                                else
-                                    newMap[j][k] = 'E';
-                                index++;
-                            }
-                            else
-                                newMap[j][k] = map[j][k];
-                        }
-                    }
-                    if (AllEntitiesAccessable(newMap))
-                        solutions = AddSolution(solutions, newMap);
-
-                    if (!NextPermutation(p, i))
-                        break;
-                }
-                s.Stop();
-                Console.WriteLine(" Elapsed time: " + Math.Round(s.ElapsedMilliseconds / 1000.0, 0) + " seconds.");
-
-                /*
-                Current times:
-                1 - 0s
-                2 - 0s
-                3 - 1s
-                4 - 24s
-                5 - 15.7m
-                6 - 4.2h
-                7 - estimating 70h+
-                Expecting that for this test case, I'll need to get to around 125, it'll take somewhere around 2 * 10 ^ 65 years to finish...
-                Needless to say, I'll be redoing quite a bit.
-                *
-            }
-            return null;
-        }
-        private bool[] InitializePermutation(int t, int n)
-        {
-            bool[] p = new bool[t];
-            for (int i = 0; i < p.Length; i++)
-            {
-                if (p.Length - n - i <= 0)
-                    p[i] = true;
-                else
-                    p[i] = false;
-            }
-            return p;
-        }
-        private bool NextPermutation(bool[] p, int n)
-        {
-            if (Count(p) == p.Length)
-                return false;
-            for (int i = p.Length - 1; i >= 0; i--)
-            {
-                if (!p[i])
-                {
-                    p[i] = true;
-                    for (int j = i + 1; j < p.Length; j++)
-                        p[j] = false;
-                    break;
-                }
-            }
-
-            while (Count(p) < n)
-                AddToPermutation(p);
-            if (Count(p) == n)
-                return true;
-            return NextPermutation(p, n);
-        }
-        private void AddToPermutation(bool[] p)
-        {
-            if (Count(p) == p.Length)
-                throw new Exception("Unable to add to the permutation as the Count(p) is equal to the p.Length");
-            for (int i = p.Length - 1; i >= 0; i--)
-                if (!p[i])
-                {
-                    p[i] = true;
-                    return;
-                }
-        }
-        private void PrintPermutation(bool[] p, int n)
-        {
-            Console.Write("i: " + n + " [");
-            if (p.Length <= 20)
-                for (int i = 0; i < p.Length; i++)
-                {
-                    if (i > 0)
-                        Console.Write(", ");
-                    if (p[i])
-                        Console.Write("1");
-                    else
-                        Console.Write("0");
-                }
-            else
-            {
-                for (int i = 0; i < 7; i++)
-                {
-                    if (i > 0)
-                        Console.Write(", ");
-                    if (p[i])
-                        Console.Write("1");
-                    else
-                        Console.Write("0");
-                }
-                Console.Write("...");
-                for (int i = p.Length - 8; i < p.Length; i++)
-                    if (p[i])
-                        Console.Write(", 1");
-                    else
-                        Console.Write(", 0");
-            }
-            Console.WriteLine("] c: " + Count(p));
-        }
-        private int Count(bool[] p)
-        {
-            int count = 0;
-            foreach (bool b in p)
-                if (b)
-                    count++;
-            return count;
-        }
-        private bool AllEntitiesAccessable(char[][] map)
-        {
-            bool[][] possibilities = new bool[map.Length][];
-            for (int i = 0; i < possibilities.Length; i++)
-            {
-                possibilities[i] = new bool[map[i].Length];
-                for (int j = 0; j < possibilities[i].Length; j++)
-                    if (map[i][j] == 'C')
-                        possibilities[i][j] = false;
-                    else
-                        possibilities[i][j] = true;
-            }
-            for (int i = 0; i < map.Length; i++)
-                for (int j = 0; j < map[i].Length; j++)
-                    if (map[i][j] == 'S') //Only 1 possible, so the above loops are just to find the coords
-                        AddPossibilities(map, possibilities, i, j, 200);
-            bool result = true;
-            for (int i = 0; i < map.Length; i++)
-                for (int j = 0; j < map[i].Length; j++)
-                    if (!possibilities[i][j])
-                        result = false;
-            return result;
-        }
-        private void AddPossibilities(char[][] map, bool[][] possibilities, int i, int j, int limit)
-        //To prevent going forever, I'll assume the longest path is somewhere around 200 movements.  I'll use this to recursively call
-        //this function and add all possibilities that way.  It'll be called a LOT more than needed, but should find what I want it to find
-        //I'll consider redoing this someday to not check any location that's already been checked
-        {
-            if (map[i][j] != 'E' || map[i][j] != 'S' || limit <= 0)
-                return;
-            for (int x = -1; x <= 1; x++)
-                for (int y = -1; y <= 1; y++)
-                    if (x != 0 && y != 0 && !possibilities[i + x][j + y])
-                        possibilities[i + x][j + y] = map[i + x][j + y] == 'C';
-            AddPossibilities(map, possibilities, i + 1, j, limit - 1);
-            AddPossibilities(map, possibilities, i - 1, j, limit - 1);
-            AddPossibilities(map, possibilities, i, j + 1, limit - 1);
-            AddPossibilities(map, possibilities, i, j - 1, limit - 1);
-        }
-        private char[][][] AddSolution(char[][][] solutions, char[][] s)
-        {
-            Console.WriteLine("Adding Solution...");
-
-            if (solutions.Length == 0)
-                return new char[][][] { s };
-            if (!AlreadyAdded(solutions, s))
-            {
-                char[][][] newSol = new char[solutions.Length + 1][][];
-                for (int i = 0; i < newSol.Length; i++)
-                {
-                    if (i == newSol.Length - 1)
-                        newSol[i] = s;
-                    else
-                        newSol[i] = solutions[i];
-                }
-                return newSol;
-            }
-            return solutions;
-        }
-        private bool AlreadyAdded(char[][][] solutions, char[][] s)
-        {
-            for (int i = 0; i < solutions.Length; i++)
-                if (SolutionsAreTheSame(solutions[i], s))
-                    return true;
-            return false;
-        }
-        private bool SolutionsAreTheSame(char[][] s1, char[][] s2)
-        {
-            if (s1.Length != s2.Length)
-                return false;
-            for (int i = 0; i < s1.Length; i++)
-            {
-                if (s1[i].Length != s2[i].Length)
-                    return false;
-                for (int j = 0; j < s1[i].Length; j++)
-                    if (s1[i][j] != s2[i][j])
-                        return false;
-            }
-            return true;
-        }
-        private bool IsValid(char[][] map)
-        {
-            int length = 0;
-            for (int i = 0; i < map.Length; i++)
-            {
-                if (i == 0)
-                {
-                    length = map[i].Length;
-                    for (int j = 0; j < length; j++)
-                        if (map[i][j] != 'X')
-                            return false;
-                }
-                if (map[i].Length != length)
-                    return false;
-                if (i == map.Length - 1)
-                {
-                    for (int j = 0; j < length; j++)
-                        if (map[i][j] != 'X')
-                            return false;
-                }
-                else
-                {
-                    if (map[i][0] != 'X' || map[i][length - 1] != 'X')
-                        return false;
-                }
-            }
-            return CountChars(map, 'S') == 1;
-        }
-        private int CountChars(char[][] map, char c)
-        {
-            int count = 0;
-            for (int i = 0; i < map.Length; i++)
-                for (int j = 0; j < map[i].Length; j++)
-                    if (map[i][j] == c)
-                        count++;
-            return count;
-        }
-    }
-}
-*/
