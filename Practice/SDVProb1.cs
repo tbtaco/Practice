@@ -1,6 +1,6 @@
 ﻿/*
  * Tyler Richey
- * 11/15/2021
+ * 11/17/2021
  */
 
 using System;
@@ -55,6 +55,12 @@ namespace Practice
     {
         public SDVProb1()
         {
+            SmallTest1();
+            //BigTest1();
+            //BigTest2();
+        }
+        private void BigTest1()
+        {
             char[][] case1 = {
                 new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
                 new char[] {'X','X','X','S','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
@@ -70,21 +76,15 @@ namespace Practice
                 new char[] {'X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
                 new char[] {'X','X','X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
                 new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'}};
-
             char[][][] result1 = GetAllBestSolutions(case1);
-            
-            for(int i = 0; i < result1.Length; i++)
+            for (int i = 0; i < result1.Length; i++)
             {
                 Console.WriteLine("\nSolution " + (i + 1) + ":");
                 PrintMap(result1[i]);
             }
-
-
-
-            throw new Exception("TODO");
-
-
-
+        }
+        private void BigTest2()
+        {
             char[][] case2 = {
                 new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
                 new char[] {'X','X','X','X','S','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'},
@@ -100,27 +100,30 @@ namespace Practice
                 new char[] {'X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
                 new char[] {'X','X','X','X','E','E','E','E','E','E','E','E','E','E','E','E','E','E','E','X'},
                 new char[] {'X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'}};
-
             char[][][] result2 = GetAllBestSolutions(case2);
-
             for (int i = 0; i < result2.Length; i++)
             {
                 Console.WriteLine("\nSolution " + (i + 1) + ":");
                 PrintMap(result2[i]);
             }
-
-            
-
-
-
-
-
-
-
-
-
-
-
+        }
+        private void SmallTest1()
+        {
+            char[][] smallTest1 = {
+                new char[] {'X','X','X','X','X','X','X'},
+                new char[] {'X','E','E','E','E','E','X'},
+                new char[] {'X','E','E','E','E','E','X'},
+                new char[] {'X','E','E','E','E','E','X'},
+                new char[] {'X','E','E','E','E','E','X'},
+                new char[] {'X','E','E','E','E','E','X'},
+                new char[] {'X','X','X','S','X','X','X'},
+                new char[] {'X','X','X','X','X','X','X'}};
+            char[][][] result0 = GetAllBestSolutions(smallTest1);
+            for (int i = 0; i < result0.Length; i++)
+            {
+                Console.WriteLine("\nSolution " + (i + 1) + ":");
+                PrintMap(result0[i]);
+            }
         }
         private void PrintMap(char[][] map)
         {
@@ -131,7 +134,26 @@ namespace Practice
                 {
                     if (j != 0)
                         Console.Write(", ");
+                    switch(map[i][j])
+                    {
+                        case 'S':
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            break;
+                        case 'X':
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            break;
+                        case 'E':
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            break;
+                        case 'C':
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            break;
+                        default:
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            break;
+                    }
                     Console.Write(map[i][j]);
+                    Console.ResetColor();
                 }
                 Console.WriteLine("]");
             }
@@ -163,12 +185,18 @@ namespace Practice
             consider multiple threads more.
             */
 
-            for(int i = 130; i >= 0; i--) // CountChars(map, 'E') instead of the constant I'm using now during testing
+            for(int i = CountChars(map, 'E'); i >= 0; i--) // To test next: 130
             {
-                Console.WriteLine("Starting loop " + i);
+                Console.Write("Starting loop " + i);
 
                 if (solutions.Length > 0)
+                {
+                    Console.WriteLine(" and it appears solutions were found in the previous loop\nThere are " +
+                        solutions.Length + " solutions, each containing " + CountChars(solutions[0], 'E') + " empty cells and " +
+                        CountChars(solutions[0], 'C') + " entities");
                     return solutions;
+                }
+                Console.WriteLine();
                 if (i == 0)
                     return AddSolution(solutions, map);
                 bool[] p = InitializePermutation(CountChars(map, 'E'), i);
