@@ -57,7 +57,8 @@ namespace Practice
                             case 35: new LeetCode0035(); break;
                             case 36: new LeetCode0036(); break;
                             case 37: new LeetCode0037(); break;
-                            case 38: new LeetCode0038(); break; //Most recently worked on
+                            case 38: new LeetCode0038(); break;
+                            case 39: new LeetCode0039(); break; //Most recently worked on
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
                         }
                     }
