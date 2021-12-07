@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 39
- * 11/30/2021
+ * 12/7/2021
  */
 
 using System;
@@ -65,30 +65,129 @@ namespace Practice
     {
         public LeetCode0039()
         {
-
-
-
-
-
-
-
-
+            int[] candidates = new int[] { 2, 3, 4, 5, 6 };
+            int target = 12;
+            IList<IList<int>> lists = CombinationSum(candidates, target);
+            Console.Write("Input: {");
+            for(int i = 0; i < candidates.Length; i++)
+            {
+                if (i > 0)
+                    Console.Write(", ");
+                Console.Write(candidates[i]);
+            }
+            Console.WriteLine("}\nTarget: " + target + "\nOutput:");
+            for(int i = 0; i < lists.Count; i++)
+            {
+                Console.Write("{");
+                for(int j = 0; j < lists[i].Count; j++)
+                {
+                    if (j > 0)
+                        Console.Write(", ");
+                    Console.Write(lists[i][j]);
+                }
+                Console.WriteLine("}");
+            }
         }
+        private IList<IList<int>> result = new List<IList<int>>();
         public IList<IList<int>> CombinationSum(int[] candidates, int target)
         {
-            IList<IList<int>> result = new List<IList<int>>();
-
-            
-
-
-
-
-
+            Sort(candidates);
+            for(int i = 0; i < candidates.Length; i++)
+            {
+                IList<int> current = new List<int>();
+                current.Add(candidates[i]);
+                if (candidates[i] == target)
+                {
+                    AddIfNotAlreadyPresent(current);
+                    current = CopyList(current);
+                }
+                else if(candidates[i] < target)
+                    RecursiveCall(candidates, target, current, 150); //Max depth of 150 for recursive calls
+            }
             return result;
         }
-        private void Sort(int[] array)
+        private void RecursiveCall(int[] candidates, int target, IList<int> current, int limit)
         {
-
+            if (limit <= 0)
+                return;
+            limit--;
+            IList<int> currentCopy = CopyList(current);
+            for (int i = 0; i < candidates.Length; i++)
+            {
+                current = CopyList(currentCopy);
+                int currentSum = 0;
+                foreach (int j in current)
+                    currentSum += j;
+                currentSum += candidates[i];
+                if (currentSum == target)
+                {
+                    current.Add(candidates[i]);
+                    AddIfNotAlreadyPresent(current);
+                    current = CopyList(current);
+                }
+                else if (currentSum < target)
+                {
+                    current.Add(candidates[i]);
+                    RecursiveCall(candidates, target, current, limit); //Max depth of 150 for recursive calls
+                }
+                else
+                    return;
+            }
+        }
+        private void Sort(int[] nums) //From LeetCode0033.cs
+        {
+            for (int i = 0; i < nums.Length - 1; i++)
+                for (int j = 0; j < nums.Length - 1 - i; j++)
+                    if (nums[j] > nums[j + 1])
+                        Swap(nums, j, j + 1);
+        }
+        private void Sort(IList<int> nums)
+        {
+            for (int i = 0; i < nums.Count - 1; i++)
+                for (int j = 0; j < nums.Count - 1 - i; j++)
+                    if (nums[j] > nums[j + 1])
+                        Swap(nums, j, j + 1);
+        }
+        private void Swap(int[] nums, int i, int j) //From LeetCode0033.cs
+        {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+        private void Swap(IList<int> nums, int i, int j)
+        {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+        private IList<int> CopyList(IList<int> x) //Reusing the same list over and over was giving me troubles.  Made this to easily copy it into a new object so it's not edited later on
+        {
+            IList<int> y = new List<int>();
+            foreach (int i in x)
+                y.Add(i);
+            return y;
+        }
+        private void AddIfNotAlreadyPresent(IList<int> toAdd)
+        {
+            Sort(toAdd);
+            bool alreadyAdded = false;
+            foreach (IList<int> toCheck in result)
+                if (AreEqual(toCheck, toAdd))
+                    alreadyAdded = true;
+            if (!alreadyAdded)
+                result.Add(toAdd);
+        }
+        private bool AreEqual(IList<int> x, IList<int> y)
+        {
+            if(x.Count == y.Count)
+            {
+                bool equal = true;
+                for (int i = 0; i < x.Count; i++)
+                    if (x[i] != y[i])
+                        equal = false;
+                return equal;
+            }
+            return false;
         }
     }
 }
