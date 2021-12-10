@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 29
- * 9/9/2021
+ * 12/10/2021
  */
 
 using System;
@@ -22,7 +22,7 @@ The integer division should truncate toward zero, which means losing its fractio
 and truncate(-2.7335) = -2.
 
 Note: Assume we are dealing with an environment that could only store integers within the 32-bit signed integer
-range: [−2^31, 2^31 − 1]. For this problem, assume that your function returns 231 − 1 when the division result overflows.
+range: [−2^31, 2^31 − 1]. For this problem, assume that your function returns 2^31 − 1 when the division result overflows.
 
 Example 1:
 
@@ -89,7 +89,7 @@ namespace Practice
                 return 0 - dividend;
             }
 
-            //int.MinValue is 1 more than int.MaxValue, so to avoid issues of losing that 1
+            //int.MinValue is 1 more than int.MaxValue, so to avoid issues of losing that 1,
             //I'll work in negatives, then fix the sign later
             bool negative = (dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0);
 
@@ -98,6 +98,7 @@ namespace Practice
             if (divisor > 0)
                 divisor = 0 - divisor;
 
+            //Another couple simple cases
             if (divisor < dividend)
                 return 0;
             if (divisor == dividend)
@@ -107,6 +108,9 @@ namespace Practice
                 return 1;
             }
 
+
+
+            /*
             int tempDiv = divisor;
             int tempMult = 1;
             int result = 0;
@@ -131,6 +135,27 @@ namespace Practice
             result--; //Went 1 too far, so it's fixed here (With some exceptions?  Will test...)
             if (negative)
                 result = 0 - result;
+            */
+
+
+
+            int result = 0;
+
+
+            throw new Exception("TODO");
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             return result;
         }
