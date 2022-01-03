@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 29
- * 12/10/2021
+ * 1/3/2022
  */
 
 using System;
@@ -141,6 +141,7 @@ namespace Practice
 
             int result = 0;
 
+            //I'll work on more LeetCode soon.  Getting a new device setup with Visual Studio etc
 
             throw new Exception("TODO");
 
