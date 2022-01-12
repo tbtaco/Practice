@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 29
- * 1/3/2022
+ * 1/12/2022
  */
 
 using System;
@@ -72,9 +72,9 @@ namespace Practice
             Console.WriteLine("Extra. Max (+) / 1 = " + Divide(int.MaxValue, 1));
             Console.WriteLine("Extra. Min (-) / -1 = " + Divide(int.MinValue, -1));
             Console.WriteLine("Extra. Min (-) / 1 = " + Divide(int.MinValue, 1));
-            Console.WriteLine("Extra. Max (+) / 2 = " + Divide(int.MaxValue, 2) + " (Should end with a 3)");
-            Console.WriteLine("Extra. Min (-) / 2 = " + Divide(int.MinValue, 2) + " (Should end with a 4)");
-            Console.WriteLine("Extra. Max (+) / 3 = " + Divide(int.MaxValue, 3) + " (Tests failed at this due to taking too long)");
+            Console.WriteLine("Extra. Max (+) / 2 = " + Divide(int.MaxValue, 2));
+            Console.WriteLine("Extra. Min (-) / 2 = " + Divide(int.MinValue, 2));
+            Console.WriteLine("Extra. Max (+) / 3 = " + Divide(int.MaxValue, 3));
         }
         public int Divide(int dividend, int divisor)
         {
@@ -89,7 +89,7 @@ namespace Practice
                 return 0 - dividend;
             }
 
-            //int.MinValue is 1 more than int.MaxValue, so to avoid issues of losing that 1,
+            //int.MinValue is 1 more than int.MaxValue in magnitude, so to avoid issues of losing that 1,
             //I'll work in negatives, then fix the sign later
             bool negative = (dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0);
 
@@ -108,55 +108,32 @@ namespace Practice
                 return 1;
             }
 
-
-
-            /*
-            int tempDiv = divisor;
-            int tempMult = 1;
+            int tempDiv = divisor + divisor + divisor + divisor + divisor + divisor + divisor + divisor;
+            int tempMult = 8; //Originally had this as 1 and tempDiv as divisor, but this saves me time in loops (roughly 1%, which was enough for LeetCode's automated system to accept this answer over my original design)
             int result = 0;
-            while(dividend < tempDiv + tempDiv)
+
+            while(dividend < tempDiv + tempDiv && tempDiv + tempDiv < 0) //Effectively doubles each time, hopefully cutting the processing time by a lot
             {
                 tempDiv += tempDiv;
                 tempMult += tempMult;
             }
-            if (tempMult != 1) //If the above While loop helped, save this and move forward.
-                               //Do things the long way below if the While loop didn't help,
-                               //or if it did, do the below with the remainder
-            {
+
+            if(tempMult != 8 && divisor >= -250000000) //If true, the above loop helped with larger numbers.  Save and move to working with smaller numbers
+            { //The case divisor >= -250000000 is checked to avoid overflow for large divisors.  If divisors are large enough, I don't need the above while loop anyway
                 dividend -= tempDiv;
                 result += tempMult;
             }
 
-            while (dividend <= 0) //Now back to my original idea since the numbers are small enough to work with
+            while(dividend <= 0)
             {
                 dividend -= divisor;
                 result++;
             }
-            result--; //Went 1 too far, so it's fixed here (With some exceptions?  Will test...)
+
+            result--; //Went 1 too far with the above loop.  Check for exceptions...
+
             if (negative)
                 result = 0 - result;
-            */
-
-
-
-            int result = 0;
-
-            //I'll work on more LeetCode soon.  Getting a new device setup with Visual Studio etc
-
-            throw new Exception("TODO");
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             return result;
         }

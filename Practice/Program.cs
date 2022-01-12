@@ -50,7 +50,7 @@ namespace Practice
                             case 26: new LeetCode0026(); break;
                             case 27: new LeetCode0027(); break;
                             case 28: new LeetCode0028(); break;
-                            case 29: new LeetCode0029(); break; //Not finished yet.  Works, but runs too slow for the LeetCode tests
+                            case 29: new LeetCode0029(); break; //Most recently worked on
                             case 30: new LeetCode0030(); break; //Added but not attempted yet
                             case 31: new LeetCode0031(); break;
                             case 32: new LeetCode0032(); break; //Added but not attempted yet
@@ -60,7 +60,7 @@ namespace Practice
                             case 36: new LeetCode0036(); break;
                             case 37: new LeetCode0037(); break;
                             case 38: new LeetCode0038(); break;
-                            case 39: new LeetCode0039(); break; //Most recently worked on
+                            case 39: new LeetCode0039(); break;
                             case 40: new LeetCode0040(); break; //Added but not attempted yet
                             case 41: new LeetCode0041(); break; //Added but not attempted yet
                             case 42: new LeetCode0042(); break; //Added but not attempted yet
