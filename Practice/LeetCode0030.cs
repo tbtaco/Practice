@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 30
- * 12/10/2021
+ * 1/18/2021
  */
 
 using System;
@@ -51,11 +51,59 @@ namespace Practice
     {
         public LeetCode0030()
         {
-            throw new Exception("TODO");
+            String s = "barfoofoobarthefoobarman";
+            String[] words = new string[] { "bar", "foo", "the" };
+
+            Console.WriteLine("s = " + s);
+            Console.Write("words = ");
+            for(int i = 0; i < words.Length; i++)
+            {
+                if (i > 0)
+                    Console.Write(", ");
+                Console.Write(words[i]);
+            }
+            Console.Write("\noutput = [");
+
+            IList<int> output = FindSubstring(s, words);
+
+            for (int i = 0; i < output.Count; i++)
+            {
+                if (i > 0)
+                    Console.Write(", ");
+                Console.Write(output[i]);
+            }
+            Console.WriteLine("]");
         }
         public IList<int> FindSubstring(string s, string[] words)
         {
-            throw new Exception("TODO");
+            IList<int> result = new List<int>();
+
+            int totalLength = 0;
+            for (int i = 0; i < words.Length; i++)
+                totalLength += words[i].Length;
+            if (totalLength > s.Length)
+                return result;
+
+            //I think I'll go through s substrings and check them that way, instead of going through each word possibility
+            //This way it should be rather simple and I can write methods to just check if that substring works with those words
+
+
+
+
+
+            return result;
+        }
+        private bool FirstLetterAppears(String s, String[] words)
+        {
+            if (s == null || s.Length == 0)
+                return false;
+            for(int i = 0; i < words.Length; i++)
+            {
+                if (words[i] != null && words[i].Length > 0)
+                    if (s[0] == words[i][0])
+                        return true;
+            }
+            return false;
         }
     }
 }
