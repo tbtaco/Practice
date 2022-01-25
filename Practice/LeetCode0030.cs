@@ -51,21 +51,7 @@ namespace Practice
     {
         public LeetCode0030()
         {
-
-            /*
-            At this point I see that I've made the wrong assumption.  Each word can only be used as many times as it appears in
-            the words array.  If "good" appears twice, it will be used twice.  From previous tests, I thought for some reason
-            that words could be used any number of times, but up to the max length, or something like that.  Doesn't make any
-            since now of course.  Next I think I'll be rewriting my code to support key value pairs {word, count} and do things that way.
-            */
-
-
-
-
-
-            //String s = "barfoofoobarthefoobarman";
             String s = "wordgoodgoodgoodbestword";
-            //String[] words = new string[] { "bar", "foo", "the" };
             String[] words = new string[] { "word", "good", "best", "good" };
 
             Console.WriteLine("s = " + s);
@@ -90,26 +76,47 @@ namespace Practice
         }
         public IList<int> FindSubstring(string s, string[] words)
         {
-            int totalLength = 0;
-            for (int i = 0; i < words.Length; i++)
-                totalLength += words[i].Length;
-            if (totalLength > s.Length)
-                return new List<int>();
-
-            List<String> simplifiedWords = new List<String>(); //Remove duplicates
-            for (int i = 0; i < words.Length; i++)
-                if (!simplifiedWords.Contains(words[i]))
-                    simplifiedWords.Add(words[i]);
-            if (simplifiedWords.Count < words.Length)
+            List<Word> newWords = new List<Word>();
+            foreach (String w in words)
             {
-                String[] newWords = new string[simplifiedWords.Count];
-                for (int i = 0; i < newWords.Length; i++)
-                    newWords[i] = simplifiedWords[i];
-                words = newWords;
+                bool added = false;
+                foreach(Word x in newWords)
+                    if (x.ToString() == w && !added)
+                    {
+                        x.AddOne();
+                        added = true;
+                    }
+                if(!added)
+                    newWords.Add(new Word(w));
             }
 
-            return FindSubstring(s, words, totalLength);
+            if (GetTotalLength(newWords) < s.Length)
+                return new List<int>();
+
+            return FindSubstring(s, newWords);
         }
+        private IList<int> FindSubstring(String s, List<Word> words)
+        {
+            IList<int> result = new List<int>();
+
+
+
+
+
+
+
+
+
+            return result;
+        }
+        private int GetTotalLength(List<Word> words)
+        {
+            int l = 0;
+            foreach (Word w in words)
+                l += w.TotalLength;
+            return l;
+        }
+        /*
         public IList<int> FindSubstring(string s, string[] words, int totalLength)
         {
             IList<int> result = new List<int>();
@@ -141,6 +148,31 @@ namespace Practice
                             return true;
                     }
             return false; //Exit condition for the recursion
+        }
+        */
+    }
+    class Word
+    {
+        private String word;
+        private int count = 1;
+        public Word(String word)
+        {
+            this.word = word;
+        }
+        public Word(String word, int count)
+        {
+            this.word = word;
+            this.count = count;
+        }
+        public int Length { get { return word.Length; } }
+        public int TotalLength { get { return word.Length * count; } }
+        public override string ToString()
+        {
+            return word;
+        }
+        public void AddOne()
+        {
+            count++;
         }
     }
 }
