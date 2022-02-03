@@ -1,14 +1,11 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 30
- * 1/18/2021
+ * 2/3/2022
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 30. Substring with Concatenation of All Words
@@ -90,66 +87,66 @@ namespace Practice
                     newWords.Add(new Word(w));
             }
 
-            if (GetTotalLength(newWords) < s.Length)
-                return new List<int>();
-
-            return FindSubstring(s, newWords);
-        }
-        private IList<int> FindSubstring(String s, List<Word> words)
-        {
             IList<int> result = new List<int>();
 
+            if (GetTotalLength(newWords) > s.Length)
+                return result;
 
-
-
-
-
-
-
+            for (int i = 0; i <= s.Length - GetTotalLength(newWords); i++)
+            {
+                IList<Word> tempWords = CopyList(newWords);
+                if (ValidSubstring(s.Substring(i, GetTotalLength(tempWords)), tempWords))
+                    result.Add(i);
+            }
 
             return result;
         }
-        private int GetTotalLength(List<Word> words)
+        /*
+        private String ListToString(IList<Word> words)
+        {
+            String result = "[";
+            for(int i = 0; i < words.Count; i++)
+            {
+                if (i > 0)
+                    result += ", ";
+                result += words[i].ToString() + ":" + words[i].Count;
+            }
+            result += "]";
+            return result;
+        }
+        */
+        private IList<Word> CopyList(IList<Word> words)
+        {
+            IList<Word> newWords = new List<Word>();
+            for (int i = 0; i < words.Count; i++)
+                newWords.Add(new Word(words[i].ToString(), words[i].Count));
+            return newWords;
+        }
+        private bool ValidSubstring(String s, IList<Word> words)
+        {
+            if (GetTotalLength(words) == 0 && s.Length == 0)
+                return true;
+            for(int i = 0; i < words.Count; i++)
+                if(s.Substring(0, words[i].Length) == words[i].ToString())
+                    if (ValidSubstring(s.Substring(words[i].Length), RemoveOneWord(CopyList(words), i)))
+                        return true;
+            return false;
+        }
+        private IList<Word> RemoveOneWord(IList<Word> words, int i)
+        {
+            if (words[i].Count > 1)
+                words[i].RemoveOne();
+            else
+                words.RemoveAt(i);
+            return words;
+        }
+        private int GetTotalLength(IList<Word> words)
         {
             int l = 0;
             foreach (Word w in words)
                 l += w.TotalLength;
             return l;
         }
-        /*
-        public IList<int> FindSubstring(string s, string[] words, int totalLength)
-        {
-            IList<int> result = new List<int>();
-
-            for (int i = 0; i + totalLength <= s.Length; i++)
-                if (SubstringExists(s.Substring(i, totalLength), words))
-                    result.Add(i);
-
-            return result;
-        }
-        private bool SubstringExists(String s, String[] words) //Recursive Method
-        {
-            if (s.Length == 0 && words.Length == 0) //Exit condition for the recursion
-                return true;
-
-            for(int i = 0; i < words.Length; i++)
-                if(words[i] != null && words[i].Length > 0)
-                    if(s.Substring(0, words[i].Length) == words[i])
-                    {
-                        String[] tempWords = new string[words.Length - 1];
-                        int k = 0;
-                        for(int j = 0; j < words.Length; j++)
-                            if(i != j)
-                            {
-                                tempWords[k] = words[j];
-                                k++;
-                            }
-                        if(SubstringExists(s.Substring(words[i].Length, s.Length - words[i].Length), tempWords)) //Recursive Call
-                            return true;
-                    }
-            return false; //Exit condition for the recursion
-        }
-        */
     }
     class Word
     {
@@ -164,6 +161,7 @@ namespace Practice
             this.word = word;
             this.count = count;
         }
+        public int Count { get { return count; } }
         public int Length { get { return word.Length; } }
         public int TotalLength { get { return word.Length * count; } }
         public override string ToString()
@@ -173,6 +171,12 @@ namespace Practice
         public void AddOne()
         {
             count++;
+        }
+        public void RemoveOne()
+        {
+            count--;
+            if (count <= 0)
+                throw new Exception("Word count hit zero!");
         }
     }
 }

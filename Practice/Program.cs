@@ -50,8 +50,8 @@ namespace Practice
                             case 26: new LeetCode0026(); break;
                             case 27: new LeetCode0027(); break;
                             case 28: new LeetCode0028(); break;
-                            case 29: new LeetCode0029(); break; //Most recently worked on
-                            case 30: new LeetCode0030(); break; //Added but not attempted yet
+                            case 29: new LeetCode0029(); break;
+                            case 30: new LeetCode0030(); break; //Most recently worked on
                             case 31: new LeetCode0031(); break;
                             case 32: new LeetCode0032(); break; //Added but not attempted yet
                             case 33: new LeetCode0033(); break;
