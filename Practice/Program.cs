@@ -51,9 +51,9 @@ namespace Practice
                             case 27: new LeetCode0027(); break;
                             case 28: new LeetCode0028(); break;
                             case 29: new LeetCode0029(); break;
-                            case 30: new LeetCode0030(); break; //Most recently worked on
+                            case 30: new LeetCode0030(); break; //Most recently finished
                             case 31: new LeetCode0031(); break;
-                            case 32: new LeetCode0032(); break; //Added but not attempted yet
+                            case 32: new LeetCode0032(); break; //Currently working on
                             case 33: new LeetCode0033(); break;
                             case 34: new LeetCode0034(); break;
                             case 35: new LeetCode0035(); break;
