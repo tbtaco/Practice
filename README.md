@@ -62,15 +62,15 @@ I started working on these practice problems in June of 2021 and plan to continu
 
 [LeetCode0029.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0029.cs) - Medium - Divide two integers without using multiplication, division, and mod operators.  My solution for this works, but is too slow for the LeetCode test cases.  I'll return to this someday and redo it.
 
-LeetCode0030.cs - Have not done yet.
+[LeetCode0030.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0030.cs) - Hard - Given a string and an array of string words, return all starting indices where the words can be concatenated to equal a substring of the original string.
 
 [LeetCode0031.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0031.cs) - Medium - Next Permutation.  Given a list of integers that represent a number, rearrange the numbers to create the next highest number.  If it's already the highest, rearrange into the lowest number.
 
-LeetCode0032.cs - Have not done yet.
+[LeetCode0032.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0032.cs) - Hard - Return the longest length of a valid parentheses substring.
 
-LeetCode0033.cs - Have not done yet.
+[LeetCode0033.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0033.cs) - Medium - Search for a number in a rotated sorted array.
 
-LeetCode0034.cs - Have not done yet.
+[LeetCode0034.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0034.cs) - Medium - Find the first and last position of a target int in a sorted array of ints.
 
 [LeetCode0035.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0035.cs) - Easy - Return the position in a sorted array that a target number is either found, or would be inserted in order.
 
@@ -78,6 +78,22 @@ LeetCode0034.cs - Have not done yet.
 
 [LeetCode0037.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0037.cs) - Hard - Continuing from [LeetCode0036.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0036.cs), this one actually solves Sudoku puzzles.  There are easier and lazier ways of eventually getting the result through trial and error, but I opted to put some effort into this one as I enjoy Sudoku.  For this one, I got to use a lot of loops, create several methods, recursion, and even decided it'd make more sense to create a class to represent a Sudoku cell so I can assign data to each cell more clearly and have functions run per cell instead of always modifying other objects when it's unnecessary.  This one would be a great one to look at to see some of my programming skills.
 
-LeetCode0038.cs - Have not done yet.
+[LeetCode0038.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0038.cs) - Medium - Count and say.
 
-I don't plan to update this README.md very often.  Once I have another ten or so to add here, I'll revisit it.
+[LeetCode0039.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0039.cs) - Medium - Returns all combinations of an int array that can be added to equal a target int.
+
+[LeetCode0040.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0040.cs) - Medium - Added but not attempted yet.
+
+[LeetCode0041.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0041.cs) - Hard - Added but not attempted yet.
+
+[LeetCode0042.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0042.cs) - Hard - Added but not attempted yet.
+
+LeetCode0043.cs - Have not done yet.
+
+LeetCode0044.cs - Have not done yet.
+
+LeetCode0045.cs - Have not done yet.
+
+...
+
+This [README.md](https://github.com/tbtaco/Practice/blob/master/README.md) was last updated on 2/17/2022.  I'll update it again once I have several more to add.
