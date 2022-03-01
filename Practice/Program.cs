@@ -53,7 +53,7 @@ namespace Practice
                             case 29: new LeetCode0029(); break;
                             case 30: new LeetCode0030(); break;
                             case 31: new LeetCode0031(); break;
-                            case 32: new LeetCode0032(); break; //Most recently finished
+                            case 32: new LeetCode0032(); break;
                             case 33: new LeetCode0033(); break;
                             case 34: new LeetCode0034(); break;
                             case 35: new LeetCode0035(); break;
@@ -61,7 +61,7 @@ namespace Practice
                             case 37: new LeetCode0037(); break;
                             case 38: new LeetCode0038(); break;
                             case 39: new LeetCode0039(); break;
-                            case 40: new LeetCode0040(); break; //Will be working on next
+                            case 40: new LeetCode0040(); break; //Most recently finished
                             case 41: new LeetCode0041(); break; //Added but not attempted yet
                             case 42: new LeetCode0042(); break; //Added but not attempted yet
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
