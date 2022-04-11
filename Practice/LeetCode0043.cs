@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 43
- * 3/29/2022
+ * 4/11/2022
  */
 
 using System;
@@ -32,6 +32,30 @@ Constraints:
     Both num1 and num2 do not contain any leading zero, except the number 0 itself.
 */
 
+/*
+To solve this one, I'll be using Fast Fourier Transforms (FFT)
+Example to help me visualize it:
+                                        1  2  3  4
+                                     x  5  6  7  8
+---------------------------------------------------
+1234 x 8                                8  16 24 32
+Shift and 1234 x 7                   7  14 21 28
+                                  6  12 18 24
+                            +  5  10 15 20
+---------------------------------------------------
+                               5  16 34 60 61 52 32
+---------------------------------------------------
+                                               3  2
+                                            5  2
+                                         6  1
+                                      6  0
+                                   3  4
+                                1  6
+                             +  5
+---------------------------------------------------
+Final:                          7  0  0  6  6  5  2
+*/
+
 namespace Practice
 {
     class LeetCode0043
@@ -43,104 +67,42 @@ namespace Practice
             String expectedResult = "7006652";
             Console.WriteLine(inputA + " x " + inputB + " = " + Multiply(inputA, inputB) + " (Should be " + expectedResult + ")");
         }
+        private const int charOffset = 48; //'0' = 48, '1' = 49, and so on (from ASCII table)
         public string Multiply(string num1, string num2)
         {
-            String result = "";
-
-            //Using Fast Fourier Transforms (FFT)
-            /*
-            Example
-                                                  1  2  3  4
-                                                  5  6  7  8
-            -------------------------------------------------
-            1234 x 8                              8  16 24 32
-            Shift and 1234 x 7                 7  14 21 28
-                                            6  12 18 24
-                                         5  10 15 20
-            -------------------------------------------------
-                                         5  16 34 60 61 52 32
-            -------------------------------------------------
-                                        3 2
-                                      5 2
-                                    6 1
-                                  6 0
-                                3 4
-                              1 6
-                              5
-            -------------------------------------------------
-                              7 0 0 6 6 5 2
-            */
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            return result;
-        }
-        private const int charOffset = 48; //'0' = 48, '1' = 49, and so on (from ASCII table)
-        private String Add(String num1, String num2)
-        {
-            String result = "";
-            bool carry = false;
-            String longer = num1;
-            String shorter = num2;
-            if (longer.Length < shorter.Length)
+            IList<IList<int>> tempResults1 = new List<IList<int>>();
+            for(int i = num2.Length - 1; i >= 0; i--)
             {
-                longer = num2;
-                shorter = num1;
+                tempResults1.Add(new List<int>());
+                for(int j = num1.Length - 1; j >= 0; j--)
+                    tempResults1[tempResults1.Count - 1].Add((num1[j] - charOffset) * (num2[i] - charOffset));
             }
-            for (int i = longer.Length - 1; i >= 0; i--)
+
+            IList<int> tempResults2 = new List<int>();
+            for (int i = num1.Length + num2.Length - 2; i >= 0; i--)
             {
-                char c1 = longer[i];
-                char c2 = '0';
-                if (shorter.Length > i)
-                    c2 = shorter[i];
-                int temp = c1 - charOffset + c2 - charOffset;
-                if (carry)
-                    temp++;
-                char c3 = '0';
-                if (temp >= 10)
-                {
-                    carry = true;
-                    c3 = (char)(temp - 10 + charOffset);
-                }
-                else
-                {
-                    carry = false;
-                    c3 = (char)(temp + charOffset);
-                }
-                result = c3 + result;
+                int temp = 0;
+                for(int j = 0; j < num2.Length; j++)
+                    if (i - j < tempResults1[j].Count && i - j >= 0)
+                        temp += tempResults1[j][i - j];
+                tempResults2.Add(temp);
             }
-            if (carry)
-                result = '1' + result;
-            return result;
-        }
-        private String Add(String num1, String num2, bool carry)
-        {
-            if (carry)
-                return Add(num1, Add(num2, "1"));
-            return Add(num1, num2);
-        }
-        private String Add(String num1, String num2, int carry)
-        {
+
+            String result = "";
+            int carry = 0;
+            for(int i = tempResults2.Count - 1; i >= 0; i--)
+            {
+                int temp = tempResults2[i] + carry;
+                carry = temp / 10;
+                result = temp % 10 + result;
+            }
             if (carry > 0)
-                return Add(num1, Add(num2, carry+""));
-            return Add(num1, num2);
+                result = carry + result;
+
+            while (result.Length >= 2 && result[0] == '0')
+                result = result.Substring(1);
+
+            return result;
         }
     }
 }
