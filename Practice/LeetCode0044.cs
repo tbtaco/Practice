@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 44
- * 3/21/2022
+ * 4/18/2022
  */
 
 using System;
@@ -49,11 +49,59 @@ namespace Practice
     {
         public LeetCode0044()
         {
-            throw new Exception("TODO");
+            String[][] inputs = new String[][] {
+                new String[] { "aa", "a" },
+                new String[] { "aa", "*" },
+                new String[] { "cb", "?a" },
+                new String[] { "cb", "?b" },
+                new String[] { "abc", "a?c" },
+                new String[] { "testing", "*test*" },
+                new String[] { "testing", "*te2st*" },
+                new String[] { "", "************" },
+                new String[] { "babbbbaabababaabbababaababaabbaabababbaaababbababaaaaaabbabaaaabababbabbababbbaaaababbbabbbbbbbbbbaabbb",
+                    "b**bb**a**bba*b**a*bbb**aba***babbb*aa****aabb*bbb***a" } };
+
+            for(int i = 0; i < inputs.Length; i++)
+            {
+                Console.Write("Test " + (i + 1) + ": \n\tString: " + inputs[i][0] + "\n\tPattern: " + inputs[i][1] + "\n\tOutput: ");
+                Console.WriteLine(IsMatch(inputs[i][0], inputs[i][1]));
+            }
         }
         public bool IsMatch(string s, string p)
         {
-            throw new Exception("TODO");
+            while (p.Length >= 2 && p[0] == '*' && p[1] == '*')
+                return IsMatch(s, p.Substring(1));
+            if (s.Length == 0 && p.Length == 0)
+                return true;
+            if (p == "*")
+                return true;
+            if (s.Length == 0 && p.Length > 0)
+                return false;
+            if (s.Length > 0 && p.Length == 0)
+                return false;
+            if (s[0] == p[0] || p[0] == '?')
+                return IsMatch(s.Substring(1), p.Substring(1));
+            if (s[s.Length - 1] == p[p.Length - 1] || p[p.Length - 1] == '?')
+                return IsMatch(s.Substring(0, s.Length - 1), p.Substring(0, p.Length - 1));
+            if(p[0] == '*') //I need to find a faster way to do this section.  There are currently far too many recursive calls
+            {
+                String temp = "";
+                bool result = false;
+                int countNormalChars = 0;
+                for (int i = 0; i < s.Length; i++)
+                    if (s[i] != '*')
+                        countNormalChars++;
+                if (s.Length < countNormalChars)
+                    return false;
+                while(!result && temp.Length < s.Length)
+                {
+                    if(IsMatch(s, temp + p.Substring(1)))
+                        result = true;
+                    temp = temp + s[temp.Length];
+                }
+                return result;
+            }
+            return false;
         }
     }
 }
