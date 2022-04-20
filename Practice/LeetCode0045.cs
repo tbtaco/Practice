@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 45
- * 3/21/2022
+ * 4/20/2022
  */
 
 using System;
@@ -38,13 +38,86 @@ namespace Practice
 {
     class LeetCode0045
     {
+        private const int minInputs = 1;
+        private const int maxInputs = 10; //10000
+        private const int minJumps = 0;
+        private const int maxJumps = 10; //1000
+        private const int maxPrintPrefix = 7;
+        private const int maxPrintSuffix = 3;
+        private const int numberOfTests = 8;
         public LeetCode0045()
         {
-            throw new Exception("TODO");
+            Random r = new Random();
+            r.Next(); r.Next(); r.Next();
+
+            for(int i = 1; i <= numberOfTests; i++)
+            {
+                int[] inputs = new int[r.Next(maxInputs - minInputs + 1) + minInputs];
+                for (int j = 0; j < inputs.Length; j++)
+                    inputs[j] = r.Next(maxJumps - minJumps + 1) + minJumps;
+                Console.WriteLine("Test " + i + ":\n\tInput: " + PrintArray(inputs) + "\n\tOutput: " + Jump(inputs));
+            }
+        }
+        private String PrintArray(int[] array)
+        {
+            String output = "[";
+            for(int i = 0; i < array.Length; i++)
+                if(array.Length <= maxPrintPrefix + maxPrintSuffix)
+                {
+                    if (i > 0)
+                        output += ", ";
+                    output += array[i];
+                }
+                else
+                {
+                    if (i < maxPrintPrefix || i >= array.Length - maxPrintSuffix)
+                    {
+                        if (i > 0)
+                            output += ", ";
+                        output += array[i];
+                    }
+                    else if (i == maxPrintPrefix)
+                        output += ", ...";
+                }
+            output += "]";
+            if (array.Length > maxPrintPrefix + maxPrintSuffix)
+                output += " (Length: " + array.Length + ")";
+            return output;
         }
         public int Jump(int[] nums)
         {
-            throw new Exception("TODO");
+            int jumps = -1;
+            int max = -1;
+            int current = -1;
+
+            for(int i = 0; i < nums.Length; i++)
+            {
+                //If I made it to the end with that last index, increment jump and break
+                //current is the current max reach
+                //max is the overall temporary max.  current becomes this when i == current, and increment jump
+
+                if(max >= nums.Length - 1)
+                {
+                    jumps++;
+                    break;
+                }
+                if(i == current)
+                {
+                    current = max;
+                    jumps++;
+                }
+
+
+
+
+
+
+
+
+
+            }
+
+            return jumps;
         }
     }
 }
