@@ -39,9 +39,9 @@ namespace Practice
     class LeetCode0045
     {
         private const int minInputs = 1;
-        private const int maxInputs = 10; //10000
+        private const int maxInputs = 10000; //10000
         private const int minJumps = 0;
-        private const int maxJumps = 10; //1000
+        private const int maxJumps = 1000; //1000
         private const int maxPrintPrefix = 7;
         private const int maxPrintSuffix = 3;
         private const int numberOfTests = 8;
@@ -53,8 +53,11 @@ namespace Practice
             for(int i = 1; i <= numberOfTests; i++)
             {
                 int[] inputs = new int[r.Next(maxInputs - minInputs + 1) + minInputs];
+                //It's possible to come across impossible situations using this but it's good enough to test with.
                 for (int j = 0; j < inputs.Length; j++)
                     inputs[j] = r.Next(maxJumps - minJumps + 1) + minJumps;
+                if (inputs.Length > 0 && inputs[0] == 0)
+                    inputs[0] = r.Next(maxJumps - minJumps) + minJumps + 1;
                 Console.WriteLine("Test " + i + ":\n\tInput: " + PrintArray(inputs) + "\n\tOutput: " + Jump(inputs));
             }
         }
@@ -86,35 +89,29 @@ namespace Practice
         }
         public int Jump(int[] nums)
         {
-            int jumps = -1;
-            int max = -1;
-            int current = -1;
+            if (nums.Length <= 1)
+                return 0;
+            if (nums[0] == 0)
+                throw new Exception("Value at index 0 must be greater than zero.");
+
+            int jumps = 0;
+            int temporaryNewMaxReach = 0;
+            int currentMaxReach = 0;
 
             for(int i = 0; i < nums.Length; i++)
             {
-                //If I made it to the end with that last index, increment jump and break
-                //current is the current max reach
-                //max is the overall temporary max.  current becomes this when i == current, and increment jump
-
-                if(max >= nums.Length - 1)
+                if (temporaryNewMaxReach < i + nums[i])
+                    temporaryNewMaxReach = i + nums[i];
+                if (temporaryNewMaxReach >= nums.Length - 1)
                 {
                     jumps++;
                     break;
                 }
-                if(i == current)
+                if (i == currentMaxReach)
                 {
-                    current = max;
+                    currentMaxReach = temporaryNewMaxReach;
                     jumps++;
                 }
-
-
-
-
-
-
-
-
-
             }
 
             return jumps;

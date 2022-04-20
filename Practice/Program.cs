@@ -64,9 +64,9 @@ namespace Practice
                             case 40: new LeetCode0040(); break;
                             case 41: new LeetCode0041(); break;
                             case 42: new LeetCode0042(); break;
-                            case 43: new LeetCode0043(); break; //Most recently finished
-                            case 44: new LeetCode0044(); break; //Added but not attempted yet
-                            case 45: new LeetCode0045(); break; //Added but not attempted yet
+                            case 43: new LeetCode0043(); break;
+                            case 44: new LeetCode0044(); break; //Attempted and works, but runs far too slow.  I'll fix sometime in the future
+                            case 45: new LeetCode0045(); break; //Most recently finished
                             case 46: new LeetCode0046(); break; //Added but not attempted yet
                             case 47: new LeetCode0047(); break; //Added but not attempted yet
                             case 48: new LeetCode0048(); break; //Added but not attempted yet
