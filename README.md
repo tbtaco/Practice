@@ -1,6 +1,6 @@
 This repository is where I'll be saving my solutions to [LeetCode](https://leetcode.com/) problems.
 
-I started working on these practice problems in June of 2021 and plan to continue solving one or two a week when I have some spare time.
+I started working on these practice problems in June of 2021 and plan to continue solving some every once in a while when I have some spare time.
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of programs.  It's a simple switch/case block to run different LeetCode solutions.
 
@@ -82,18 +82,36 @@ I started working on these practice problems in June of 2021 and plan to continu
 
 [LeetCode0039.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0039.cs) - Medium - Returns all combinations of an int array that can be added to equal a target int.
 
-[LeetCode0040.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0040.cs) - Medium - Added but not attempted yet.
+[LeetCode0040.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0040.cs) - Medium - Combination Sum II.
 
-[LeetCode0041.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0041.cs) - Hard - Added but not attempted yet.
+[LeetCode0041.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0041.cs) - Hard - First Missing Positive.
 
-[LeetCode0042.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0042.cs) - Hard - Added but not attempted yet.
+[LeetCode0042.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0042.cs) - Hard - Trapping Rain Water.
 
-LeetCode0043.cs - Have not done yet.
 
-LeetCode0044.cs - Have not done yet.
 
-LeetCode0045.cs - Have not done yet.
+[LeetCode0043.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0043.cs) - Medium - Multiply Strings.  To solve this one I used Fast Fourier Transforms (FFT).
+
+[LeetCode0044.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0044.cs) - Hard - Wildcard Matching.  My solution works, however I need to redo it to improve performance.  As is, LeetCode does not accept it.
+
+[LeetCode0045.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0045.cs) - Medium - Jump Game II.
+
+[LeetCode0046.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0046.cs) - ? - File added, but not attempted yet.
+
+[LeetCode0047.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0047.cs) - ? - File added, but not attempted yet.
+
+[LeetCode0048.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0048.cs) - ? - File added, but not attempted yet.
+
+[LeetCode0049.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0049.cs) - ? - File added, but not attempted yet.
+
+[LeetCode0050.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0050.cs) - ? - File added, but not attempted yet.
+
+LeetCode0051.cs - Have not added file or attempted yet.
+
+LeetCode0052.cs - Have not added file or attempted yet.
+
+LeetCode0053.cs - Have not added file or attempted yet.
 
 ...
 
-This [README.md](https://github.com/tbtaco/Practice/blob/master/README.md) was last updated on 2/17/2022.  I'll update it again once I have several more to add.
+This [README.md](https://github.com/tbtaco/Practice/blob/master/README.md) was last updated on 4/21/2022.  I'll update it again once I have several more to add.
