@@ -31,7 +31,7 @@ namespace Practice
                             case 7: new LeetCode0007(); break;
                             case 8: new LeetCode0008(); break;
                             case 9: new LeetCode0009(); break;
-                            case 10: new LeetCode0010(); break; //Did not solve this one myself
+                            case 10: new LeetCode0010(); break; //Did not solve this one myself.  See comments in LeetCode0010.cs for details
                             case 11: new LeetCode0011(); break;
                             case 12: new LeetCode0012(); break;
                             case 13: new LeetCode0013(); break;
@@ -66,8 +66,8 @@ namespace Practice
                             case 42: new LeetCode0042(); break;
                             case 43: new LeetCode0043(); break;
                             case 44: new LeetCode0044(); break; //Attempted and works, but runs far too slow.  I'll fix sometime in the future
-                            case 45: new LeetCode0045(); break; //Most recently finished
-                            case 46: new LeetCode0046(); break; //Added but not attempted yet
+                            case 45: new LeetCode0045(); break;
+                            case 46: new LeetCode0046(); break; //Most recently finished
                             case 47: new LeetCode0047(); break; //Added but not attempted yet
                             case 48: new LeetCode0048(); break; //Added but not attempted yet
                             case 49: new LeetCode0049(); break; //Added but not attempted yet
