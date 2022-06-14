@@ -67,11 +67,11 @@ namespace Practice
                             case 43: new LeetCode0043(); break;
                             case 44: new LeetCode0044(); break; //Attempted and works, but runs far too slow.  I'll fix sometime in the future
                             case 45: new LeetCode0045(); break;
-                            case 46: new LeetCode0046(); break; //Most recently finished
+                            case 46: new LeetCode0046(); break;
                             case 47: new LeetCode0047(); break; //Added but not attempted yet
                             case 48: new LeetCode0048(); break; //Added but not attempted yet
                             case 49: new LeetCode0049(); break; //Added but not attempted yet
-                            case 50: new LeetCode0050(); break; //Added but not attempted yet
+                            case 50: new LeetCode0050(); break; //Most recently finished
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
                         }
                     }
