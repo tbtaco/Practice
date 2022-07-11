@@ -68,10 +68,10 @@ namespace Practice
                             case 44: new LeetCode0044(); break; //Attempted and works, but runs far too slow.  I'll fix sometime in the future
                             case 45: new LeetCode0045(); break;
                             case 46: new LeetCode0046(); break;
-                            case 47: new LeetCode0047(); break; //Added but not attempted yet
-                            case 48: new LeetCode0048(); break; //Added but not attempted yet
+                            case 47: new LeetCode0047(); break;
+                            case 48: new LeetCode0048(); break; //Most recently finished
                             case 49: new LeetCode0049(); break; //Added but not attempted yet
-                            case 50: new LeetCode0050(); break; //Most recently finished
+                            case 50: new LeetCode0050(); break;
                             default: Console.WriteLine("That number is not currently supported.  Please try again."); break;
                         }
                     }

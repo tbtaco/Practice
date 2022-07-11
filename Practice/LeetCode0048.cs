@@ -1,7 +1,7 @@
 ﻿/*
  * Tyler Richey
  * LeetCode 48
- * 6/8/2022
+ * 7/11/2022
  */
 
 using System;
@@ -40,11 +40,63 @@ namespace Practice
     {
         public LeetCode0048()
         {
-            throw new Exception("TODO");
+            int[][] test = new int[][] { new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, new int[] { 7, 8, 9 } };
+            Output("Input", test);
+
+            Rotate(test);
+            Output("Output Rotated Once", test);
+
+            Rotate(test);
+            Output("Output Rotated Twice", test);
+
+            Rotate(test);
+            Output("Output Rotated Three Times", test);
+
+            Rotate(test);
+            Output("Output Rotated Four Times (Should Equal Original Input)", test);
+        }
+        private void Output(String s, int[][] matrix)
+        {
+            Console.Write(s + ":\n\t");
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                if (i > 0)
+                    Console.Write("\n\t");
+                for (int j = 0; j < matrix[i].Length; j++)
+                {
+                    if (j > 0)
+                        Console.Write(", ");
+                    Console.Write(matrix[i][j]);
+                }
+            }
+            Console.Write("\n\n");
         }
         public void Rotate(int[][] matrix)
         {
-            throw new Exception("TODO");
+            for(int i = 0; i < matrix.Length / 2; i++) //Select Shell
+            {
+                for(int j = 0; j < matrix.Length - (2 * i) - 1; j++) //Traverse Shell
+                {
+                    /*
+
+                        1   2
+
+                        3   4
+
+                    1   matrix[i + j][i]
+                    2   matrix[i][matrix.Length - 1 - i - j]
+                    3   matrix[matrix.Length - 1 - i][i + j]
+                    4   matrix[matrix.Length - 1 - i - j][matrix.Length - 1 - i]
+                    
+                    */
+
+                    int temp = matrix[i + j][i]; //Cell 1
+                    matrix[i + j][i] = matrix[matrix.Length - 1 - i][i + j]; //Cell 1 = Cell 3
+                    matrix[matrix.Length - 1 - i][i + j] = matrix[matrix.Length - 1 - i - j][matrix.Length - 1 - i]; //Cell 3 = Cell 4
+                    matrix[matrix.Length - 1 - i - j][matrix.Length - 1 - i] = matrix[i][matrix.Length - 1 - i - j]; //Cell 4 = Cell 2
+                    matrix[i][matrix.Length - 1 - i - j] = temp; //Cell 2 = Original Cell 1
+                }
+            }
         }
     }
 }
