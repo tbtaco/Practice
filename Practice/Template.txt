@@ -1,0 +1,45 @@
+﻿/*
+ * Author: Tyler Richey
+ * LeetCode: 
+ * Title: 
+ * Description: 
+ * Difficulty: 
+ * Status: 
+ * Time Complexity: 
+ * Date: 
+ * Notes: 
+ */
+
+using System;
+
+/*
+
+
+
+
+
+*/
+
+namespace Practice
+{
+    class LeetCode0000
+    {
+        // Test Cases
+        public LeetCode0000()
+        {
+            try
+            {
+                Solution();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
+        }
+        // Solution
+        public void Solution()
+        {
+            throw new Exception("TODO");
+        }
+    }
+}

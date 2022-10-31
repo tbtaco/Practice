@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 39
- * 12/7/2021
+ * Author: Tyler Richey
+ * LeetCode: 39
+ * Title: Combination Sum
+ * Description: Returns all combinations of an int array that can be added to equal a target int.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(2^n)
+ * Date: 12/7/2021
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 39. Combination Sum
@@ -63,31 +66,43 @@ namespace Practice
 {
     class LeetCode0039
     {
+        // Test Case
         public LeetCode0039()
         {
-            int[] candidates = new int[] { 2, 3, 4, 5, 6 };
-            int target = 12;
-            IList<IList<int>> lists = CombinationSum(candidates, target);
-            Console.Write("Input: {");
-            for(int i = 0; i < candidates.Length; i++)
+            try
             {
-                if (i > 0)
-                    Console.Write(", ");
-                Console.Write(candidates[i]);
-            }
-            Console.WriteLine("}\nTarget: " + target + "\nOutput:");
-            for(int i = 0; i < lists.Count; i++)
-            {
-                Console.Write("{");
-                for(int j = 0; j < lists[i].Count; j++)
+                int[] candidates = new int[] { 2, 3, 4, 5, 6 };
+                int target = 12;
+
+                IList<IList<int>> lists = CombinationSum(candidates, target);
+
+                Console.Write("Input: {");
+                for (int i = 0; i < candidates.Length; i++)
                 {
-                    if (j > 0)
+                    if (i > 0)
                         Console.Write(", ");
-                    Console.Write(lists[i][j]);
+                    Console.Write(candidates[i]);
                 }
-                Console.WriteLine("}");
+
+                Console.WriteLine("}\nTarget: " + target + "\nOutput:");
+                for (int i = 0; i < lists.Count; i++)
+                {
+                    Console.Write("{");
+                    for (int j = 0; j < lists[i].Count; j++)
+                    {
+                        if (j > 0)
+                            Console.Write(", ");
+                        Console.Write(lists[i][j]);
+                    }
+                    Console.WriteLine("}");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         private IList<IList<int>> result = new List<IList<int>>();
         public IList<IList<int>> CombinationSum(int[] candidates, int target)
         {
@@ -102,7 +117,7 @@ namespace Practice
                     current = CopyList(current);
                 }
                 else if(candidates[i] < target)
-                    RecursiveCall(candidates, target, current, 150); //Max depth of 150 for recursive calls
+                    RecursiveCall(candidates, target, current, 150); // Max depth of 150 for recursive calls
             }
             return result;
         }
@@ -110,7 +125,9 @@ namespace Practice
         {
             if (limit <= 0)
                 return;
+
             limit--;
+
             IList<int> currentCopy = CopyList(current);
             for (int i = 0; i < candidates.Length; i++)
             {
@@ -128,13 +145,13 @@ namespace Practice
                 else if (currentSum < target)
                 {
                     current.Add(candidates[i]);
-                    RecursiveCall(candidates, target, current, limit); //Max depth of 150 for recursive calls
+                    RecursiveCall(candidates, target, current, limit); // Max depth of 150 for recursive calls
                 }
                 else
                     return;
             }
         }
-        private void Sort(int[] nums) //From LeetCode0033.cs
+        private void Sort(int[] nums) // From LeetCode0033.cs
         {
             for (int i = 0; i < nums.Length - 1; i++)
                 for (int j = 0; j < nums.Length - 1 - i; j++)
@@ -148,7 +165,7 @@ namespace Practice
                     if (nums[j] > nums[j + 1])
                         Swap(nums, j, j + 1);
         }
-        private void Swap(int[] nums, int i, int j) //From LeetCode0033.cs
+        private void Swap(int[] nums, int i, int j) // From LeetCode0033.cs
         {
             int temp = nums[i];
             nums[i] = nums[j];
@@ -160,20 +177,23 @@ namespace Practice
             nums[i] = nums[j];
             nums[j] = temp;
         }
-        private IList<int> CopyList(IList<int> x) //Reusing the same list over and over was giving me troubles.  Made this to easily copy it into a new object so it's not edited later on
+        private IList<int> CopyList(IList<int> x) // Reusing the same list over and over was giving me troubles.  Made this to easily copy it into a new object so it's not edited later on
         {
             IList<int> y = new List<int>();
             foreach (int i in x)
                 y.Add(i);
+
             return y;
         }
         private void AddIfNotAlreadyPresent(IList<int> toAdd)
         {
             Sort(toAdd);
+
             bool alreadyAdded = false;
             foreach (IList<int> toCheck in result)
                 if (AreEqual(toCheck, toAdd))
                     alreadyAdded = true;
+
             if (!alreadyAdded)
                 result.Add(toAdd);
         }
@@ -185,8 +205,10 @@ namespace Practice
                 for (int i = 0; i < x.Count; i++)
                     if (x[i] != y[i])
                         equal = false;
+
                 return equal;
             }
+
             return false;
         }
     }

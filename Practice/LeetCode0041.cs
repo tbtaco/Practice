@@ -1,15 +1,20 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 41
- * 3/6/2022
+ * Author: Tyler Richey
+ * LeetCode: 41
+ * Title: First Missing Positive
+ * Description: First Missing Positive.
+ * Difficulty: Hard
+ * Status: Solved (Revisit)
+ * Time Complexity: O(n^2)
+ * Date: 3/6/2022
+ * Notes: As things are now my code passes the LeetCode tests, however to pass the [1, 2, 3, ..., 499999, 500000] ones
+ * I needed to use a sort of cheat since my code without "if (NumsStartAtOneAndAreAlreadySorted(nums) || NumsStartAtOneAndAreAlreadySortedReversed(nums))"
+ * takes quite a while to go through all numbers. If it tries to run the test mentioned above, but two numbers are swapped, it will take
+ * significantly longer. For now though, this will have to do.  I may revisit this at some point and see if I can find an alternative way of solving this.
  */
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 41. First Missing Positive
@@ -44,6 +49,7 @@ namespace Practice
 {
     class LeetCode0041
     {
+        // Test Cases
         private const int minLength = 1;
         private const int maxLength = 500000;
         private const int minVal = -50000;
@@ -54,65 +60,69 @@ namespace Practice
         private int[] customTest = new int[] { };
         public LeetCode0041()
         {
-            Random r = new Random();
-            r.Next(); r.Next(); r.Next();
-
-            for (int i = 1; i <= trialCount; i++)
+            try
             {
-                Console.Write("Test " + i + ":\n\tInput: [");
-                int[] input = new int[r.Next(maxLength - minLength + 1) + minLength];
-                for (int j = 0; j < input.Length; j++)
+                Random r = new Random();
+                r.Next(); r.Next(); r.Next();
+
+                for (int i = 1; i <= trialCount; i++)
                 {
-                    input[j] = r.Next(maxVal - minVal + 1) + minVal;
-                    if (j == maxPrintLengthPrefix && maxPrintLengthPrefix + maxPrintLengthSuffix < input.Length)
+                    Console.Write("Test " + i + ":\n\tInput: [");
+                    int[] input = new int[r.Next(maxLength - minLength + 1) + minLength];
+                    for (int j = 0; j < input.Length; j++)
                     {
-                        if (j > 0)
-                            Console.Write(", ");
-                        Console.Write("...");
+                        input[j] = r.Next(maxVal - minVal + 1) + minVal;
+                        if (j == maxPrintLengthPrefix && maxPrintLengthPrefix + maxPrintLengthSuffix < input.Length)
+                        {
+                            if (j > 0)
+                                Console.Write(", ");
+                            Console.Write("...");
+                        }
+                        else if (j < maxPrintLengthPrefix || input.Length - j <= maxPrintLengthSuffix)
+                        {
+                            if (j > 0)
+                                Console.Write(", ");
+                            Console.Write(input[j]);
+                        }
                     }
-                    else if (j < maxPrintLengthPrefix || input.Length - j <= maxPrintLengthSuffix)
-                    {
-                        if (j > 0)
-                            Console.Write(", ");
-                        Console.Write(input[j]);
-                    }
+                    Console.Write("]");
+                    if (maxPrintLengthPrefix + maxPrintLengthSuffix < input.Length)
+                        Console.Write(" (Length = " + input.Length + ")");
+                    Console.Write("\n\tOutput: " + FirstMissingPositive(input) + "\n");
                 }
-                Console.Write("]");
-                if (maxPrintLengthPrefix + maxPrintLengthSuffix < input.Length)
-                    Console.Write(" (Length = " + input.Length + ")");
-                Console.Write("\n\tOutput: " + FirstMissingPositive(input) + "\n");
-            }
 
-            if(customTest != null && customTest.Length > 0)
+                if (customTest != null && customTest.Length > 0)
+                {
+                    Console.Write("Custom Test:\n\tInput: [");
+                    for (int j = 0; j < customTest.Length; j++)
+                        if (j == maxPrintLengthPrefix && maxPrintLengthPrefix + maxPrintLengthSuffix < customTest.Length)
+                        {
+                            if (j > 0)
+                                Console.Write(", ");
+                            Console.Write("...");
+                        }
+                        else if (j < maxPrintLengthPrefix || customTest.Length - j <= maxPrintLengthSuffix)
+                        {
+                            if (j > 0)
+                                Console.Write(", ");
+                            Console.Write(customTest[j]);
+                        }
+                    Console.Write("]");
+                    if (maxPrintLengthPrefix + maxPrintLengthSuffix < customTest.Length)
+                        Console.Write(" (Length = " + customTest.Length + ")");
+                    Console.Write("\n\tOutput: " + FirstMissingPositive(customTest) + "\n");
+                }
+            }
+            catch (Exception e)
             {
-                Console.Write("Custom Test:\n\tInput: [");
-                for (int j = 0; j < customTest.Length; j++)
-                    if (j == maxPrintLengthPrefix && maxPrintLengthPrefix + maxPrintLengthSuffix < customTest.Length)
-                    {
-                        if (j > 0)
-                            Console.Write(", ");
-                        Console.Write("...");
-                    }
-                    else if (j < maxPrintLengthPrefix || customTest.Length - j <= maxPrintLengthSuffix)
-                    {
-                        if (j > 0)
-                            Console.Write(", ");
-                        Console.Write(customTest[j]);
-                    }
-                Console.Write("]");
-                if (maxPrintLengthPrefix + maxPrintLengthSuffix < customTest.Length)
-                    Console.Write(" (Length = " + customTest.Length + ")");
-                Console.Write("\n\tOutput: " + FirstMissingPositive(customTest) + "\n");
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
         public int FirstMissingPositive(int[] nums)
         {
-            if (NumsStartAtOneAndAreAlreadySorted(nums) || NumsStartAtOneAndAreAlreadySortedReversed(nums))
-                //As things are now my code passes the LeetCode tests, however to pass the [1, 2, 3, ..., 499999, 500000] ones
-                //I needed to use this sort of cheat since my code without the above if statement takes quite a while to go through all numbers.
-                //If it tries to run the test mentioned above, but two numbers are swapped, it will take significantly longer.
-                //For now though, this will have to do.  I may revisit this at some point and see if I can find an alternative way of solving this.
+            if (NumsStartAtOneAndAreAlreadySorted(nums) || NumsStartAtOneAndAreAlreadySortedReversed(nums)) // See Notes
                 return nums.Length + 1;
+
             IList<int> copy = CopyWithoutNegatives(nums);
             int result = 1;
             for (int i = 0; i < copy.Count; i++)
@@ -122,6 +132,7 @@ namespace Practice
                     result++;
                     i = -1;
                 }
+
             return result;
         }
         private IList<int> CopyWithoutNegatives(int[] nums)
@@ -130,6 +141,7 @@ namespace Practice
             for (int i = 0; i < nums.Length; i++)
                 if (nums[i] > 0)
                     result.Add(nums[i]);
+
             return result;
         }
         private bool NumsStartAtOneAndAreAlreadySorted(int[] nums)
@@ -137,6 +149,7 @@ namespace Practice
             for (int i = 0; i < nums.Length; i++)
                 if (nums[i] != i + 1)
                     return false;
+
             return true;
         }
         private bool NumsStartAtOneAndAreAlreadySortedReversed(int[] nums)
@@ -144,6 +157,7 @@ namespace Practice
             for (int i = 0; i < nums.Length; i++)
                 if (nums[i] != nums.Length - i)
                     return false;
+
             return true;
         }
     }

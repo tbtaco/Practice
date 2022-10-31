@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 12
- * 7/6/2021
+ * Author: Tyler Richey
+ * LeetCode: 12
+ * Title: Integer to Roman
+ * Description: Integer to Roman Numeral.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 7/6/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 12. Integer to Roman
@@ -71,25 +73,29 @@ namespace Practice
 {
     class LeetCode0012
     {
+        // Test Cases
         public LeetCode0012()
         {
-            Console.WriteLine("Input: " + 1 + ", Output: " + IntToRoman(1));
-            Console.WriteLine("Input: " + 4 + ", Output: " + IntToRoman(4));
-            Console.WriteLine("Input: " + 14 + ", Output: " + IntToRoman(14));
-            Console.WriteLine("Input: " + 77 + ", Output: " + IntToRoman(77));
-            Console.WriteLine("Input: " + 1009 + ", Output: " + IntToRoman(1009));
-            Random r = new Random();
-            for(int i = 0; i < 10; i++)
+            try
             {
-                int num = r.Next(3999) + 1;
-                Console.WriteLine("Input: " + num + ", Output: " + IntToRoman(num));
+                Random r = new Random();
+                for (int i = 0; i < 15; i++)
+                {
+                    int num = r.Next(3999) + 1;
+                    Console.WriteLine("Input: " + num + ", Output: " + IntToRoman(num));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public static string IntToRoman(int num)
         {
             String result = "";
 
-            int temp = num / 1000; //Block M
+            int temp = num / 1000; // Block M
             for (int i = temp; i > 0; i--)
                 result += "M";
             if(temp > 0)
@@ -100,7 +106,7 @@ namespace Practice
                 num -= 900;
             }
 
-            temp = num / 500; //Block D
+            temp = num / 500; // Block D
             for (int i = temp; i > 0; i--)
                 result += "D";
             if (temp > 0)
@@ -111,7 +117,7 @@ namespace Practice
                 num -= 400;
             }
 
-            temp = num / 100; //Block C
+            temp = num / 100; // Block C
             for (int i = temp; i > 0; i--)
                 result += "C";
             if (temp > 0)
@@ -122,7 +128,7 @@ namespace Practice
                 num -= 90;
             }
 
-            temp = num / 50; //Block L
+            temp = num / 50; // Block L
             for (int i = temp; i > 0; i--)
                 result += "L";
             if (temp > 0)
@@ -133,7 +139,7 @@ namespace Practice
                 num -= 40;
             }
 
-            temp = num / 10; //Block X
+            temp = num / 10; // Block X
             for (int i = temp; i > 0; i--)
                 result += "X";
             if (temp > 0)
@@ -144,7 +150,7 @@ namespace Practice
                 num -= 9;
             }
 
-            temp = num / 5; //Block V
+            temp = num / 5; // Block V
             for (int i = temp; i > 0; i--)
                 result += "V";
             if (temp > 0)
@@ -155,7 +161,7 @@ namespace Practice
                 num -= 4;
             }
 
-            for (int i = num; i > 0; i--) //Block I
+            for (int i = num; i > 0; i--) // Block I
                 result += "I";
 
             return result;

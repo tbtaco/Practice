@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 22
- * 8/11/2021
+ * Author: Tyler Richey
+ * LeetCode: 22
+ * Title: Generate Parentheses
+ * Description: Given an integer, generate a list containing all combinations of valid parentheses using that number of opening/closing parentheses pairs.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(2^n)
+ * Date: 8/11/2021
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 22. Generate Parentheses
@@ -35,29 +38,41 @@ namespace Practice
 {
     class LeetCode0022
     {
+        // Test Cases
         public LeetCode0022()
         {
-            for(int i = 1; i <= 8; i++)
+            try
             {
-                Console.WriteLine("Input: " + i + ", Output Count (Edit Code For Full Results): " + GenerateParenthesis(i).Count);
-                /*
-                Console.Write("Input: " + i + ", Output: [");
-                IList<String> output = GenerateParenthesis(i);
-                Console.Write(output[0]);
-                output.RemoveAt(0);
-                foreach (String s in output)
-                    Console.Write(", " + s);
-                Console.WriteLine("]");
-                */
+                for (int i = 1; i <= 8; i++)
+                {
+                    Console.WriteLine("Input: " + i + ", Output Count (Edit Code For Full Results): " + GenerateParenthesis(i).Count);
+
+                    /*
+                    Console.Write("Input: " + i + ", Output: [");
+                    IList<String> output = GenerateParenthesis(i);
+                    Console.Write(output[0]);
+                    output.RemoveAt(0);
+                    foreach (String s in output)
+                        Console.Write(", " + s);
+                    Console.WriteLine("]");
+                    */
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
         private IList<String> output = new List<String>();
         private int n = 0;
+        // Solution
         public IList<string> GenerateParenthesis(int n)
         {
             output.Clear();
             this.n = n;
+
             GPRecursive("", 0, 0);
+
             return output;
         }
         private void GPRecursive(String s, int openingP, int closingP)
@@ -67,8 +82,10 @@ namespace Practice
                 output.Add(s);
                 return;
             }
+
             if (openingP < n)
                 GPRecursive(s + "(", openingP + 1, closingP);
+
             if (closingP < openingP)
                 GPRecursive(s + ")", openingP, closingP + 1);
         }

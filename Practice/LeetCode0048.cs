@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 48
- * 7/11/2022
+ * Author: Tyler Richey
+ * LeetCode: 48
+ * Title: Rotate Image
+ * Description: Given a square 2D matrix representing an image, rotate the image by 90 degrees clockwise.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 7/11/2022
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 48. Rotate Image
@@ -38,22 +40,30 @@ namespace Practice
 {
     class LeetCode0048
     {
+        // Test Case
         public LeetCode0048()
         {
-            int[][] test = new int[][] { new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, new int[] { 7, 8, 9 } };
-            Output("Input", test);
+            try
+            {
+                int[][] test = new int[][] { new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, new int[] { 7, 8, 9 } };
+                Output("Input", test);
 
-            Rotate(test);
-            Output("Output Rotated Once", test);
+                Rotate(test);
+                Output("Output Rotated Once", test);
 
-            Rotate(test);
-            Output("Output Rotated Twice", test);
+                Rotate(test);
+                Output("Output Rotated Twice", test);
 
-            Rotate(test);
-            Output("Output Rotated Three Times", test);
+                Rotate(test);
+                Output("Output Rotated Three Times", test);
 
-            Rotate(test);
-            Output("Output Rotated Four Times (Should Equal Original Input)", test);
+                Rotate(test);
+                Output("Output Rotated Four Times (Should Equal Original Input)", test);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
         private void Output(String s, int[][] matrix)
         {
@@ -71,14 +81,14 @@ namespace Practice
             }
             Console.Write("\n\n");
         }
+        // Solution
         public void Rotate(int[][] matrix)
         {
-            for(int i = 0; i < matrix.Length / 2; i++) //Select Shell
+            for(int i = 0; i < matrix.Length / 2; i++) // Select Shell
             {
-                for(int j = 0; j < matrix.Length - (2 * i) - 1; j++) //Traverse Shell
+                for(int j = 0; j < matrix.Length - (2 * i) - 1; j++) // Traverse Shell
                 {
                     /*
-
                         1   2
 
                         3   4
@@ -87,14 +97,17 @@ namespace Practice
                     2   matrix[i][matrix.Length - 1 - i - j]
                     3   matrix[matrix.Length - 1 - i][i + j]
                     4   matrix[matrix.Length - 1 - i - j][matrix.Length - 1 - i]
-                    
                     */
 
-                    int temp = matrix[i + j][i]; //Cell 1
-                    matrix[i + j][i] = matrix[matrix.Length - 1 - i][i + j]; //Cell 1 = Cell 3
-                    matrix[matrix.Length - 1 - i][i + j] = matrix[matrix.Length - 1 - i - j][matrix.Length - 1 - i]; //Cell 3 = Cell 4
-                    matrix[matrix.Length - 1 - i - j][matrix.Length - 1 - i] = matrix[i][matrix.Length - 1 - i - j]; //Cell 4 = Cell 2
-                    matrix[i][matrix.Length - 1 - i - j] = temp; //Cell 2 = Original Cell 1
+                    int temp = matrix[i + j][i]; // Cell 1
+
+                    matrix[i + j][i] = matrix[matrix.Length - 1 - i][i + j]; // Cell 1 = Cell 3
+
+                    matrix[matrix.Length - 1 - i][i + j] = matrix[matrix.Length - 1 - i - j][matrix.Length - 1 - i]; // Cell 3 = Cell 4
+
+                    matrix[matrix.Length - 1 - i - j][matrix.Length - 1 - i] = matrix[i][matrix.Length - 1 - i - j]; // Cell 4 = Cell 2
+
+                    matrix[i][matrix.Length - 1 - i - j] = temp; // Cell 2 = Original Cell 1
                 }
             }
         }

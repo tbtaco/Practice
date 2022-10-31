@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 18
- * 9/3/2021
+ * Author: Tyler Richey
+ * LeetCode: 18
+ * Title: 4Sum
+ * Description: Same as LeetCode0015.cs except with 4 numbers, not 3. As more numbers are added, timing becomes a larger factor.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n^3)
+ * Date: 9/3/2021
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 18. 4Sum
@@ -43,56 +46,67 @@ namespace Practice
 {
     class LeetCode0018
     {
+        // Test Cases
         public LeetCode0018()
         {
-            const int minLength = 1; //These constants are just for testing and doesn't reflect the actual test constraints
-            const int maxLength = 50;
-            const int minVal = -1000;
-            const int maxVal = 1000;
-            const int minTarget = minVal * 2;
-            const int maxTarget = maxVal * 2;
-            const int testCount = 5;
-
-            Random r = new Random();
-
-            for(int i = 0; i < testCount; i++)
+            try
             {
-                int[] nums = new int[r.Next(maxLength - minLength + 1) + minLength];
-                for (int j = 0; j < nums.Length; j++)
-                    nums[j] = r.Next(maxVal - minVal + 1) + minVal;
-                Console.Write("Input: [");
-                for (int j = 0; j < nums.Length; j++)
+                const int minLength = 1; // These constants are just for testing and doesn't reflect the actual constraints
+                const int maxLength = 50;
+                const int minVal = -1000;
+                const int maxVal = 1000;
+                const int minTarget = minVal * 2;
+                const int maxTarget = maxVal * 2;
+                const int testCount = 5;
+
+                Random r = new Random();
+
+                for (int i = 0; i < testCount; i++)
                 {
-                    if (j > 0)
-                        Console.Write(", ");
-                    Console.Write(nums[j]);
-                }
-                int target = r.Next(maxTarget - minTarget + 1) + minTarget;
-                Console.Write("]\nTarget: " + target + "\nOutput: [");
-                IList<IList<int>> result = FourSum(nums, target);
-                for (int j = 0; j < result.Count; j++)
-                {
-                    if (j > 0)
-                        Console.Write(", ");
-                    Console.Write("[");
-                    for (int k = 0; k < result[j].Count; k++)
+                    int[] nums = new int[r.Next(maxLength - minLength + 1) + minLength];
+                    for (int j = 0; j < nums.Length; j++)
+                        nums[j] = r.Next(maxVal - minVal + 1) + minVal;
+
+                    Console.Write("Input: [");
+                    for (int j = 0; j < nums.Length; j++)
                     {
-                        if (k > 0)
+                        if (j > 0)
                             Console.Write(", ");
-                        Console.Write(result[j][k]);
+                        Console.Write(nums[j]);
                     }
-                    Console.Write("]");
+
+                    int target = r.Next(maxTarget - minTarget + 1) + minTarget;
+                    Console.Write("]\nTarget: " + target + "\nOutput: [");
+
+                    IList<IList<int>> result = FourSum(nums, target);
+                    for (int j = 0; j < result.Count; j++)
+                    {
+                        if (j > 0)
+                            Console.Write(", ");
+                        Console.Write("[");
+                        for (int k = 0; k < result[j].Count; k++)
+                        {
+                            if (k > 0)
+                                Console.Write(", ");
+                            Console.Write(result[j][k]);
+                        }
+                        Console.Write("]");
+                    }
+                    Console.WriteLine("]\n");
                 }
-                Console.WriteLine("]\n");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public IList<IList<int>> FourSum(int[] nums, int target)
         {
             IList<IList<int>> result = new List<IList<int>>();
             if (nums.Length < 4)
                 return result;
 
-            //Bubble Sort
             for(int i = 0; i < nums.Length - 1; i++)
                 for (int j = 0; j < nums.Length - i - 1; j++)
                     if (nums[j] > nums[j + 1])
@@ -102,10 +116,8 @@ namespace Practice
                         nums[j + 1] = t;
                     }
 
-            /* Approach: I've spent a lot of time perfecting my 3Sum from LeetCode0015.cs and the LeetCode tests timeout very quickly,
-             * so I'll be copying my solution from that and modifying it to work with 4 numbers instead of 3, and a target value.
-             * num1 and num2 will be obtained in For loops, then use 3Sum on (num1 + num2), num3, and num4 going to target instead of 0.
-             */
+            // Approach:  In LeetCode0015.cs I solved 3Sum.  This is the same sort of problem, just with 4 numbers instead of 3.
+            // So I'll copy my solution from there and modify it to obtain num1 and num2 in For loops, then use 3Sum on (num1 + num2) + num3 + num4 = target
 
             for(int i = 0; i < nums.Length - 3; i++)
             {
@@ -131,7 +143,7 @@ namespace Practice
                         else
                         {
                             List<int> n = new List<int> { nums[i], nums[j], nums[k], nums[l] };
-                            Boolean alreadyAdded = false;
+                            bool alreadyAdded = false;
                             for (int x = 0; x < result.Count && !alreadyAdded; x++)
                                 if (ListsEqual(result[x], n))
                                     alreadyAdded = true;
@@ -146,11 +158,12 @@ namespace Practice
             }
             return result;
         }
-        private Boolean ListsEqual(IList<int> l, IList<int> m)
+        private bool ListsEqual(IList<int> l, IList<int> m)
         {
             for (int i = 0; i < l.Count; i++)
                 if (l[i] != m[i])
                     return false;
+
             return true;
         }
     }

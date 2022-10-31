@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 36
- * 10/18/2021
+ * Author: Tyler Richey
+ * LeetCode: 36
+ * Title: Valid Sudoku
+ * Description: Check that a Sudoku board is valid. Rows, Columns, and Blocks must contain only 1-9 without repetition. This does not check that the puzzle is solvable, only that the numbers given are valid.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 10/18/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 36. Valid Sudoku
@@ -66,35 +68,46 @@ namespace Practice
 {
     class LeetCode0036
     {
+        // Test Cases
         public LeetCode0036()
         {
-            char[][] board = new char[9][];
-            board[0] = new char[] { '5', '3', '.', '.', '7', '.', '.', '.', '.' };
-            board[1] = new char[] { '6', '.', '.', '1', '9', '5', '.', '.', '.' };
-            board[2] = new char[] { '.', '9', '8', '.', '.', '.', '.', '6', '.' };
-            board[3] = new char[] { '8', '.', '.', '.', '6', '.', '.', '.', '3' };
-            board[4] = new char[] { '4', '.', '.', '8', '.', '3', '.', '.', '1' };
-            board[5] = new char[] { '7', '.', '.', '.', '2', '.', '.', '.', '6' };
-            board[6] = new char[] { '.', '6', '.', '.', '.', '.', '2', '8', '.' };
-            board[7] = new char[] { '.', '.', '.', '4', '1', '9', '.', '.', '5' };
-            board[8] = new char[] { '.', '.', '.', '.', '8', '.', '.', '7', '9' };
-            Console.WriteLine("Example 1 should be True, and my code returns " + IsValidSudoku(board));
-            board[0] = new char[] { '8', '3', '.', '.', '7', '.', '.', '.', '.' };
-            board[1] = new char[] { '6', '.', '.', '1', '9', '5', '.', '.', '.' };
-            board[2] = new char[] { '.', '9', '8', '.', '.', '.', '.', '6', '.' };
-            board[3] = new char[] { '8', '.', '.', '.', '6', '.', '.', '.', '3' };
-            board[4] = new char[] { '4', '.', '.', '8', '.', '3', '.', '.', '1' };
-            board[5] = new char[] { '7', '.', '.', '.', '2', '.', '.', '.', '6' };
-            board[6] = new char[] { '.', '6', '.', '.', '.', '.', '2', '8', '.' };
-            board[7] = new char[] { '.', '.', '.', '4', '1', '9', '.', '.', '5' };
-            board[8] = new char[] { '.', '.', '.', '.', '8', '.', '.', '7', '9' };
-            Console.WriteLine("Example 2 should be False, and my code returns " + IsValidSudoku(board));
+            try
+            {
+                char[][] board = new char[9][];
+
+                board[0] = new char[] { '5', '3', '.', '.', '7', '.', '.', '.', '.' };
+                board[1] = new char[] { '6', '.', '.', '1', '9', '5', '.', '.', '.' };
+                board[2] = new char[] { '.', '9', '8', '.', '.', '.', '.', '6', '.' };
+                board[3] = new char[] { '8', '.', '.', '.', '6', '.', '.', '.', '3' };
+                board[4] = new char[] { '4', '.', '.', '8', '.', '3', '.', '.', '1' };
+                board[5] = new char[] { '7', '.', '.', '.', '2', '.', '.', '.', '6' };
+                board[6] = new char[] { '.', '6', '.', '.', '.', '.', '2', '8', '.' };
+                board[7] = new char[] { '.', '.', '.', '4', '1', '9', '.', '.', '5' };
+                board[8] = new char[] { '.', '.', '.', '.', '8', '.', '.', '7', '9' };
+                Console.WriteLine("Example 1 should be True, and my code returns " + IsValidSudoku(board));
+
+                board[0] = new char[] { '8', '3', '.', '.', '7', '.', '.', '.', '.' };
+                board[1] = new char[] { '6', '.', '.', '1', '9', '5', '.', '.', '.' };
+                board[2] = new char[] { '.', '9', '8', '.', '.', '.', '.', '6', '.' };
+                board[3] = new char[] { '8', '.', '.', '.', '6', '.', '.', '.', '3' };
+                board[4] = new char[] { '4', '.', '.', '8', '.', '3', '.', '.', '1' };
+                board[5] = new char[] { '7', '.', '.', '.', '2', '.', '.', '.', '6' };
+                board[6] = new char[] { '.', '6', '.', '.', '.', '.', '2', '8', '.' };
+                board[7] = new char[] { '.', '.', '.', '4', '1', '9', '.', '.', '5' };
+                board[8] = new char[] { '.', '.', '.', '.', '8', '.', '.', '7', '9' };
+                Console.WriteLine("Example 2 should be False, and my code returns " + IsValidSudoku(board));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public bool IsValidSudoku(char[][] board)
         {
             bool[] blockCheck;
 
-            for(int i = 0; i < board.Length; i++) //Rows
+            for(int i = 0; i < board.Length; i++) // Rows
             {
                 blockCheck = new bool[9];
                 for(int j = 0; j < board[i].Length; j++)
@@ -109,7 +122,7 @@ namespace Practice
                 }
             }
 
-            for (int i = 0; i < board.Length; i++) //Columns
+            for (int i = 0; i < board.Length; i++) // Columns
             {
                 blockCheck = new bool[9];
                 for (int j = 0; j < board[i].Length; j++)
@@ -124,7 +137,7 @@ namespace Practice
                 }
             }
 
-            for (int iStart = 0; iStart < 9; iStart+=3) //Blocks
+            for (int iStart = 0; iStart < 9; iStart+=3) // Blocks
                 for(int jStart = 0; jStart < 9; jStart+=3)
                 {
                     blockCheck = new bool[9];

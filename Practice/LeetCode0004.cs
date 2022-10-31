@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 4
- * 6/25/2021
+ * Author: Tyler Richey
+ * LeetCode: 4
+ * Title: Median of Two Sorted Arrays
+ * Description: Given two sorted arrays, return the median.
+ * Difficulty: Hard
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 6/25/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 4. Median of Two Sorted Arrays
@@ -51,48 +53,56 @@ nums2.length == n
 0 <= m <= 1000
 0 <= n <= 1000
 1 <= m + n <= 2000
--106 <= nums1[i], nums2[i] <= 106
+-10^6 <= nums1[i], nums2[i] <= 10^6
 */
 
 namespace Practice
 {
     class LeetCode0004
     {
+        // Test Cases
         public LeetCode0004()
         {
-            Random r = new Random();
-            int m = r.Next(1001);
-            int n = r.Next(1001);
-            if (m == n && m == 0)
-                m++;
-            int[] nums1 = new int[m];
-            int[] nums2 = new int[n];
-            for(int i = 0; i < m; i++)
-                nums1[i] = r.Next(213) - 106;
-            for (int i = 0; i < n; i++)
-                nums2[i] = r.Next(213) - 106;
-            Sort(nums1);
-            Sort(nums2);
-
-            double result = FindMedianSortedArrays(nums1, nums2);
-
-            Console.Write("Array 1: [");
-            for(int i = 0; i < nums1.Length; i++)
+            try
             {
-                if (i != 0)
-                    Console.Write(", ");
-                Console.Write(nums1[i]);
+                Random r = new Random();
+                int m = r.Next(1001);
+                int n = r.Next(1001);
+                if (m == n && m == 0)
+                    m++;
+                int[] nums1 = new int[m];
+                int[] nums2 = new int[n];
+                for (int i = 0; i < m; i++)
+                    nums1[i] = r.Next(213) - 106;
+                for (int i = 0; i < n; i++)
+                    nums2[i] = r.Next(213) - 106;
+                Sort(nums1);
+                Sort(nums2);
+
+                double result = FindMedianSortedArrays(nums1, nums2);
+
+                Console.Write("Array 1: [");
+                for (int i = 0; i < nums1.Length; i++)
+                {
+                    if (i != 0)
+                        Console.Write(", ");
+                    Console.Write(nums1[i]);
+                }
+                Console.WriteLine("]");
+                Console.Write("Array 2: [");
+                for (int i = 0; i < nums2.Length; i++)
+                {
+                    if (i != 0)
+                        Console.Write(", ");
+                    Console.Write(nums2[i]);
+                }
+                Console.WriteLine("]");
+                Console.WriteLine("Median: " + result);
             }
-            Console.WriteLine("]");
-            Console.Write("Array 2: [");
-            for (int i = 0; i < nums2.Length; i++)
+            catch (Exception e)
             {
-                if (i != 0)
-                    Console.Write(", ");
-                Console.Write(nums2[i]);
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
-            Console.WriteLine("]");
-            Console.WriteLine("Median: " + result);
         }
         public void Sort(int[] n)
         {
@@ -111,6 +121,7 @@ namespace Practice
             n[x] = n[y];
             n[y] = temp;
         }
+        // Solution
         public double FindMedianSortedArrays(int[] nums1, int[] nums2)
         {
             int[] combined = new int[nums1.Length + nums2.Length];
@@ -145,30 +156,11 @@ namespace Practice
             double median = 0;
             if (combined.Length == 0)
                 median = 0;
-            else if (combined.Length % 2 == 0) //Even, so 2 numbers
+            else if (combined.Length % 2 == 0) // Even, so 2 numbers
                 median = (combined[(combined.Length / 2) - 1] + combined[combined.Length / 2]) / 2.0;
-            else //Odd
+            else // Odd
                 median = combined[(combined.Length - 1) / 2];
             return median;
-
-            /* First attempt.  Did not fully understand the question.
-             * This takes the Median of nums1 and the Median of nums2 separately, then reports their Median.
-            double num1 = 0;
-            if (nums1.Length == 0)
-                num1 = 0;
-            else if (nums1.Length % 2 == 0) //Even, so 2 numbers
-                num1 = (nums1[(nums1.Length / 2) - 1] + nums1[nums1.Length / 2]) / 2;
-            else //Odd
-                num1 = nums1[(nums1.Length - 1) / 2];
-            double num2 = 0;
-            if (nums2.Length == 0)
-                num2 = 0;
-            else if (nums2.Length % 2 == 0) //Even, so 2 numbers
-                num2 = (nums2[(nums2.Length / 2) - 1] + nums2[nums2.Length / 2]) / 2;
-            else //Odd
-                num2 = nums2[(nums2.Length - 1) / 2];
-            return (num1 + num2) / 2;
-            */
         }
     }
 }

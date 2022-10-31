@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 44
- * 4/18/2022
+ * Author: Tyler Richey
+ * LeetCode: 44
+ * Title: Wildcard Matching
+ * Description: Wildcard Matching.
+ * Difficulty: Hard
+ * Status: Work In Progress
+ * Time Complexity: TBD
+ * Date: 4/18/2022
+ * Notes: My solution works, however I need to redo it to improve performance. As is, LeetCode does not accept it.
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 44. Wildcard Matching
@@ -47,9 +49,12 @@ namespace Practice
 {
     class LeetCode0044
     {
+        // Test Cases
         public LeetCode0044()
         {
-            String[][] inputs = new String[][] {
+            try
+            {
+                String[][] inputs = new String[][] {
                 new String[] { "aa", "a" },
                 new String[] { "aa", "*" },
                 new String[] { "cb", "?a" },
@@ -61,29 +66,42 @@ namespace Practice
                 new String[] { "babbbbaabababaabbababaababaabbaabababbaaababbababaaaaaabbabaaaabababbabbababbbaaaababbbabbbbbbbbbbaabbb",
                     "b**bb**a**bba*b**a*bbb**aba***babbb*aa****aabb*bbb***a" } };
 
-            for(int i = 0; i < inputs.Length; i++)
+                for (int i = 0; i < inputs.Length; i++)
+                {
+                    Console.Write("Test " + (i + 1) + ": \n\tString: " + inputs[i][0] + "\n\tPattern: " + inputs[i][1] + "\n\tOutput: ");
+                    Console.WriteLine(IsMatch(inputs[i][0], inputs[i][1]));
+                }
+            }
+            catch (Exception e)
             {
-                Console.Write("Test " + (i + 1) + ": \n\tString: " + inputs[i][0] + "\n\tPattern: " + inputs[i][1] + "\n\tOutput: ");
-                Console.WriteLine(IsMatch(inputs[i][0], inputs[i][1]));
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public bool IsMatch(string s, string p)
         {
             while (p.Length >= 2 && p[0] == '*' && p[1] == '*')
                 return IsMatch(s, p.Substring(1));
+
             if (s.Length == 0 && p.Length == 0)
                 return true;
+
             if (p == "*")
                 return true;
+
             if (s.Length == 0 && p.Length > 0)
                 return false;
+
             if (s.Length > 0 && p.Length == 0)
                 return false;
+
             if (s[0] == p[0] || p[0] == '?')
                 return IsMatch(s.Substring(1), p.Substring(1));
+
             if (s[s.Length - 1] == p[p.Length - 1] || p[p.Length - 1] == '?')
                 return IsMatch(s.Substring(0, s.Length - 1), p.Substring(0, p.Length - 1));
-            if(p[0] == '*') //I need to find a faster way to do this section.  There are currently far too many recursive calls
+
+            if(p[0] == '*') // I need to find a faster way to do this section.  There are currently far too many recursive calls
             {
                 String temp = "";
                 bool result = false;
@@ -91,16 +109,20 @@ namespace Practice
                 for (int i = 0; i < s.Length; i++)
                     if (s[i] != '*')
                         countNormalChars++;
+
                 if (s.Length < countNormalChars)
                     return false;
+
                 while(!result && temp.Length < s.Length)
                 {
                     if(IsMatch(s, temp + p.Substring(1)))
                         result = true;
                     temp = temp + s[temp.Length];
                 }
+
                 return result;
             }
+
             return false;
         }
     }

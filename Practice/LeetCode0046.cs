@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 46
- * 4/29/2022
+ * Author: Tyler Richey
+ * LeetCode: 46
+ * Title: Permutations
+ * Description: Get all possible permutations of an array of sorted distinct integers.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 4/29/2022
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 46. Permutations
@@ -42,33 +45,46 @@ namespace Practice
 {
     class LeetCode0046
     {
+        // Test Case
         public LeetCode0046()
         {
-            int[] input = new int[] { 1, 2, 3, 4 };
-            Console.Write("Input: [");
-            for(int i = 0; i < input.Length; i++)
+            try
             {
-                if (i > 0)
-                    Console.Write(", ");
-                Console.Write(input[i]);
-            }
-            Console.Write("]\nOutput: [");
-            IList<IList<int>> output = Permute(input);
-            for(int i = 0; i < output.Count; i++)
-            {
-                if (i > 0)
-                    Console.Write(", ");
-                Console.Write("[");
-                for(int j = 0; j < output[i].Count; j++)
+                int[] input = new int[] { 1, 2, 3, 4 };
+
+                Console.Write("Input: [");
+                for (int i = 0; i < input.Length; i++)
                 {
-                    if (j > 0)
+                    if (i > 0)
                         Console.Write(", ");
-                    Console.Write(output[i][j]);
+                    Console.Write(input[i]);
                 }
-                Console.Write("]");
+
+                Console.Write("]\nOutput: [");
+
+                IList<IList<int>> output = Permute(input);
+
+                for (int i = 0; i < output.Count; i++)
+                {
+                    if (i > 0)
+                        Console.Write(", ");
+                    Console.Write("[");
+                    for (int j = 0; j < output[i].Count; j++)
+                    {
+                        if (j > 0)
+                            Console.Write(", ");
+                        Console.Write(output[i][j]);
+                    }
+                    Console.Write("]");
+                }
+                Console.WriteLine("]");
             }
-            Console.WriteLine("]");
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public IList<IList<int>> Permute(int[] nums)
         {
             IList<IList<int>> output = new List<IList<int>>();
@@ -83,10 +99,12 @@ namespace Practice
                 IList<int> tempResult = new List<int>();
                 for (int i = 0; i < order.Length; i++)
                     tempResult.Add(nums[order[i]]);
+
                 output.Add(tempResult);
 
                 if (IsDescendingOrder(order))
                     keepGoing = false;
+
                 if(keepGoing)
                     NextPermutation(order);
             }
@@ -99,9 +117,10 @@ namespace Practice
             for (int i = 0; i < nums.Length - 1; i++)
                 if (nums[i] < nums[i + 1])
                     result = false;
+
             return result;
         }
-        private void NextPermutation(int[] nums) //From LeetCode 31
+        private void NextPermutation(int[] nums) // From LeetCode 31
         {
             if (nums.Length <= 1)
                 return;
@@ -110,6 +129,7 @@ namespace Practice
             for (int k = 0; k < nums.Length - 1; k++)
                 if (nums[k] < nums[k + 1])
                     alreadyOrdered = false;
+
             if (alreadyOrdered)
             {
                 Reverse(nums, 0);
@@ -119,19 +139,21 @@ namespace Practice
             int i = nums.Length - 2;
             while (i > 0 && nums[i] >= nums[i + 1])
                 i--;
-            //var i is now the index of the num that is lower than the one on it's right
-            //next I need the first index from the right that's higher than this num, as I can't assume it's right next to it
+            // Var i is now the index of the num that is lower than the one on it's right
+
+            // Next I need the first index from the right that's higher than this num, as I can't assume it's right next to it
             int j = nums.Length - 1;
             while (nums[i] >= nums[j])
                 j--;
-            //var j is now the index of the num that is higher than var i
-            //swap these two numbers, then reverse everything to the right of i
+            // Var j is now the index of the num that is higher than var i
+
+            // Swap these two numbers, then reverse everything to the right of i
             int temp = nums[i];
             nums[i] = nums[j];
             nums[j] = temp;
             Reverse(nums, i + 1);
         }
-        private void Reverse(int[] nums, int start) //Also From LeetCode 31
+        private void Reverse(int[] nums, int start) // Also From LeetCode 31
         {
             int i = start;
             int j = nums.Length - 1;

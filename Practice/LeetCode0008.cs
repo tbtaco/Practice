@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 8
- * 7/1/2021
+ * Author: Tyler Richey
+ * LeetCode: 8
+ * Title: String to Integer (atoi)
+ * Description: Given a string, return the integer portion that the string starts with (if possible). Creates a sort of atoi() function.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 7/1/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 8. String to Integer (atoi)
@@ -117,25 +119,36 @@ namespace Practice
 {
     class LeetCode0008
     {
+        // Test Cases
         public LeetCode0008()
         {
-            String[] tests = {"1", "0213", "Testing", "8372819283745884", "-28384758588372771", "+8475838271773848327", "+12", "-48",
+            try
+            {
+                String[] tests = {"1", "0213", "Testing", "8372819283745884", "-28384758588372771", "+8475838271773848327", "+12", "-48",
                 "18Test", "The lucky number of the day is: 7", "         7 is awesome!", "       321        ", "2 3 4 5",
                 "2147483646"};
-            foreach(String test in tests)
+
+                foreach (String test in tests)
+                {
+                    Console.Write("Test: \"" + test + "\", ");
+                    Console.WriteLine("Result: " + MyAtoi(test));
+                }
+            }
+            catch (Exception e)
             {
-                Console.Write("Test: \"" + test + "\", ");
-                Console.WriteLine("Result: " + MyAtoi(test));
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public int MyAtoi(string s)
         {
             String number = "";
+
             for(int i = 0; i < s.Length; i++)
                 if (s[i] != ' ')
                 {
                     Boolean readingNumbers = false;
-                    while (i < s.Length && ((!readingNumbers && (s[i] == '+' || s[i] == '-')) || (s[i] >= 48 && s[i] <= 57))) //ASCII Values 0-9
+                    while (i < s.Length && ((!readingNumbers && (s[i] == '+' || s[i] == '-')) || (s[i] >= 48 && s[i] <= 57))) // ASCII Values 0-9
                     {
                         number += s[i];
                         if (!readingNumbers)
@@ -144,13 +157,17 @@ namespace Practice
                     }
                     i = s.Length;
                 }
-            if (number == "" || number == "+" || number == "-" || number == "0") //Get some easy cases out of the way
+
+            if (number == "" || number == "+" || number == "-" || number == "0") // Get some easy cases out of the way
                 return 0;
+
             if (number[0] != '+' && number[0] != '-')
                 number = '+' + number;
-            while (number.Length >= 3 && number[1] == '0') //Gets rid of unnecessary zeros
+
+            while (number.Length >= 3 && number[1] == '0') // Gets rid of unnecessary zeros
                 number = number[0] + number.Substring(2);
-            if (number.Length > 10) //2,147,483,647 upper limit, -2,147,483,648 lower limit.  Anything above 10 chars then, with sign
+
+            if (number.Length > 10) // 2,147,483,647 upper limit, -2,147,483,648 lower limit.  Anything above 10 chars then, with sign
             {
                 if(number.Length > 11 || number[1] - 48 > 2)
                 {
@@ -158,6 +175,7 @@ namespace Practice
                         return Int32.MaxValue;
                     return Int32.MinValue;
                 }
+
                 if(number[1] - 48 == 2)
                 {
                     int temp = 0;
@@ -167,12 +185,15 @@ namespace Practice
                         temp += (number[i] - 48) * mul;
                         mul *= 10;
                     }
+
                     if (number[0] == '+' && temp > Int32.MaxValue - 2000000000)
                         return Int32.MaxValue;
+
                     else if (number[0] == '-' && -1 * temp < Int32.MinValue + 2000000000)
                         return Int32.MinValue;
                 }
             }
+
             int result = 0;
             int mult = 1;
             for(int i = number.Length - 1; i >= 1; i--)
@@ -180,8 +201,10 @@ namespace Practice
                 result += (number[i] - 48) * mult;
                 mult *= 10;
             }
+
             if (number[0] == '-')
                 result *= -1;
+
             return result;
         }
     }

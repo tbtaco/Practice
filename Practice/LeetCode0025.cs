@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 25
- * 8/30/2021
+ * Author: Tyler Richey
+ * LeetCode: 25
+ * Title: Reverse Nodes in k-Group
+ * Description: Similar to LeetCode0024.cs but instead of swapping 2 nodes, I reverse the order of k nodes. If the total number of nodes isn't divisible by k, leave the remainder as is.
+ * Difficulty: Hard
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 8/30/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 25. Reverse Nodes in k-Group
@@ -51,8 +53,6 @@ Constraints:
 Follow-up: Can you solve the problem in O(1) extra memory space?
 */
 
-//Note: ListNode is defined in LeetCode0002.cs
-
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -65,78 +65,98 @@ Follow-up: Can you solve the problem in O(1) extra memory space?
  * }
  */
 
+// Note: ListNode is defined in LeetCode0002.cs
+
 namespace Practice
 {
     class LeetCode0025
     {
-        public LeetCode0025() //Copied and modified from LeetCode0024.cs
+        // Test Cases
+        public LeetCode0025() // Copied and modified from LeetCode0024.cs
         {
-            const int minCount = 1;
-            const int maxCount = 25; //5000
-            const int minVal = 0;
-            const int maxVal = 1000;
-            Random r = new Random();
-
-            for(int i = 0; i < 5; i++)
+            try
             {
-                int count = r.Next(maxCount - minCount + 1) + minCount;
-                int totalCount = count;
-                ListNode head;
-                ListNode current;
-                if (count == 0)
-                    head = null;
-                else
+                const int minCount = 1;
+                const int maxCount = 25; // 5000
+                const int minVal = 0;
+                const int maxVal = 1000;
+
+                Random r = new Random();
+
+                for (int i = 0; i < 5; i++)
                 {
-                    head = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
-                    current = head;
-                    count--;
-                    while (count > 0)
+                    int count = r.Next(maxCount - minCount + 1) + minCount;
+                    int totalCount = count;
+                    ListNode head;
+                    ListNode current;
+
+                    if (count == 0)
+                        head = null;
+
+                    else
                     {
-                        current.next = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
-                        current = current.next;
+                        head = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
+                        current = head;
                         count--;
+                        while (count > 0)
+                        {
+                            current.next = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
+                            current = current.next;
+                            count--;
+                        }
                     }
-                }
-                Console.Write("Input: [");
-                current = null;
-                if (head != null)
-                {
-                    Console.Write(head.val);
-                    current = head.next;
-                }
-                while (current != null)
-                {
-                    Console.Write(", " + current.val);
-                    current = current.next;
-                }
-                int k = r.Next(totalCount - 1) + 1;
-                Console.Write("]\nK: " + k + "\nOutput: [");
-                ListNode result = ReverseKGroup(head, k);
 
-                int tempCount = 0;
-                current = result;
-                while(current != null)
-                {
-                    tempCount++;
-                    current = current.next;
-                }
-                if (tempCount != totalCount)
-                    throw new Exception("Original length: " + totalCount + ", New length: " + tempCount + ", Lengths must match!");
+                    Console.Write("Input: [");
+                    current = null;
+                    if (head != null)
+                    {
+                        Console.Write(head.val);
+                        current = head.next;
+                    }
+                    while (current != null)
+                    {
+                        Console.Write(", " + current.val);
+                        current = current.next;
+                    }
 
-                current = null;
-                if (result != null)
-                {
-                    Console.Write(result.val);
-                    current = result.next;
+                    int k = r.Next(totalCount - 1) + 1;
+                    Console.Write("]\nK: " + k + "\nOutput: [");
+
+                    ListNode result = ReverseKGroup(head, k);
+
+                    int tempCount = 0;
+                    current = result;
+                    while (current != null)
+                    {
+                        tempCount++;
+                        current = current.next;
+                    }
+
+                    if (tempCount != totalCount)
+                        throw new Exception("Original length: " + totalCount + ", New length: " + tempCount + ", Lengths must match!");
+
+                    current = null;
+                    if (result != null)
+                    {
+                        Console.Write(result.val);
+                        current = result.next;
+                    }
+
+                    while (current != null)
+                    {
+                        Console.Write(", " + current.val);
+                        current = current.next;
+                    }
+
+                    Console.WriteLine("]\n");
                 }
-                while (current != null)
-                {
-                    Console.Write(", " + current.val);
-                    current = current.next;
-                }
-                Console.WriteLine("]\n");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public ListNode ReverseKGroup(ListNode head, int k)
         {
             if (k == 1)
@@ -149,12 +169,14 @@ namespace Practice
                 count++;
                 current = current.next;
             }
+
             if (count < k)
                 return head;
 
             current = head;
             for (int i = k - 1; i > 0; i--)
                 current = current.next;
+
             ListNode next = ReverseKGroup(current.next, k);
 
             ListNode newHead = null;
@@ -163,6 +185,7 @@ namespace Practice
                 ListNode temp = head;
                 for(int j = 0; j < k - i - 1; j++)
                     temp = temp.next;
+
                 if (i == 0)
                 {
                     newHead = temp;

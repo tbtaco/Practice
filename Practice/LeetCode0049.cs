@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 49
- * 6/8/2022
+ * Author: Tyler Richey
+ * LeetCode: 49
+ * Title: Group Anagrams
+ * Description: TODO
+ * Difficulty: Medium
+ * Status: TODO
+ * Time Complexity: TODO
+ * Date: 10/31/2022
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 49. Group Anagrams
@@ -43,10 +46,19 @@ namespace Practice
 {
     class LeetCode0049
     {
+        // Test Cases
         public LeetCode0049()
         {
-            throw new Exception("TODO");
+            try
+            {
+                throw new Exception("TODO");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public IList<IList<string>> GroupAnagrams(string[] strs)
         {
             throw new Exception("TODO");

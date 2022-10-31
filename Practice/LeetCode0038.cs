@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 38
- * 11/9/2021
+ * Author: Tyler Richey
+ * LeetCode: 38
+ * Title: Count and Say
+ * Description: Count and say.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(2^n)
+ * Date: 11/9/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 38. Count and Say
@@ -53,22 +55,38 @@ namespace Practice
 {
     class LeetCode0038
     {
+        // Test Cases
         public LeetCode0038()
         {
-            for(int i = 1; i <= 20; i++) //1 to 30 to fully test the constraints
+            try
             {
-                Console.Write("n = " + i + ": ");
-                if (i < 10)
-                    Console.Write(" ");
-                Console.WriteLine(CountAndSay(i));
+                const int start = 1;
+                const int end = 20; // 30
+
+
+                for (int i = start; i <= end; i++)
+                {
+                    Console.Write("n = " + i + ": ");
+                    if (i < 10) // Max of 30 so I'll align to 2 digits only
+                        Console.Write(" ");
+
+                    Console.WriteLine(CountAndSay(i));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public string CountAndSay(int n)
         {
             if (n == 1)
                 return "1";
+
             String s = CountAndSay(n - 1);
             String result = "";
+
             while(s.Length > 0)
             {
                 int count = CountNext(s);
@@ -84,6 +102,7 @@ namespace Practice
             int count = 1;
             for (int i = 1; i < s.Length && s[i] == c; i++)
                 count++;
+
             return count;
         }
     }

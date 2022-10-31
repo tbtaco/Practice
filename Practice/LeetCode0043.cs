@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 43
- * 4/11/2022
+ * Author: Tyler Richey
+ * LeetCode: 43
+ * Title: Multiply Strings
+ * Description: Multiply two Strings.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 4/11/2022
+ * Notes: To solve this one I used Fast Fourier Transforms (FFT).
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 43. Multiply Strings
@@ -60,14 +63,24 @@ namespace Practice
 {
     class LeetCode0043
     {
+        // Test Case
         public LeetCode0043()
         {
-            String inputA = "1234";
-            String inputB = "5678";
-            String expectedResult = "7006652";
-            Console.WriteLine(inputA + " x " + inputB + " = " + Multiply(inputA, inputB) + " (Should be " + expectedResult + ")");
+            try
+            {
+                String inputA = "1234";
+                String inputB = "5678";
+                String expectedResult = "7006652";
+
+                Console.WriteLine(inputA + " x " + inputB + " = " + Multiply(inputA, inputB) + " (Should be " + expectedResult + ")");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
-        private const int charOffset = 48; //'0' = 48, '1' = 49, and so on (from ASCII table)
+        // Solution
+        private const int charOffset = 48; // '0' = 48, '1' = 49, and so on (from ASCII table)
         public string Multiply(string num1, string num2)
         {
             IList<IList<int>> tempResults1 = new List<IList<int>>();

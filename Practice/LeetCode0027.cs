@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 27
- * 9/1/2021
+ * Author: Tyler Richey
+ * LeetCode: 27
+ * Title: Remove Element
+ * Description: Similar to LeetCode0026.cs but I'm removing a specific number instead of duplicates.
+ * Difficulty: Easy
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 9/1/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 27. Remove Element
@@ -72,31 +74,49 @@ namespace Practice
 {
     class LeetCode0027
     {
-        public int[] test = new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
-        public LeetCode0027() //Copied and modified from LeetCode0026.cs
+        // Test Case
+        public LeetCode0027() // Copied and modified from LeetCode0026.cs
         {
-            Console.Write("Input: [");
-            for (int i = 0; i < test.Length; i++)
-                if (i == 0)
-                    Console.Write(test[i]);
-                else
-                    Console.Write(", " + test[i]);
-            int toRemove = 1;
-            Console.Write("]\nTo Remove: " + toRemove + "\nOutput k: ");
-            int k = RemoveElement(test, toRemove);
-            Console.Write(k + "\nOutput: [");
-            for (int i = 0; i < k; i++)
-                if (i == 0)
-                    Console.Write(test[i]);
-                else
-                    Console.Write(", " + test[i]);
-            Console.WriteLine("]");
-            Console.WriteLine("(Just 1 test this time, but this one is easy)");
+            try
+            {
+                int[] test = new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
+
+                Console.Write("Input: [");
+                for (int i = 0; i < test.Length; i++)
+                    if (i == 0)
+                        Console.Write(test[i]);
+                    else
+                        Console.Write(", " + test[i]);
+
+                int toRemove = 1;
+
+                Console.Write("]\nTo Remove: " + toRemove + "\nOutput k: ");
+
+                int k = RemoveElement(test, toRemove);
+
+                Console.Write(k + "\nOutput: [");
+
+                for (int i = 0; i < k; i++)
+                    if (i == 0)
+                        Console.Write(test[i]);
+                    else
+                        Console.Write(", " + test[i]);
+
+                Console.WriteLine("]");
+
+                Console.WriteLine("(Just 1 test this time, but this one is easy)");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
-        public int RemoveElement(int[] nums, int val) //Entire thing is similar to LeetCode0026.cs
+        // Solution
+        public int RemoveElement(int[] nums, int val) // Entire thing is similar to LeetCode0026.cs
         {
             if (nums.Length == 0)
                 return 0;
+
             int removed = 0;
             for (int i = 0; i < nums.Length - removed; i++)
                 if (nums[i] == val)
@@ -105,9 +125,10 @@ namespace Practice
                     i--;
                     removed++;
                 }
+
             return nums.Length - removed;
         }
-        private void shiftNumsLeft(int[] nums, int index) //Copied from LeetCode0026.cs
+        private void shiftNumsLeft(int[] nums, int index) // Copied from LeetCode0026.cs
         {
             for (int j = index; j < nums.Length - 1; j++)
                 nums[j] = nums[j + 1];

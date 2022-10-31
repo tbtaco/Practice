@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 13
- * 7/12/2021
+ * Author: Tyler Richey
+ * LeetCode: 13
+ * Title: Roman to Integer
+ * Description: Roman Numeral to Integer.
+ * Difficulty: Easy
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 7/12/2021
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 13. Roman to Integer
@@ -25,9 +28,12 @@ C             100
 D             500
 M             1000
 
-For example, 2 is written as II in Roman numeral, just two one's added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+For example, 2 is written as II in Roman numeral, just two one's added together. 12 is written as XII, which is simply X + II.
+The number 27 is written as XXVII, which is XX + V + II.
 
-Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead,
+the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine,
+which is written as IX. There are six instances where subtraction is used:
 
     I can be placed before V (5) and X (10) to make 4 and 9. 
     X can be placed before L (50) and C (100) to make 40 and 90. 
@@ -73,23 +79,34 @@ namespace Practice
 {
     class LeetCode0013
     {
+        // Test Cases
         public LeetCode0013()
         {
-            Random r = new Random();
-            List<int> tests = new List<int>();
-            tests.Add(1);
-            tests.Add(4);
-            tests.Add(9);
-            tests.Add(26);
-            tests.Add(1000);
-            for (int i = 0; i < 20; i++)
-                tests.Add(r.Next(3999) + 1);
-            List<String> t = new List<String>();
-            foreach (int test in tests)
-                t.Add(LeetCode0012.IntToRoman(test));
-            foreach (String s in t)
-                Console.WriteLine("Input: " + s + ", Output: " + RomanToInt(s));
+            try
+            {
+                Random r = new Random();
+                List<int> tests = new List<int>();
+                tests.Add(1);
+                tests.Add(4);
+                tests.Add(9);
+                tests.Add(26);
+                tests.Add(1000);
+                for (int i = 0; i < 20; i++)
+                    tests.Add(r.Next(3999) + 1);
+
+                List<String> t = new List<String>();
+                foreach (int test in tests)
+                    t.Add(LeetCode0012.IntToRoman(test));
+
+                foreach (String s in t)
+                    Console.WriteLine("Input: " + s + ", Output: " + RomanToInt(s));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public int RomanToInt(string s)
         {
             int result = 0;

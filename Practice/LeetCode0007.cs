@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 7
- * 6/29/2021
+ * Author: Tyler Richey
+ * LeetCode: 7
+ * Title: Reverse Integer
+ * Description: Reverse the digits of an integer.
+ * Difficulty: Easy
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 6/29/2021
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 7. Reverse Integer
@@ -47,31 +50,42 @@ namespace Practice
 {
     class LeetCode0007
     {
+        // Test Case
         public LeetCode0007()
         {
-            Random r = new Random();
-            int input = r.Next(500000) - 250000; //Just to test
+            try
+            {
+                Random r = new Random();
+                int input = r.Next(500000) - 250000;
 
-            //input = 1534236469;
+                int result = Reverse(input);
 
-            int result = Reverse(input);
-
-            Console.WriteLine("Input: " + input);
-            Console.WriteLine("Output: " + result);
+                Console.WriteLine("Input: " + input);
+                Console.WriteLine("Output: " + result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public int Reverse(int x)
         {
             List<int> nums = new List<int>();
+
             Boolean negative = x < 0;
             if (negative)
                 x *= -1;
+
             while(x != 0)
             {
                 nums.Add(x % 10);
                 x /= 10;
             }
+
             if (nums.Count >= 10 && nums[0] > 2)
                 return 0;
+
             int mult = 1;
             int result = 0;
             for(int i = nums.Count - 1; i >= 0; i--)
@@ -81,8 +95,10 @@ namespace Practice
                 result += nums[i] * mult;
                 mult *= 10;
             }
+
             if (negative)
                 result *= -1;
+
             return result;
         }
     }

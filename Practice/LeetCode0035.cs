@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 35
- * 10/11/2021
+ * Author: Tyler Richey
+ * LeetCode: 35
+ * Title: Search Insert Position
+ * Description: Return the position in a sorted array that a target number is either found, or would be inserted in order.
+ * Difficulty: Easy
+ * Status: Solved
+ * Time Complexity: O()
+ * Date: 10/11/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 35. Search Insert Position
@@ -56,40 +58,51 @@ namespace Practice
 {
     class LeetCode0035
     {
+        // Test Cases
         public LeetCode0035()
         {
-            Random r = new Random();
-            for(int i = 0; i < 10; i++)
+            try
             {
-                Console.Write("Input: [");
-                int[] input = new int[r.Next(15)];
-                for(int j = 0; j < input.Length; j++)
+                Random r = new Random();
+                for (int i = 0; i < 10; i++)
                 {
-                    if (j == 0)
-                        input[j] = r.Next(100) - r.Next(100);
-                    else
+                    Console.Write("Input: [");
+                    int[] input = new int[r.Next(15)];
+                    for (int j = 0; j < input.Length; j++)
                     {
-                        input[j] = input[j - 1] + r.Next(20) + 1;
-                        Console.Write(", ");
+                        if (j == 0)
+                            input[j] = r.Next(100) - r.Next(100);
+                        else
+                        {
+                            input[j] = input[j - 1] + r.Next(20) + 1;
+                            Console.Write(", ");
+                        }
+                        Console.Write(input[j]);
                     }
-                    Console.Write(input[j]);
+                    Console.Write("] Target: ");
+                    int target = r.Next(150);
+                    Console.Write(target + " Output: ");
+                    int output = SearchInsert(input, target);
+                    Console.WriteLine(output);
                 }
-                Console.Write("] Target: ");
-                int target = r.Next(150);
-                Console.Write(target + " Output: ");
-                int output = SearchInsert(input, target);
-                Console.WriteLine(output);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public int SearchInsert(int[] nums, int target)
         {
             for(int i = 0; i < nums.Length; i++)
             {
                 if (target <= nums[i])
                     return i;
+
                 if (i == nums.Length - 1)
                     return i + 1;
             }
+
             return 0;
         }
     }

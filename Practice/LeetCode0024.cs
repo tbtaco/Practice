@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 24
- * 8/30/2021
+ * Author: Tyler Richey
+ * LeetCode: 24
+ * Title: Swap Nodes in Pairs
+ * Description: Swap nodes in pairs.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 8/30/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 24. Swap Nodes in Pairs
@@ -39,8 +41,6 @@ Constraints:
     0 <= Node.val <= 100
 */
 
-//Note: ListNode defined in LeetCode0002.cs
-
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -53,76 +53,99 @@ Constraints:
  * }
  */
 
+// Note: ListNode defined in LeetCode0002.cs
+
 namespace Practice
 {
     class LeetCode0024
     {
+        // Test Cases
         public LeetCode0024()
         {
-            const int minCount = 0;
-            const int maxCount = 100;
-            const int minVal = 0;
-            const int maxVal = 100;
-            Random r = new Random();
-
-            for(int i = 0; i < 10; i++)
+            try
             {
-                int count = r.Next(maxCount - minCount + 1) + minCount;
-                ListNode head;
-                ListNode current;
-                if (count == 0)
-                    head = null;
-                else
+                const int minCount = 0;
+                const int maxCount = 100;
+                const int minVal = 0;
+                const int maxVal = 100;
+
+                Random r = new Random();
+
+                for (int i = 0; i < 10; i++)
                 {
-                    head = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
-                    current = head;
-                    count--;
-                    while (count > 0)
+                    int count = r.Next(maxCount - minCount + 1) + minCount;
+                    ListNode head;
+                    ListNode current;
+
+                    if (count == 0)
+                        head = null;
+
+                    else
                     {
-                        current.next = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
-                        current = current.next;
+                        head = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
+                        current = head;
                         count--;
+                        while (count > 0)
+                        {
+                            current.next = new ListNode(r.Next(maxVal - minVal + 1) + minCount, null);
+                            current = current.next;
+                            count--;
+                        }
                     }
+
+                    Console.Write("Input: [");
+                    current = null;
+                    if (head != null)
+                    {
+                        Console.Write(head.val);
+                        current = head.next;
+                    }
+
+                    while (current != null)
+                    {
+                        Console.Write(", " + current.val);
+                        current = current.next;
+                    }
+
+                    Console.Write("]\nOutput: [");
+                    ListNode result = SwapPairs(head);
+                    current = null;
+                    if (result != null)
+                    {
+                        Console.Write(result.val);
+                        current = result.next;
+                    }
+
+                    while (current != null)
+                    {
+                        Console.Write(", " + current.val);
+                        current = current.next;
+                    }
+
+                    Console.WriteLine("]\n");
                 }
-                Console.Write("Input: [");
-                current = null;
-                if (head != null)
-                {
-                    Console.Write(head.val);
-                    current = head.next;
-                }
-                while(current != null)
-                {
-                    Console.Write(", " + current.val);
-                    current = current.next;
-                }
-                Console.Write("]\nOutput: [");
-                ListNode result = SwapPairs(head);
-                current = null;
-                if (result != null)
-                {
-                    Console.Write(result.val);
-                    current = result.next;
-                }
-                while (current != null)
-                {
-                    Console.Write(", " + current.val);
-                    current = current.next;
-                }
-                Console.WriteLine("]\n");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public ListNode SwapPairs(ListNode head)
         {
             if (head == null)
                 return null;
+
             if (head.next == null)
                 return head;
+
             ListNode temp = head;
             head = head.next;
             temp.next = head.next;
             head.next = temp;
+
             head.next.next = SwapPairs(head.next.next);
+
             return head;
         }
     }

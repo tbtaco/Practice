@@ -1,7 +1,13 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 30
- * 2/3/2022
+ * Author: Tyler Richey
+ * LeetCode: 30
+ * Title: Substring with Concatenation of All Words
+ * Description: Given a string and an array of string words, return all starting indices where the words can be concatenated to equal a substring of the original string.
+ * Difficulty: Hard
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 2/3/2022
+ * Notes: 
  */
 
 using System;
@@ -46,31 +52,42 @@ namespace Practice
 {
     class LeetCode0030
     {
+        // Test Case
         public LeetCode0030()
         {
-            String s = "wordgoodgoodgoodbestword";
-            String[] words = new string[] { "word", "good", "best", "good" };
-
-            Console.WriteLine("s = " + s);
-            Console.Write("words = ");
-            for(int i = 0; i < words.Length; i++)
+            try
             {
-                if (i > 0)
-                    Console.Write(", ");
-                Console.Write(words[i]);
+                String s = "wordgoodgoodgoodbestword";
+                String[] words = new string[] { "word", "good", "best", "good" };
+
+                Console.WriteLine("s = " + s);
+                Console.Write("words = ");
+                for (int i = 0; i < words.Length; i++)
+                {
+                    if (i > 0)
+                        Console.Write(", ");
+                    Console.Write(words[i]);
+                }
+
+                Console.Write("\noutput = [");
+
+                IList<int> output = FindSubstring(s, words);
+
+                for (int i = 0; i < output.Count; i++)
+                {
+                    if (i > 0)
+                        Console.Write(", ");
+                    Console.Write(output[i]);
+                }
+
+                Console.WriteLine("]");
             }
-            Console.Write("\noutput = [");
-
-            IList<int> output = FindSubstring(s, words);
-
-            for (int i = 0; i < output.Count; i++)
+            catch (Exception e)
             {
-                if (i > 0)
-                    Console.Write(", ");
-                Console.Write(output[i]);
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
-            Console.WriteLine("]");
         }
+        // Solution
         public IList<int> FindSubstring(string s, string[] words)
         {
             List<Word> newWords = new List<Word>();
@@ -101,35 +118,24 @@ namespace Practice
 
             return result;
         }
-        /*
-        private String ListToString(IList<Word> words)
-        {
-            String result = "[";
-            for(int i = 0; i < words.Count; i++)
-            {
-                if (i > 0)
-                    result += ", ";
-                result += words[i].ToString() + ":" + words[i].Count;
-            }
-            result += "]";
-            return result;
-        }
-        */
         private IList<Word> CopyList(IList<Word> words)
         {
             IList<Word> newWords = new List<Word>();
             for (int i = 0; i < words.Count; i++)
                 newWords.Add(new Word(words[i].ToString(), words[i].Count));
+
             return newWords;
         }
         private bool ValidSubstring(String s, IList<Word> words)
         {
             if (GetTotalLength(words) == 0 && s.Length == 0)
                 return true;
+
             for(int i = 0; i < words.Count; i++)
                 if(s.Substring(0, words[i].Length) == words[i].ToString())
                     if (ValidSubstring(s.Substring(words[i].Length), RemoveOneWord(CopyList(words), i)))
                         return true;
+
             return false;
         }
         private IList<Word> RemoveOneWord(IList<Word> words, int i)
@@ -138,6 +144,7 @@ namespace Practice
                 words[i].RemoveOne();
             else
                 words.RemoveAt(i);
+
             return words;
         }
         private int GetTotalLength(IList<Word> words)
@@ -145,6 +152,7 @@ namespace Practice
             int l = 0;
             foreach (Word w in words)
                 l += w.TotalLength;
+
             return l;
         }
     }

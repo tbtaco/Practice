@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 9
- * 7/1/2021
+ * Author: Tyler Richey
+ * LeetCode: 9
+ * Title: Palindrome Number
+ * Description: Return a boolean to say if an integer is a palindrome.
+ * Difficulty: Easy
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 7/1/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 9. Palindrome Number
@@ -48,21 +50,33 @@ namespace Practice
 {
     class LeetCode0009
     {
+        // Test Cases
         public LeetCode0009()
         {
-            int[] tests = { 0, 123, 121, 128464821, 129384421, -1, -121, -21314256 };
-            foreach (int test in tests)
+            try
             {
-                Console.Write("Test: " + test + ", ");
-                Console.WriteLine("Result: " + IsPalindrome(test));
+                int[] tests = { 0, 123, 121, 128464821, 129384421, -1, -121, -21314256 };
+
+                foreach (int test in tests)
+                {
+                    Console.Write("Test: " + test + ", ");
+                    Console.WriteLine("Result: " + IsPalindrome(test));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public bool IsPalindrome(int x)
         {
             String s = "" + x;
+
             for(int i = 0; i < s.Length / 2; i++)
                 if (s[i] != s[s.Length - 1 - i])
                     return false;
+
             return true;
         }
     }

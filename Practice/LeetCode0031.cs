@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 31
- * 10/18/2021
+ * Author: Tyler Richey
+ * LeetCode: 31
+ * Title: Next Permutation
+ * Description: Next Permutation. Given a list of integers that represent a number, rearrange the numbers to create the next highest number. If it's already the highest, rearrange into the lowest number.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 10/18/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 31. Next Permutation
@@ -50,53 +52,50 @@ namespace Practice
 {
     class LeetCode0031
     {
-        private int[] nums;
+        // Test Cases
         public LeetCode0031()
         {
-            Random r = new Random();
-            const int minLength = 1;
-            const int maxLength = 100;
-            const int minVal = 0;
-            const int maxVal = 100;
-            for(int i = 0; i < 10; i++)
+            try
             {
-                nums = new int[r.Next(maxLength - minLength + 1) + minLength];
-                Console.Write("Input: [");
-                for (int j = 0; j < nums.Length; j++)
+                int[] nums;
+
+                Random r = new Random();
+
+                const int minLength = 1;
+                const int maxLength = 100;
+                const int minVal = 0;
+                const int maxVal = 100;
+
+                for (int i = 0; i < 5; i++)
                 {
-                    nums[j] = r.Next(maxVal - minVal + 1) + minVal;
-                    if (j != 0)
-                        Console.Write(", ");
-                    Console.Write(nums[j]);
+                    nums = new int[r.Next(maxLength - minLength + 1) + minLength];
+                    Console.Write("Input: [");
+                    for (int j = 0; j < nums.Length; j++)
+                    {
+                        nums[j] = r.Next(maxVal - minVal + 1) + minVal;
+                        if (j != 0)
+                            Console.Write(", ");
+                        Console.Write(nums[j]);
+                    }
+
+                    Console.Write("]\nOutput: [");
+                    NextPermutation(nums);
+                    for (int j = 0; j < nums.Length; j++)
+                    {
+                        if (j != 0)
+                            Console.Write(", ");
+                        Console.Write(nums[j]);
+                    }
+
+                    Console.Write("]\n\n");
                 }
-                Console.Write("]\nOutput: [");
-                NextPermutation(nums);
-                for(int j = 0; j < nums.Length; j++)
-                {
-                    if (j != 0)
-                        Console.Write(", ");
-                    Console.Write(nums[j]);
-                }
-                Console.Write("]\n\n");
             }
-            //AnotherTest();
-        }
-        private void AnotherTest()
-        {
-            nums = new int[] { 1, 2, 3 }; //6 permutations
-            for(int i = 0; i < 12; i++)
+            catch (Exception e)
             {
-                Console.Write("[");
-                for (int j = 0; j < nums.Length; j++)
-                {
-                    if (j != 0)
-                        Console.Write(", ");
-                    Console.Write(nums[j]);
-                }
-                Console.WriteLine("]");
-                NextPermutation(nums);
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public void NextPermutation(int[] nums)
         {
             if (nums.Length <= 1)
@@ -115,13 +114,15 @@ namespace Practice
             int i = nums.Length - 2;
             while (i > 0 && nums[i] >= nums[i + 1])
                 i--;
-            //var i is now the index of the num that is lower than the one on it's right
-            //next I need the first index from the right that's higher than this num, as I can't assume it's right next to it
+            // Var i is now the index of the num that is lower than the one on it's right
+
+            // Next I need the first index from the right that's higher than this num, as I can't assume it's right next to it
             int j = nums.Length - 1;
             while (nums[i] >= nums[j])
                 j--;
-            //var j is now the index of the num that is higher than var i
-            //swap these two numbers, then reverse everything to the right of i
+            // Var j is now the index of the num that is higher than var i
+
+            // Swap these two numbers, then reverse everything to the right of i
             int temp = nums[i];
             nums[i] = nums[j];
             nums[j] = temp;

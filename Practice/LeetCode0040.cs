@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 40
- * 3/1/2022
+ * Author: Tyler Richey
+ * LeetCode: 40
+ * Title: Combination Sum II
+ * Description: Combination Sum II.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(2^n)
+ * Date: 3/1/2022
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 40. Combination Sum II
@@ -52,64 +55,77 @@ namespace Practice
 {
     class LeetCode0040
     {
-        private const int targetMin = 1; //1
-        private const int targetMax = 30; //30
-        private const int candidateMin = 1; //1
-        private const int candidateMax = 50; //50
-        private const int candidateLengthMin = 1; //1
-        private const int candidateLengthMax = 100; //100
+        // Test Cases
+        private const int targetMin = 1;
+        private const int targetMax = 30;
+        private const int candidateMin = 1;
+        private const int candidateMax = 50;
+        private const int candidateLengthMin = 1;
+        private const int candidateLengthMax = 100;
+        private const int testCount = 5;
         public LeetCode0040()
         {
-            Random r = new Random();
-            r.Next(); r.Next(); r.Next();
-            for (int i = 1; i <= 5; i++)
+            try
             {
-                Console.Write("Test " + i + ":\n\tCandidates: [");
+                Random r = new Random();
+                r.Next(); r.Next(); r.Next(); // The Random classes first value (at least) follows very clear patterns tied to system time etc.  I do this to break that pattern and get more random results
 
-                int[] candidates;
-                int target;
-                if (i == 5)
+                for (int i = 1; i <= testCount; i++)
                 {
-                    candidates = new int[] { 1, 2 };
-                    for (int j = 0; j < candidates.Length; j++)
+                    Console.Write("Test " + i + ":\n\tCandidates: [");
+
+                    int[] candidates;
+                    int target;
+                    if (i == testCount) // Last test I want to manually set
+                    {
+                        candidates = new int[] { 1, 2 };
+                        for (int j = 0; j < candidates.Length; j++)
+                        {
+                            if (j > 0)
+                                Console.Write(", ");
+                            Console.Write(candidates[j]);
+                        }
+
+                        target = 1;
+                    }
+                    else
+                    {
+                        candidates = new int[r.Next(candidateLengthMax - candidateLengthMin + 1) + candidateLengthMin];
+                        for (int j = 0; j < candidates.Length; j++)
+                        {
+                            if (j > 0)
+                                Console.Write(", ");
+                            candidates[j] = r.Next(candidateMax - candidateMin + 1) + candidateMin;
+                            Console.Write(candidates[j]);
+                        }
+
+                        target = r.Next(targetMax - targetMin + 1) + targetMin;
+                    }
+
+                    Console.Write("]\n\tTarget: " + target + "\n\tOutput: [");
+                    IList<IList<int>> result = CombinationSum2(candidates, target);
+                    for (int j = 0; j < result.Count; j++)
                     {
                         if (j > 0)
                             Console.Write(", ");
-                        Console.Write(candidates[j]);
+                        Console.Write("[");
+                        for (int k = 0; k < result[j].Count; k++)
+                        {
+                            if (k > 0)
+                                Console.Write(", ");
+                            Console.Write(result[j][k]);
+                        }
+                        Console.Write("]");
                     }
-                    target = 1;
+                    Console.WriteLine("]");
                 }
-                else
-                {
-                    candidates = new int[r.Next(candidateLengthMax - candidateLengthMin + 1) + candidateLengthMin];
-                    for (int j = 0; j < candidates.Length; j++)
-                    {
-                        if (j > 0)
-                            Console.Write(", ");
-                        candidates[j] = r.Next(candidateMax - candidateMin + 1) + candidateMin;
-                        Console.Write(candidates[j]);
-                    }
-                    target = r.Next(targetMax - targetMin + 1) + targetMin;
-                }
-                
-                Console.Write("]\n\tTarget: " + target + "\n\tOutput: [");
-                IList<IList<int>> result = CombinationSum2(candidates, target);
-                for(int j = 0; j < result.Count; j++)
-                {
-                    if (j > 0)
-                        Console.Write(", ");
-                    Console.Write("[");
-                    for(int k = 0; k < result[j].Count; k++)
-                    {
-                        if (k > 0)
-                            Console.Write(", ");
-                        Console.Write(result[j][k]);
-                    }
-                    Console.Write("]");
-                }
-                Console.WriteLine("]");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public IList<IList<int>> CombinationSum2(int[] candidates, int target)
         {
             IList<IList<int>> result = new List<IList<int>>();
@@ -128,6 +144,7 @@ namespace Practice
                         result[0].RemoveAt(i);
                         i--;
                     }
+
                 return result;
             }
 
@@ -140,6 +157,7 @@ namespace Practice
                     if (GetSum(temp) == target)
                         result.Add(temp);
                 }
+
                 return result;
             }
 
@@ -158,6 +176,7 @@ namespace Practice
                 int sum = GetSum(current);
                 if (sum > target)
                     return;
+
                 if(sum == target)
                     AddIfNotPresent(result, current);
                 else
@@ -171,8 +190,7 @@ namespace Practice
                 result.Add(i);
             return result;
         }
-        //From LeetCode 4
-        private void Sort(int[] n)
+        private void Sort(int[] n) // From LeetCode 4
         {
             for (int i = 0; i < n.Length; i++)
             {
@@ -183,8 +201,7 @@ namespace Practice
                 Swap(n, i, lowest);
             }
         }
-        //From LeetCode 4
-        private void Swap(int[] n, int x, int y)
+        private void Swap(int[] n, int x, int y) // From LeetCode 4
         {
             int temp = n[x];
             n[x] = n[y];
@@ -194,13 +211,14 @@ namespace Practice
         {
             for(int i = 0; i < n.Length; i++)
                 if (n[i] > target)
-                    n[i] = 0; //0 is not possible, so I'll know to skip it in the main method
+                    n[i] = 0; // 0 is not possible, so I'll know to skip it in the main method
         }
         private int GetSum(IList<int> nums)
         {
             int sum = 0;
             foreach (int i in nums)
                 sum += i;
+
             return sum;
         }
         private void AddIfNotPresent(IList<IList<int>> result, IList<int> b)
@@ -208,15 +226,18 @@ namespace Practice
             foreach(IList<int> a in result)
                 if(AreEqual(a, b))
                     return;
+
             result.Add(b);
         }
         private bool AreEqual(IList<int> a, IList<int> b)
         {
             if (a.Count != b.Count)
                 return false;
+
             for(int i = 0; i < a.Count; i++)
                 if (a[i] != b[i])
                     return false;
+
             return true;
         }
         private bool AllSame(int[] nums)
@@ -225,6 +246,7 @@ namespace Practice
             for (int i = 1; i < nums.Length; i++)
                 if (nums[i] != num)
                     return false;
+
             return true;
         }
     }

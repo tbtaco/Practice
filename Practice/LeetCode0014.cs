@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 14
- * 7/12/2021
+ * Author: Tyler Richey
+ * LeetCode: 14
+ * Title: Longest Common Prefix
+ * Description: Longest common prefix.
+ * Difficulty: Easy
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 7/12/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 14. Longest Common Prefix
@@ -39,36 +41,47 @@ namespace Practice
 {
     class LeetCode0014
     {
+        // Test Cases
         public LeetCode0014()
         {
-            String[][] tests = {
+            try
+            {
+                String[][] tests = {
                 new String[] { "flower", "flow", "flight" },
                 new String[] { "dog", "racecar", "car" } };
-            foreach(String[] test in tests)
+                foreach (String[] test in tests)
+                {
+                    Console.Write("Input: \"" + test[0] + "\"");
+                    for (int i = 1; i < test.Length; i++)
+                        Console.Write(", \"" + test[i] + "\"");
+                    Console.WriteLine("\nOutput: " + LongestCommonPrefix(test) + "\n");
+                }
+            }
+            catch (Exception e)
             {
-                Console.Write("Input: \"" + test[0] + "\"");
-                for (int i = 1; i < test.Length; i++)
-                    Console.Write(", \"" + test[i] + "\"");
-                Console.WriteLine("\nOutput: " + LongestCommonPrefix(test) + "\n");
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public string LongestCommonPrefix(string[] strs)
         {
             foreach (String s in strs)
                 if (s.Length == 0)
                     return "";
+
             int index = 0;
             while (LettersMatch(strs, index))
                 index++;
             return strs[0].Substring(0, index);
         }
-        private Boolean LettersMatch(String[] strs, int i)
+        private bool LettersMatch(String[] strs, int i)
         {
             char c;
             if (strs[0].Length > i)
                 c = strs[0][i];
             else
                 return false;
+
             for (int j = 1; j < strs.Length; j++)
                 if (strs[j].Length > i)
                 {
@@ -77,6 +90,7 @@ namespace Practice
                 }
                 else
                     return false;
+
             return true;
         }
     }

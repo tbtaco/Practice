@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 23
- * 8/20/2021
+ * Author: Tyler Richey
+ * LeetCode: 23
+ * Title: Merge k Sorted Lists
+ * Description: Merge a list of sorted linked lists into a single sorted linked list.
+ * Difficulty: Hard
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 8/20/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 23. Merge k Sorted Lists
@@ -50,8 +52,6 @@ Constraints:
     The sum of lists[i].length won't exceed 10^4.
 */
 
-//Note: ListNode defined in LeetCode0002.cs
-
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -64,83 +64,103 @@ Constraints:
  * }
  */
 
+// Note: ListNode defined in LeetCode0002.cs
+
 namespace Practice
 {
     class LeetCode0023
     {
+        // Test Cases
         public LeetCode0023()
         {
-            //The following was copied from LeetCode0021.cs and as such will only test for 2 lists, but this is enough for my tests
-            const int maxNodes = 50;
-            const int minVal = -100;
-            const int maxVal = 100;
-            Random r = new Random();
-            for (int i = 0; i < 5; i++)
+            try
             {
-                ListNode head1 = new ListNode(r.Next(maxVal - minVal + 1) + minVal, null);
-                ListNode current = head1;
-                int count = 1;
-                while (count <= maxNodes && current.val != maxVal)
-                {
-                    int nextVal = r.Next(maxVal - current.val + 1) + current.val;
-                    current.next = new ListNode(nextVal, null);
-                    current = current.next;
-                    count++;
-                }
+                // The following was copied from LeetCode0021.cs and as such will only test for 2 lists, but this is enough for my tests
+                const int maxNodes = 50;
+                const int minVal = -100;
+                const int maxVal = 100;
 
-                ListNode head2 = new ListNode(r.Next(maxVal - minVal + 1) + minVal, null);
-                current = head2;
-                count = 1;
-                while (count <= maxNodes && current.val != maxVal)
+                Random r = new Random();
+                for (int i = 0; i < 5; i++)
                 {
-                    int nextVal = r.Next(maxVal - current.val + 1) + current.val;
-                    current.next = new ListNode(nextVal, null);
-                    current = current.next;
-                    count++;
-                }
+                    ListNode head1 = new ListNode(r.Next(maxVal - minVal + 1) + minVal, null);
+                    ListNode current = head1;
+                    int count = 1;
+                    while (count <= maxNodes && current.val != maxVal)
+                    {
+                        int nextVal = r.Next(maxVal - current.val + 1) + current.val;
+                        current.next = new ListNode(nextVal, null);
+                        current = current.next;
+                        count++;
+                    }
 
-                Console.Write("Input 1: [" + head1.val);
-                current = head1.next;
-                while (current != null)
-                {
-                    Console.Write(", " + current.val);
-                    current = current.next;
+                    ListNode head2 = new ListNode(r.Next(maxVal - minVal + 1) + minVal, null);
+                    current = head2;
+                    count = 1;
+                    while (count <= maxNodes && current.val != maxVal)
+                    {
+                        int nextVal = r.Next(maxVal - current.val + 1) + current.val;
+                        current.next = new ListNode(nextVal, null);
+                        current = current.next;
+                        count++;
+                    }
+
+                    Console.Write("Input 1: [" + head1.val);
+                    current = head1.next;
+                    while (current != null)
+                    {
+                        Console.Write(", " + current.val);
+                        current = current.next;
+                    }
+
+                    Console.Write("]\nInput 2: [" + head2.val);
+                    current = head2.next;
+                    while (current != null)
+                    {
+                        Console.Write(", " + current.val);
+                        current = current.next;
+                    }
+
+                    ListNode output = MergeKLists(new ListNode[] { head1, head2 }); // Modified
+                    Console.Write("]\nOutput: [" + output.val);
+                    current = output.next;
+                    while (current != null)
+                    {
+                        Console.Write(", " + current.val);
+                        current = current.next;
+                    }
+
+                    Console.WriteLine("]");
                 }
-                Console.Write("]\nInput 2: [" + head2.val);
-                current = head2.next;
-                while (current != null)
-                {
-                    Console.Write(", " + current.val);
-                    current = current.next;
-                }
-                ListNode output = MergeKLists(new ListNode[] { head1, head2 }); //Modified
-                Console.Write("]\nOutput: [" + output.val);
-                current = output.next;
-                while (current != null)
-                {
-                    Console.Write(", " + current.val);
-                    current = current.next;
-                }
-                Console.WriteLine("]");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public ListNode MergeKLists(ListNode[] lists)
         {
             if (lists.Length == 0)
                 return null;
+
             if (lists.Length == 1)
                 return lists[0];
+
             if (AllAreNull(lists))
                 return null;
 
             int lowest = 0;
             while(lists[lowest] == null && lowest < lists.Length)
                 lowest++;
+
             if (lowest == lists.Length)
                 return null;
+
             for(int i = lowest + 1; i < lists.Length; i++)
                 if (lists[i] != null && lists[lowest].val > lists[i].val)
                     lowest = i;
+
             ListNode result = new ListNode(lists[lowest].val, null);
             lists[lowest] = lists[lowest].next;
 
@@ -150,9 +170,11 @@ namespace Practice
                 lowest = 0;
                 while (lists[lowest] == null)
                     lowest++;
+
                 for (int i = lowest + 1; i < lists.Length; i++)
                     if (lists[i] != null && lists[lowest].val > lists[i].val)
                         lowest = i;
+
                 current.next = new ListNode(lists[lowest].val, null);
                 current = current.next;
                 lists[lowest] = lists[lowest].next;
@@ -160,11 +182,12 @@ namespace Practice
 
             return result;
         }
-        private Boolean AllAreNull(ListNode[] lists)
+        private bool AllAreNull(ListNode[] lists)
         {
             foreach (ListNode list in lists)
                 if (list != null)
                     return false;
+
             return true;
         }
     }

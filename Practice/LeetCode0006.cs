@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 6
- * 6/28/2021
+ * Author: Tyler Richey
+ * LeetCode: 6
+ * Title: ZigZag Conversion
+ * Description: Take a string and convert it to a zig-zag version. Easier to explain by showing an example.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 6/28/2021
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 6. ZigZag Conversion
@@ -58,23 +61,36 @@ namespace Practice
 {
     class LeetCode0006
     {
+        // Test Case
         public LeetCode0006()
         {
-            String s = "ThisIsJustALongExampleStringToTestLeetCode6.ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz.";
-            Random r = new Random();
-            int numRows = r.Next(30) + 1; //Constraints are higher, but to test I lowered this to 1-30
-            String result = Convert(s, numRows);
-            Console.WriteLine("Input: " + s);
-            Console.WriteLine("Number of Rows: " + numRows);
-            Console.WriteLine("Output: " + result);
+            try
+            {
+                String s = "ThisIsJustALongExampleStringToTestLeetCode6.ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz.";
+                Random r = new Random();
+                int numRows = r.Next(30) + 1; // Constraints are higher, but to test I lowered this to 1-30
+
+                String result = Convert(s, numRows);
+
+                Console.WriteLine("Input: " + s);
+                Console.WriteLine("Number of Rows: " + numRows);
+                Console.WriteLine("Output: " + result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public string Convert(string s, int numRows)
         {
             if (numRows == 1)
                 return s;
+
             List<String> zigzag = new List<String>();
             for (int i = 0; i < numRows; i++)
                 zigzag.Add("");
+
             for(int i = 0; i < s.Length; i++)
             {
                 int j = i % (2 * numRows - 2);
@@ -90,13 +106,13 @@ namespace Practice
                             zigzag[k] += " ";
                 }
             }
+
             String result = "";
             foreach(String str in zigzag)
                 foreach(char c in str)
                     if (c != ' ')
                         result += c;
-            //foreach (String str in zigzag)
-            //    Console.WriteLine(str);
+
             return result;
         }
     }

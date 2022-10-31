@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 45
- * 4/20/2022
+ * Author: Tyler Richey
+ * LeetCode: 45
+ * Title: Jump Game II
+ * Description: Jump Game II.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 4/20/2022
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 45. Jump Game II
@@ -38,27 +40,35 @@ namespace Practice
 {
     class LeetCode0045
     {
+        // Test Cases
         private const int minInputs = 1;
-        private const int maxInputs = 10000; //10000
+        private const int maxInputs = 10000;
         private const int minJumps = 0;
-        private const int maxJumps = 1000; //1000
+        private const int maxJumps = 1000;
         private const int maxPrintPrefix = 7;
         private const int maxPrintSuffix = 3;
         private const int numberOfTests = 8;
         public LeetCode0045()
         {
-            Random r = new Random();
-            r.Next(); r.Next(); r.Next();
-
-            for(int i = 1; i <= numberOfTests; i++)
+            try
             {
-                int[] inputs = new int[r.Next(maxInputs - minInputs + 1) + minInputs];
-                //It's possible to come across impossible situations using this but it's good enough to test with.
-                for (int j = 0; j < inputs.Length; j++)
-                    inputs[j] = r.Next(maxJumps - minJumps + 1) + minJumps;
-                if (inputs.Length > 0 && inputs[0] == 0)
-                    inputs[0] = r.Next(maxJumps - minJumps) + minJumps + 1;
-                Console.WriteLine("Test " + i + ":\n\tInput: " + PrintArray(inputs) + "\n\tOutput: " + Jump(inputs));
+                Random r = new Random();
+                r.Next(); r.Next(); r.Next();
+
+                for (int i = 1; i <= numberOfTests; i++)
+                {
+                    int[] inputs = new int[r.Next(maxInputs - minInputs + 1) + minInputs];
+                    // It's possible to come across impossible situations using this but it's good enough to test with.
+                    for (int j = 0; j < inputs.Length; j++)
+                        inputs[j] = r.Next(maxJumps - minJumps + 1) + minJumps;
+                    if (inputs.Length > 0 && inputs[0] == 0)
+                        inputs[0] = r.Next(maxJumps - minJumps) + minJumps + 1;
+                    Console.WriteLine("Test " + i + ":\n\tInput: " + PrintArray(inputs) + "\n\tOutput: " + Jump(inputs));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
         private String PrintArray(int[] array)
@@ -83,14 +93,18 @@ namespace Practice
                         output += ", ...";
                 }
             output += "]";
+
             if (array.Length > maxPrintPrefix + maxPrintSuffix)
                 output += " (Length: " + array.Length + ")";
+
             return output;
         }
+        // Solution
         public int Jump(int[] nums)
         {
             if (nums.Length <= 1)
                 return 0;
+
             if (nums[0] == 0)
                 throw new Exception("Value at index 0 must be greater than zero.");
 

@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 16
- * 8/2/2021
+ * Author: Tyler Richey
+ * LeetCode: 16
+ * Title: 3Sum Closest
+ * Description: Similar to LeetCode0015.cs but instead of returning all triplets, I return only the sum of the triplet closest to zero.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 8/2/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 
@@ -35,34 +37,42 @@ namespace Practice
 {
     class LeetCode0016
     {
+        // Test Cases
         public LeetCode0016()
         {
-            const int lenMin = 3; //3
-            const int lenMax = 20; //1000
-            const int numMin = -1000; //-1000
-            const int numMax = 1000; //1000
-            const int tarMin = -10000; //-10000
-            const int tarMax = 10000; //10000
-
-            Random r = new Random();
-
-            for(int i = 1; i <= 5; i++)
+            try
             {
-                int[] nums = new int[r.Next(lenMax - lenMin + 1) + lenMin];
-                for (int j = 0; j < nums.Length; j++)
-                    nums[j] = r.Next(numMax - numMin + 1) + numMin;
-                int target = r.Next(tarMax - tarMin + 1) + tarMin;
+                const int lenMin = 3;
+                const int lenMax = 20; // 1000
+                const int numMin = -1000;
+                const int numMax = 1000;
+                const int tarMin = -10000;
+                const int tarMax = 10000;
 
-                Console.WriteLine("Test " + i + ": ");
-                Console.Write("  Nums: [" + nums[0]);
-                for (int j = 1; j < nums.Length; j++)
-                    Console.Write(", " + nums[j]);
-                Console.WriteLine("]\n  Target: " + target + "\n  Result: " + ThreeSumClosest(nums, target));
+                Random r = new Random();
+
+                for (int i = 1; i <= 5; i++)
+                {
+                    int[] nums = new int[r.Next(lenMax - lenMin + 1) + lenMin];
+                    for (int j = 0; j < nums.Length; j++)
+                        nums[j] = r.Next(numMax - numMin + 1) + numMin;
+                    int target = r.Next(tarMax - tarMin + 1) + tarMin;
+
+                    Console.WriteLine("Test " + i + ": ");
+                    Console.Write("  Nums: [" + nums[0]);
+                    for (int j = 1; j < nums.Length; j++)
+                        Console.Write(", " + nums[j]);
+                    Console.WriteLine("]\n  Target: " + target + "\n  Result: " + ThreeSumClosest(nums, target));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public int ThreeSumClosest(int[] nums, int target)
         {
-            //A classic bubble sort
             for (int i = 0; i < nums.Length; i++)
                 for (int j = 0; j < nums.Length - i - 1; j++)
                     if (nums[j] > nums[j + 1])

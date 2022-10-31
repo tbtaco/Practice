@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 34
- * 11/2/2021
+ * Author: Tyler Richey
+ * LeetCode: 34
+ * Title: Find First and Last Position of Element in Sorted Array
+ * Description: Find the first and last position of a target int in a sorted array of ints.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 11/2/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 34. Find First and Last Position of Element in Sorted Array
@@ -47,11 +49,39 @@ namespace Practice
 {
     class LeetCode0034
     {
+        // Test Case
         public LeetCode0034()
         {
-            Console.WriteLine("This one was very easy.  Not going to write a test this time.");
-            int[] output = SearchRange(new int[] { 0, 1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 10 }, 6);
+            try
+            {
+                int[] nums = new int[] { 0, 1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 10 };
+                int target = 6;
+
+                Console.Write("Nums: [");
+                for(int i = 0; i < nums.Length; i++)
+                {
+                    if (i > 0)
+                        Console.Write(", ");
+                    Console.Write(nums[i]);
+                }
+                Console.Write("]\nTarget: " + target + "\nOutput: [");
+
+                int[] output = SearchRange(nums, target);
+
+                for (int i = 0; i < output.Length; i++)
+                {
+                    if (i > 0)
+                        Console.Write(", ");
+                    Console.Write(output[i]);
+                }
+                Console.WriteLine("]");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public int[] SearchRange(int[] nums, int target)
         {
             int start = -1;

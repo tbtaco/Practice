@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 26
- * 8/30/2021
+ * Author: Tyler Richey
+ * LeetCode: 26
+ * Title: Remove Duplicates from Sorted Array
+ * Description: Remove duplicates from a sorted array.
+ * Difficulty: Easy
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 8/30/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 26. Remove Duplicates from Sorted Array
@@ -68,30 +70,46 @@ namespace Practice
 {
     class LeetCode0026
     {
-        public int[] test = new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
+        // Test Case
         public LeetCode0026()
         {
-            Console.Write("Input: [");
-            for (int i = 0; i < test.Length; i++)
-                if (i == 0)
-                    Console.Write(test[i]);
-                else
-                    Console.Write(", " + test[i]);
-            Console.Write("]\nOutput k: ");
-            int k = RemoveDuplicates(test);
-            Console.Write(k + "\nOutput: [");
-            for (int i = 0; i < k; i++)
-                if (i == 0)
-                    Console.Write(test[i]);
-                else
-                    Console.Write(", " + test[i]);
-            Console.WriteLine("]");
-            Console.WriteLine("(Just 1 test this time, but this one is easy)");
+            try
+            {
+                int[] test = new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
+
+                Console.Write("Input: [");
+                for (int i = 0; i < test.Length; i++)
+                    if (i == 0)
+                        Console.Write(test[i]);
+                    else
+                        Console.Write(", " + test[i]);
+
+                Console.Write("]\nOutput k: ");
+
+                int k = RemoveDuplicates(test);
+
+                Console.Write(k + "\nOutput: [");
+                for (int i = 0; i < k; i++)
+                    if (i == 0)
+                        Console.Write(test[i]);
+                    else
+                        Console.Write(", " + test[i]);
+
+                Console.WriteLine("]");
+
+                Console.WriteLine("(Just 1 test this time, but this one is easy)");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public int RemoveDuplicates(int[] nums)
         {
             if (nums.Length <= 1)
                 return nums.Length;
+
             int removed = 0;
             for(int i = 0; i < nums.Length - removed - 1; i++)
                 if(nums[i] == nums[i+1])

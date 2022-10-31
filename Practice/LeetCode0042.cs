@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 42
- * 3/21/2022
+ * Author: Tyler Richey
+ * LeetCode: 42
+ * Title: Trapping Rain Water
+ * Description: Trapping Rain Water.
+ * Difficulty: Hard
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 3/21/2022
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 42. Trapping Rain Water
@@ -40,30 +42,40 @@ namespace Practice
 {
     class LeetCode0042
     {
-        private const int minLength = 30; //30
-        private const int maxLength = 110; //110
-        private const int minVal = 0; //0
-        private const int maxVal = 25; //25
-        private const int testCount = 5; //5
+        // Test Cases
+        private const int minLength = 30;
+        private const int maxLength = 110;
+        private const int minVal = 0;
+        private const int maxVal = 25;
+        private const int testCount = 5;
         public LeetCode0042()
         {
-            Random r = new Random();
-            r.Next(); r.Next(); r.Next();
-
-            for(int i = 1; i <= testCount; i++)
+            try
             {
-                Console.Write("Test " + i + ":\n\tInput: [");
-                int[] input = new int[r.Next(maxLength - minLength + 1) + minLength];
-                for(int j = 0; j < input.Length; j++)
+                Random r = new Random();
+                r.Next(); r.Next(); r.Next();
+
+                for (int i = 1; i <= testCount; i++)
                 {
-                    if (j > 0)
-                        Console.Write(", ");
-                    input[j] = r.Next(maxVal - minVal + 1) + minVal;
-                    Console.Write(input[j]);
+                    Console.Write("Test " + i + ":\n\tInput: [");
+                    int[] input = new int[r.Next(maxLength - minLength + 1) + minLength];
+                    for (int j = 0; j < input.Length; j++)
+                    {
+                        if (j > 0)
+                            Console.Write(", ");
+                        input[j] = r.Next(maxVal - minVal + 1) + minVal;
+                        Console.Write(input[j]);
+                    }
+                    Console.Write("]\n\n");
+
+                    PrintLayout(input);
+
+                    Console.WriteLine("\n\tOutput: " + Trap(input));
                 }
-                Console.Write("]\n\n");
-                PrintLayout(input);
-                Console.WriteLine("\n\tOutput: " + Trap(input));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
         private void PrintLayout(int[] height)
@@ -81,9 +93,11 @@ namespace Practice
                         Console.Write("#");
                     else
                         Console.Write(".");
+
                 Console.Write("\n");
             }
         }
+        // Solution
         public int Trap(int[] height)
         {
             int[] fromLeft = new int[height.Length];
@@ -94,6 +108,7 @@ namespace Practice
                     tempMaxHeight = height[i];
                 fromLeft[i] = tempMaxHeight;
             }
+
             int result = 0;
             tempMaxHeight = 0;
             for(int i = fromLeft.Length - 1; i >= 0; i--)
@@ -105,6 +120,7 @@ namespace Practice
                     lowest = fromLeft[i];
                 result += lowest - height[i];
             }
+
             return result;
         }
     }

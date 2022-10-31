@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 33
- * 11/8/2021
+ * Author: Tyler Richey
+ * LeetCode: 33
+ * Title: Search in Rotated Sorted Array
+ * Description: Search for a number in a rotated sorted array.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 11/8/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 33. Search in Rotated Sorted Array
@@ -53,48 +55,57 @@ namespace Practice
 {
     class LeetCode0033
     {
+        // Test Cases
         public LeetCode0033()
         {
-            const int numLengthMin = 1;
-            const int numLengthMax = 5000;
-            const int numValMin = -10000;
-            const int numValMax = 10000;
-
-            Random r = new Random();
-
-            int numLength = r.Next(numLengthMax - numLengthMin + 1) + numLengthMin;
-
-            int[] nums = new int[numLength];
-
-            for (int i = 0; i < nums.Length; i++)
-                nums[i] = numValMax + 1; //Initialize all to an impossible value
-
-            for(int i = 0; i < nums.Length; i++)
+            try
             {
-                int numVal = r.Next(numValMax - numValMin + 1) + numValMin;
-                if (Search(nums, numVal) == -1)
-                    nums[i] = numVal;
-                else
-                    i--; //Random number already present.  Try this index again
+                const int numLengthMin = 1;
+                const int numLengthMax = 5000;
+                const int numValMin = -10000;
+                const int numValMax = 10000;
+
+                Random r = new Random();
+
+                int numLength = r.Next(numLengthMax - numLengthMin + 1) + numLengthMin;
+
+                int[] nums = new int[numLength];
+
+                for (int i = 0; i < nums.Length; i++)
+                    nums[i] = numValMax + 1; // Initialize all to an impossible value
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    int numVal = r.Next(numValMax - numValMin + 1) + numValMin;
+                    if (Search(nums, numVal) == -1)
+                        nums[i] = numVal;
+                    else
+                        i--; // Random number already present.  Try this index again
+                }
+
+                Sort(nums);
+
+                Rotate(nums, r.Next(nums.Length));
+
+                int target = r.Next(numValMax - numValMin + 1) + numValMin;
+
+                int result = Search(nums, target);
+
+                Console.Write("Searching for the index of the number " + target + " in the following array of numbers:\n[");
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (i != 0)
+                        Console.Write(", ");
+                    Console.Write(nums[i]);
+                }
+                Console.WriteLine("]");
+
+                Console.WriteLine("Result: " + result);
             }
-
-            Sort(nums);
-
-            Rotate(nums, r.Next(nums.Length));
-
-            int target = r.Next(numValMax - numValMin + 1) + numValMin;
-
-            int result = Search(nums, target);
-
-            Console.Write("Searching for the index of the number " + target + " in the following array of numbers:\n[");
-            for(int i = 0; i < nums.Length; i++)
+            catch (Exception e)
             {
-                if (i != 0)
-                    Console.Write(", ");
-                Console.Write(nums[i]);
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
-            Console.WriteLine("]");
-            Console.WriteLine("Result: " + result);
         }
         private void Sort(int[] nums)
         {
@@ -113,6 +124,7 @@ namespace Practice
         {
             if (r == 0)
                 return;
+
             if (r < 0)
                 throw new Exception("Rotate int r is a negative number and must be positive!");
 
@@ -126,11 +138,13 @@ namespace Practice
 
             Rotate(nums, r - 1);
         }
+        // Solution
         public int Search(int[] nums, int target)
         {
-            for (int i = 0; i < nums.Length; i++)
+            for (int i = 0; i < nums.Length; i++) // This is "Medium" difficulty?
                 if (nums[i] == target)
                     return i;
+
             return -1;
         }
     }

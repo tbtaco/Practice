@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 50
- * 6/14/2022
+ * Author: Tyler Richey
+ * LeetCode: 50
+ * Title: Pow(x, n)
+ * Description: Calculate x raised to the power n.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 6/14/2022
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 50. Pow(x, n)
@@ -43,45 +45,57 @@ namespace Practice
 {
     class LeetCode0050
     {
+        // Test Cases
         public LeetCode0050()
         {
-            int[][] tests = new int[][]
+            try
             {
-                new int[]{ 0, 1 },
-                new int[]{ 1, 0 },
-                new int[]{ 1, -1 },
-                new int[]{ -1, 1 },
-                new int[]{ 20, 2 },
-                new int[]{ 9, 9 },
-                new int[]{ -4, -4 },
-                new int[]{ 2, -8 },
-                new int[]{ 2, -7 },
-                new int[]{ 2, -6 },
-                new int[]{ 2, -5 },
-                new int[]{ 2, -4 },
-                new int[]{ 2, -3 },
-                new int[]{ 2, -2 },
-                new int[]{ 2, -1 },
-                new int[]{ 2, 0 },
-                new int[]{ 2, 1 },
-                new int[]{ 2, 2 },
-                new int[]{ 2, 3 },
-                new int[]{ 2, 4 },
-                new int[]{ 2, 5 },
-                new int[]{ 2, 6 },
-                new int[]{ 2, 7 },
-                new int[]{ 2, 8 },
-                new int[]{ 2, -500000 }
-            };
-            foreach (int[] test in tests)
-                Console.WriteLine(test[0] + " ^ " + test[1] + " = " + MyPow(test[0], test[1]));
+                int[][] tests = new int[][]
+                {
+                    new int[]{ 0, 1 },
+                    new int[]{ 1, 0 },
+                    new int[]{ 1, -1 },
+                    new int[]{ -1, 1 },
+                    new int[]{ 20, 2 },
+                    new int[]{ 9, 9 },
+                    new int[]{ -4, -4 },
+                    new int[]{ 2, -8 },
+                    new int[]{ 2, -7 },
+                    new int[]{ 2, -6 },
+                    new int[]{ 2, -5 },
+                    new int[]{ 2, -4 },
+                    new int[]{ 2, -3 },
+                    new int[]{ 2, -2 },
+                    new int[]{ 2, -1 },
+                    new int[]{ 2, 0 },
+                    new int[]{ 2, 1 },
+                    new int[]{ 2, 2 },
+                    new int[]{ 2, 3 },
+                    new int[]{ 2, 4 },
+                    new int[]{ 2, 5 },
+                    new int[]{ 2, 6 },
+                    new int[]{ 2, 7 },
+                    new int[]{ 2, 8 },
+                    new int[]{ 2, -500000 }
+                };
+
+                foreach (int[] test in tests)
+                    Console.WriteLine(test[0] + " ^ " + test[1] + " = " + MyPow(test[0], test[1]));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public double MyPow(double x, int n)
         {
             if (x == 0)
                 return 0;
+
             if (n == 0)
                 return 1;
+
             if (x == 1 || n == 1)
                 return x;
 
@@ -92,6 +106,7 @@ namespace Practice
                     if (n % 2 == 1)
                     {
                         n--;
+
                         return x * MyPow(MyPow(x, n / 2), 2);
                     }
                 }
@@ -100,18 +115,22 @@ namespace Practice
                     if (n % 2 == 1)
                     {
                         n++;
+
                         return MyPow(MyPow(x, n / 2), 2) / x;
                     }
                 }
+
                 return MyPow(MyPow(x, n / 2), 2);
             }
 
             double result = x;
+
             if (n > 0)
             {
                 while (n > 1)
                 {
                     n--;
+
                     result *= x;
                 }
             }
@@ -121,9 +140,11 @@ namespace Practice
                 while (n < -1)
                 {
                     n++;
+
                     result /= x;
                 }
             }
+
             return result;
         }
     }

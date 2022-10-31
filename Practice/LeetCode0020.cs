@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 20
- * 8/9/2021
+ * Author: Tyler Richey
+ * LeetCode: 20
+ * Title: Valid Parentheses
+ * Description: Check for valid parentheses.
+ * Difficulty: Easy
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 8/9/2021
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 20. Valid Parentheses
@@ -56,24 +59,35 @@ namespace Practice
 {
     class LeetCode0020
     {
+        // Test Cases
         public LeetCode0020()
         {
-            List<List<String>> tests = new List<List<String>>();
-            tests.Add(new List<String>() { "(){}[]", "True" });
-            tests.Add(new List<String>() { "({[]})", "True" });
-            tests.Add(new List<String>() { "(()", "False" });
-            tests.Add(new List<String>() { "(", "False" });
-            tests.Add(new List<String>() { "[]][][][[]][][][[]]", "False" });
-            tests.Add(new List<String>() { "(()())", "True" });
-            tests.Add(new List<String>() { "[({[]}{})()]", "True" });
-            foreach(List<String> test in tests)
-                Console.WriteLine("Input: " + test[0] + ", Expected: " + test[1] + ", Output: " + IsValid(test[0]));
+            try
+            {
+                List<List<String>> tests = new List<List<String>>();
+                tests.Add(new List<String>() { "(){}[]", "True" });
+                tests.Add(new List<String>() { "({[]})", "True" });
+                tests.Add(new List<String>() { "(()", "False" });
+                tests.Add(new List<String>() { "(", "False" });
+                tests.Add(new List<String>() { "[]][][][[]][][][[]]", "False" });
+                tests.Add(new List<String>() { "(()())", "True" });
+                tests.Add(new List<String>() { "[({[]}{})()]", "True" });
+
+                foreach (List<String> test in tests)
+                    Console.WriteLine("Input: " + test[0] + ", Expected: " + test[1] + ", Output: " + IsValid(test[0]));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public bool IsValid(string s)
         {
             if (s.Length % 2 == 1)
                 return false;
-            List<char> openingChars = new List<char>(); //After completing, I see C# does have a Stack library which would be easier to use than using a List as a Stack.  Concept is the same here, but I could have simply Pushed and Popped
+
+            List<char> openingChars = new List<char>(); // After completing, I see C# does have a Stack library which would be easier to use than using a List as a Stack.  Concept is the same here, but I could have simply Pushed and Popped.
             foreach(char c in s.ToCharArray())
             {
                 if (c == '(' || c == '{' || c == '[')
@@ -105,6 +119,7 @@ namespace Practice
                     }
                 }
             }
+
             return openingChars.Count == 0;
         }
     }

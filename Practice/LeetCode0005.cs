@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 5
- * 6/25/2021
+ * Author: Tyler Richey
+ * LeetCode: 5
+ * Title: Longest Palindromic Substring
+ * Description: Given a string, return the longest palindromic substring.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 6/25/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 5. Longest Palindromic Substring
@@ -47,18 +49,27 @@ namespace Practice
 {
     class LeetCode0005
     {
+        // Test Case
         public LeetCode0005()
         {
-            String input = "A palindrome is when something can be read the same forwards as backwards, so for example Racecar.";
-            String output = LongestPalindrome(input);
-            Console.WriteLine("Input: " + input);
-            Console.WriteLine("Output: " + output);
+            try
+            {
+                String input = "A palindrome is when something can be read the same forwards as backwards, so for example Racecar.";
+                String output = LongestPalindrome(input);
+                Console.WriteLine("Input: " + input);
+                Console.WriteLine("Output: " + output);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public string LongestPalindrome(string s)
         {
             int x = 0;
             int length = 1;
-            for(int i = 1; i < s.Length - 1; i++) //Checking for odd palindromes
+            for(int i = 1; i < s.Length - 1; i++) // Checking for odd palindromes
             {
                 int t = 1;
                 while (i - t >= 0 && i + t < s.Length && s[i - t] == s[i + t])
@@ -70,8 +81,7 @@ namespace Practice
                     length = (t * 2) + 1;
                 }
             }
-            for(int i = 0; i < s.Length - 1; i++) //Checking for even palindromes
-            {
+            for(int i = 0; i < s.Length - 1; i++) // Checking for even palindromes
                 if(s[i] == s[i+1])
                 {
                     int t = 1;
@@ -84,26 +94,7 @@ namespace Practice
                         length = (t * 2) + 2;
                     }
                 }
-            }
             return s.Substring(x, length);
-
-            /*First attempt.  48/176 tests passed before the time limit was hit.  This does work though, just not as efficient
-            for(int i = s.Length; i >= 0; i--) //Start at a max length of i and go down from there
-                for(int j = 0; j + i <= s.Length; j++) //Start at 0 to i-1 and shift until there are no substrings of length i
-                {
-                    String sub = s.Substring(j, i).ToLower();
-                    Boolean palindrome = true;
-                    for(int x = 0; x < sub.Length / 2; x++)
-                    {
-                        int y = sub.Length - x - 1;
-                        if (sub[x] != sub[y])
-                            palindrome = false;
-                    }
-                    if (palindrome)
-                        return s.Substring(j, i); //Returns the first one found since this will be the longest
-                }
-            return null;
-            */
         }
     }
 }

@@ -1,14 +1,17 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 17
- * 8/3/2021
+ * Author: Tyler Richey
+ * LeetCode: 17
+ * Title: Letter Combinations of a Phone Number
+ * Description: Given an input of numbers saved as a string, return all possible combinations of letter mappings as if it were keyed into a phone.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 8/3/2021
+ * Notes: 
  */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 17. Letter Combinations of a Phone Number
@@ -46,30 +49,39 @@ namespace Practice
 {
     class LeetCode0017
     {
+        // Test Cases
         public LeetCode0017()
         {
-            List<String> tests = new List<String>();
-            Random r = new Random();
-            for(int i = 0; i < 10; i++)
+            try
             {
-                String s = "";
-                for (int j = 0; j < r.Next(5); j++)
-                    s += r.Next(8) + 2;
-                tests.Add(s);
-            }
-            foreach(String test in tests)
-            {
-                Console.Write("Input: " + test + ", Output: [");
-                IList<String> result = LetterCombinations(test);
-                for(int i = 0; i < result.Count; i++)
+                List<String> tests = new List<String>();
+                Random r = new Random();
+                for (int i = 0; i < 10; i++)
                 {
-                    if (i > 0)
-                        Console.Write(", ");
-                    Console.Write(result[i]);
+                    String s = "";
+                    for (int j = 0; j < r.Next(5); j++)
+                        s += r.Next(8) + 2;
+                    tests.Add(s);
                 }
-                Console.WriteLine("]");
+                foreach (String test in tests)
+                {
+                    Console.Write("Input: " + test + ", Output: [");
+                    IList<String> result = LetterCombinations(test);
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        if (i > 0)
+                            Console.Write(", ");
+                        Console.Write(result[i]);
+                    }
+                    Console.WriteLine("]");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
             }
         }
+        // Solution
         public IList<string> LetterCombinations(string digits)
         {
             IList<String> result = new List<String>();

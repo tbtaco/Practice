@@ -1,14 +1,16 @@
 ﻿/*
- * Tyler Richey
- * LeetCode 3
- * 6/24/2021
+ * Author: Tyler Richey
+ * LeetCode: 3
+ * Title: Longest Substring Without Repeating Characters
+ * Description: Return the longest substring without repeating characters.
+ * Difficulty: Medium
+ * Status: Solved
+ * Time Complexity: O(n^2)
+ * Date: 6/24/2021
+ * Notes: 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
 3. Longest Substring Without Repeating Characters
@@ -42,7 +44,7 @@ Output: 0
 
 Constraints:
 
-0 <= s.length <= 5 * 104
+0 <= s.length <= 5 * 10^4
 s consists of English letters, digits, symbols and spaces.
 */
 
@@ -50,14 +52,22 @@ namespace Practice
 {
     class LeetCode0003
     {
+        // Test Case
         public LeetCode0003()
         {
-            String testString = "Testing ABC12345 This is a test string to demonstrate that my LeetCode #3 solution works.  " +
-                "Feel free to change this string to whatever you want.  I'm not going to design a random test for this one."; //16
-            //testString = "AABCDEFGACB"; //7
-            Console.WriteLine("Input String: " + testString);
-            Console.WriteLine("Length of longest substring: " + LengthOfLongestSubstring(testString));
+            try
+            {
+                String testString = "Testing ABC12345 This is a test string to demonstrate that my LeetCode #3 solution works.  " +
+                "Feel free to change this string to whatever you want.  I'm not going to design a random test for this one."; // 16
+                Console.WriteLine("Input String: " + testString);
+                Console.WriteLine("Length of longest substring: " + LengthOfLongestSubstring(testString));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: Something seemed to break with that last test.  See below:\n" + e);
+            }
         }
+        // Solution
         public int LengthOfLongestSubstring(string s)
         {
             int result = 0;
