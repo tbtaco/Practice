@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 44
  * Title: Wildcard Matching
- * Description: Wildcard Matching.
+ * Description: Given an input string and pattern, implement wildcard pattern matching with support for '?' and '*'.
  * Difficulty: Hard
  * Status: Work In Progress
  * Time Complexity: TBD

@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 39
  * Title: Combination Sum
- * Description: Returns all combinations of an int array that can be added to equal a target int.
+ * Description: Returns all combinations of an int array that can be added to equal a target int.  Numbers may be used more than once to hit the target int.
  * Difficulty: Medium
  * Status: Solved
  * Time Complexity: O(2^n)

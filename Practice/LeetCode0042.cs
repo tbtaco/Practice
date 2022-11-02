@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 42
  * Title: Trapping Rain Water
- * Description: Trapping Rain Water.
+ * Description: Given an integer array representing an elevation map with each entry being a width of 1, return how much water can be trapped after raining.
  * Difficulty: Hard
  * Status: Solved
  * Time Complexity: O(n)

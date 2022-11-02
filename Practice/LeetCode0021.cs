@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 21
  * Title: Merge Two Sorted Lists
- * Description: Merge two sorted lists.
+ * Description: Merge two sorted lists and return as a single sorted list.
  * Difficulty: Easy
  * Status: Solved
  * Time Complexity: O(n)

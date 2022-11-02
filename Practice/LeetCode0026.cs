@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 26
  * Title: Remove Duplicates from Sorted Array
- * Description: Remove duplicates from a sorted array.
+ * Description: Given a sorted integer array, remove duplicates in-place and return how many integers remain.
  * Difficulty: Easy
  * Status: Solved
  * Time Complexity: O(n^2)

@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 14
  * Title: Longest Common Prefix
- * Description: Longest common prefix.
+ * Description: Return the longest prefix shared by an array of strings.
  * Difficulty: Easy
  * Status: Solved
  * Time Complexity: O(n^2)

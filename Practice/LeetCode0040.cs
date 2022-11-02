@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 40
  * Title: Combination Sum II
- * Description: Combination Sum II.
+ * Description: Returns all combinations of an int array that can be added to equal a target int.  Numbers may NOT be used more than once to hit the target int.
  * Difficulty: Medium
  * Status: Solved
  * Time Complexity: O(2^n)

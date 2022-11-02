@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 37
  * Title: Sudoku Solver
- * Description: Continuing from LeetCode0036.cs, this one actually solves Sudoku puzzles.
+ * Description: Continuing from LeetCode0036.cs, this one actually solves Sudoku puzzles.  This one would be a great one to look at to see some of my programming skills.
  * Difficulty: Hard
  * Status: Solved
  * Time Complexity: O(n)
@@ -125,6 +125,7 @@ namespace Practice
                 for(int j = 0; j < 9; j++)
                     cells[i][j] = new SudokuCell(board[i][j]);
             }
+
             int loop = 1;
             while(!BoardSolved(board, cells))
             {

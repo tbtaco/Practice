@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 43
  * Title: Multiply Strings
- * Description: Multiply two Strings.
+ * Description: Given two integers as strings, return the product also represented as a string.  Do not convert inputs to integers directly.
  * Difficulty: Medium
  * Status: Solved
  * Time Complexity: O(n^2)

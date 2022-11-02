@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 24
  * Title: Swap Nodes in Pairs
- * Description: Swap nodes in pairs.
+ * Description: Given a linked list, swap every two adjacent nodes and return its head.
  * Difficulty: Medium
  * Status: Solved
  * Time Complexity: O(n)

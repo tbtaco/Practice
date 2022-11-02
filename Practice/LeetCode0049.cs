@@ -2,11 +2,11 @@
  * Author: Tyler Richey
  * LeetCode: 49
  * Title: Group Anagrams
- * Description: TODO
+ * Description: Given an array of strings, group the anagrams together.
  * Difficulty: Medium
- * Status: TODO
- * Time Complexity: TODO
- * Date: 10/31/2022
+ * Status: Not Attempted Yet
+ * Time Complexity: TBD
+ * Date: 11/2/2022
  * Notes: 
  */
 

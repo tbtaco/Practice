@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 19
  * Title: Remove Nth Node From End of List
- * Description: Remove the Nth node from a linked list.
+ * Description: Remove the Nth node from the end of a linked list.
  * Difficulty: Medium
  * Status: Solved
  * Time Complexity: O(n)

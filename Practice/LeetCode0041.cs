@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 41
  * Title: First Missing Positive
- * Description: First Missing Positive.
+ * Description: Given an unsorted integer array, return the smallest missing positive integer.
  * Difficulty: Hard
  * Status: Solved (Revisit)
  * Time Complexity: O(n^2)

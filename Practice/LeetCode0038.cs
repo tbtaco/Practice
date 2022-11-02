@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 38
  * Title: Count and Say
- * Description: Count and say.
+ * Description: Count digits and "say" them in a string.  For example 4 as an input would start with "1" (1/4), which is one 1 so "11" (2/4), which is two 1s so "21" (3/4), which is one 2 and one 1 so "1211" (4/4).
  * Difficulty: Medium
  * Status: Solved
  * Time Complexity: O(2^n)

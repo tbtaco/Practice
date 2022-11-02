@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 45
  * Title: Jump Game II
- * Description: Jump Game II.
+ * Description: Each element in an integer array represents how many spaces you can jump.  Starting at [0] reach the last index in the minimum number of jumps.
  * Difficulty: Medium
  * Status: Solved
  * Time Complexity: O(n)

@@ -106,7 +106,7 @@ namespace Practice
                     if (path == "" || path.Length < "Practice\\Practice\\".Length)
                         Console.WriteLine("No path found in initialization.  Make sure the program has .../Practice/Practice somewhere in it's path.");
                     else
-                        OutputREADME(solutions, path.Substring(0, path.Length - "Practice\\".Length) + "README.temp"); // .md
+                        OutputREADME(solutions, path.Substring(0, path.Length - "Practice\\".Length) + "README.md");
                 }
                 else if(input == "q" || input == "quit" || input == "e" || input == "exit")
                     return;
@@ -229,7 +229,91 @@ namespace Practice
         {
             try
             {
-                throw new Exception("TODO");
+                const String siteStart = "https://github.com/tbtaco/Practice/blob/master/Practice/";
+
+                StreamWriter sw = new StreamWriter(path);
+                DateTime dt = DateTime.Now;
+
+                sw.Write("<!-- Last updated on " + dt.Month + "/" + dt.Day + "/" + dt.Year + " -->\n");
+
+                sw.Write("This repository is where I'll be saving my solutions to [LeetCode](https://leetcode.com/) problems.  You can also see " +
+                    "a summary of my LeetCode [here](https://leetcode.com/tbtaco/).\n\n");
+
+                sw.Write("[Program.cs](" + siteStart + "Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions " +
+                    "along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)\n\n");
+
+                int easy = 0;
+                int medium = 0;
+                int hard = 0;
+
+                List<String> output = new List<String>();
+
+                int lastNumber = 0;
+
+                foreach(Solution solution in solutions)
+                {
+                    if(solution.GetNumber() > 0)
+                    {
+                        if (solution.GetNumber() - lastNumber > 1)
+                            output.Add("...");
+                        lastNumber = solution.GetNumber();
+
+                        if(solution.IsTechnicallySolved())
+                            switch (solution.GetDifficulty())
+                            {
+                                case "Easy": easy++; break;
+                                case "Medium": medium++; break;
+                                case "Hard": hard++; break;
+                            }
+
+                        String s = "";
+
+                        s += "[" + solution.GetFileName() + "]";
+                        s += "(" + siteStart + solution.GetFileName() + ")";
+                        s += " - ";
+                        s += solution.GetDifficulty();
+                        s += " - ";
+                        s += solution.GetStatus();
+                        s += " - ";
+                        s += solution.GetTitle();
+                        s += " - ";
+                        s += solution.GetDescription();
+
+                        s += "\n";
+
+                        s += "<!-- Other info on " + solution.GetFileName();
+                        s += " - ";
+                        s += "Author: " + solution.GetAuthor();
+                        s += " - ";
+                        s += "Date: " + solution.GetDate();
+                        s += " - ";
+                        s += "Time Complexity: " + solution.GetComplexity();
+                        if(solution.GetNotes().Length > 0)
+                        {
+                            s += " - ";
+                            s += "Notes: " + solution.GetNotes();
+                        }
+                        s += " -->";
+
+                        output.Add(s);
+                    }
+                }
+
+                sw.Write("Total Solved: " + (easy + medium + hard) + " (Easy: " + easy + ", Medium: " + medium + ", Hard: " + hard + ")\n\n");
+
+                for(int i = 0; i < output.Count; i++)
+                {
+                    if (i > 0)
+                        sw.Write("\n\n");
+                    sw.Write(output[i]);
+                }
+
+                sw.Write("\n\nI plan to continue solving more when I find spare time and update this to reflect that when needed.  " +
+                    "Questions over anything are welcome at tyler.richey.777@gmail.com (professional) or at tbtaco@hotmail.com (main)\n");
+
+                sw.Write("<!-- End Of File -->\n");
+
+                sw.Close();
             }
             catch(Exception e)
             {
@@ -255,7 +339,7 @@ namespace Practice
             this.path = path;
             try
             {
-                StreamReader sr = new StreamReader(path);
+                StreamReader sr = new StreamReader(this.path);
                 while(!sr.EndOfStream)
                 {
                     String line = sr.ReadLine();
@@ -293,7 +377,7 @@ namespace Practice
 
                 if(number == 0)
                 {
-                    String[] parts = path.Split("\\");
+                    String[] parts = this.path.Split("\\");
                     String s = parts[parts.Length - 1];
                     if(s.Substring(0, 8) == "LeetCode")
                         number = int.Parse(s.Substring(8, 4));
@@ -313,7 +397,7 @@ namespace Practice
         {
             return number;
         }
-        private String GetFileName()
+        public String GetFileName()
         {
             if(IsValid())
                 return "LeetCode" + GetNumberAsString() + ".cs";
@@ -340,6 +424,13 @@ namespace Practice
                 return status == "Solved";
             return false;
         }
+        public bool IsTechnicallySolved()
+        {
+            if (IsSolved())
+                return true;
+
+            return GetStatus().Length >= "Solved".Length && GetStatus().Substring(0, "Solved".Length) == "Solved";
+        }
         public String GetStatus()
         {
             if (IsValid())
@@ -365,6 +456,34 @@ namespace Practice
                 Activator.CreateInstance(t);
             else
                 Console.WriteLine("Error: Could not find " + name);
+        }
+        public String GetDifficulty()
+        {
+            return difficulty;
+        }
+        public String GetTitle()
+        {
+            return title;
+        }
+        public String GetDescription()
+        {
+            return description;
+        }
+        public String GetComplexity()
+        {
+            return complexity;
+        }
+        public String GetDate()
+        {
+            return date;
+        }
+        public String GetNotes()
+        {
+            return notes;
+        }
+        public String GetAuthor()
+        {
+            return author;
         }
     }
 }

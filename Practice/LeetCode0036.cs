@@ -2,7 +2,7 @@
  * Author: Tyler Richey
  * LeetCode: 36
  * Title: Valid Sudoku
- * Description: Check that a Sudoku board is valid. Rows, Columns, and Blocks must contain only 1-9 without repetition. This does not check that the puzzle is solvable, only that the numbers given are valid.
+ * Description: Check that a Sudoku board is valid. Rows, Columns, and Blocks must contain only 1-9 without repetition.
  * Difficulty: Medium
  * Status: Solved
  * Time Complexity: O(n)
