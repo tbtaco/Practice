@@ -3,7 +3,7 @@ This repository is where I'll be saving my solutions to [LeetCode](https://leetc
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 49 (Easy: 11, Medium: 29, Hard: 9)
+Total Solved: 50 (Easy: 11, Medium: 30, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -154,6 +154,11 @@ Total Solved: 49 (Easy: 11, Medium: 29, Hard: 9)
 
 [LeetCode0050.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0050.cs) - Medium - Solved - Pow(x, n) - Calculate x raised to the power n.
 <!-- Other info on LeetCode0050.cs - Author: Tyler Richey - Date: 6/14/2022 - Time Complexity: O(n) -->
+
+...
+
+[LeetCode0055.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0055.cs) - Medium - Solved - Jump Game - Integers in an integer array represent how far you can jump.  Starting at [0], return true if it's possible to reach the last index.  See LeetCode0045.cs for Jump Game II.
+<!-- Other info on LeetCode0055.cs - Author: Tyler Richey - Date: 11/3/2022 - Time Complexity: O(n) -->
 
 I plan to continue solving more when I find spare time and update this to reflect that when needed.  Questions over anything are welcome at tyler.richey.777@gmail.com (professional) or at tbtaco@hotmail.com (main)
 <!-- End Of File -->
