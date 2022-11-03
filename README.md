@@ -1,9 +1,9 @@
-<!-- Last updated on 11/2/2022 -->
+<!-- Last updated on 11/3/2022 -->
 This repository is where I'll be saving my solutions to [LeetCode](https://leetcode.com/) problems.  You can also see a summary of my LeetCode [here](https://leetcode.com/tbtaco/).
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 48 (Easy: 11, Medium: 28, Hard: 9)
+Total Solved: 49 (Easy: 11, Medium: 29, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -149,8 +149,8 @@ Total Solved: 48 (Easy: 11, Medium: 28, Hard: 9)
 [LeetCode0048.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0048.cs) - Medium - Solved - Rotate Image - Given a square 2D matrix representing an image, rotate the image by 90 degrees clockwise.
 <!-- Other info on LeetCode0048.cs - Author: Tyler Richey - Date: 7/11/2022 - Time Complexity: O(n) -->
 
-[LeetCode0049.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0049.cs) - Medium - Not Attempted Yet - Group Anagrams - Given an array of strings, group the anagrams together.
-<!-- Other info on LeetCode0049.cs - Author: Tyler Richey - Date: 11/2/2022 - Time Complexity: TBD -->
+[LeetCode0049.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0049.cs) - Medium - Solved - Group Anagrams - Given an array of strings, group the anagrams together.
+<!-- Other info on LeetCode0049.cs - Author: Tyler Richey - Date: 11/3/2022 - Time Complexity: O(n^2) -->
 
 [LeetCode0050.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0050.cs) - Medium - Solved - Pow(x, n) - Calculate x raised to the power n.
 <!-- Other info on LeetCode0050.cs - Author: Tyler Richey - Date: 6/14/2022 - Time Complexity: O(n) -->
