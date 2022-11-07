@@ -1,9 +1,9 @@
-<!-- Last updated on 11/4/2022 -->
+<!-- Last updated on 11/7/2022 -->
 This repository is where I'll be saving my solutions to [LeetCode](https://leetcode.com/) problems.  You can also see a summary of my LeetCode [here](https://leetcode.com/tbtaco/).
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 51 (Easy: 11, Medium: 31, Hard: 9)
+Total Solved: 52 (Easy: 11, Medium: 32, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -162,6 +162,11 @@ Total Solved: 51 (Easy: 11, Medium: 31, Hard: 9)
 
 [LeetCode0055.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0055.cs) - Medium - Solved - Jump Game - Integers in an integer array represent how far you can jump.  Starting at [0], return true if it's possible to reach the last index.  See LeetCode0045.cs for Jump Game II.
 <!-- Other info on LeetCode0055.cs - Author: Tyler Richey - Date: 11/3/2022 - Time Complexity: O(n) -->
+
+...
+
+[LeetCode0059.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0059.cs) - Medium - Solved - Spiral Matrix II - Given a positive integer n, generate an n x n matrix filled with elements from 1 to n^2 in spiral order.
+<!-- Other info on LeetCode0059.cs - Author: Tyler Richey - Date: 11/7/2022 - Time Complexity: O(n) -->
 
 I plan to continue solving more when I find spare time and update this to reflect that when needed.  Questions over anything are welcome at tyler.richey.777@gmail.com (professional) or at tbtaco@hotmail.com (main)
 <!-- End Of File -->
