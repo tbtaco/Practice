@@ -1,9 +1,9 @@
-<!-- Last updated on 7/6/2023 -->
+<!-- Last updated on 7/7/2023 -->
 This repository is where I'll be saving my solutions to [LeetCode](https://leetcode.com/) problems.  You can also see a summary of my LeetCode [here](https://leetcode.com/tbtaco/).
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 55 (Easy: 14, Medium: 32, Hard: 9)
+Total Solved: 56 (Easy: 15, Medium: 32, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -180,6 +180,9 @@ Total Solved: 55 (Easy: 14, Medium: 32, Hard: 9)
 
 [LeetCode0118.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0118.cs) - Easy - Solved - Pascal's Triangle - Given an integer numRows, return the first numRows of Pascal's triangle.
 <!-- Other info on LeetCode0118.cs - Author: Tyler Richey - Date: 7/6/2023 - Time Complexity: O(n^2) -->
+
+[LeetCode0119.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0119.cs) - Easy - Solved - Pascal's Triangle II - Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+<!-- Other info on LeetCode0119.cs - Author: Tyler Richey - Date: 7/7/2023 - Time Complexity: O(n^2) - Notes: I started with my solution to LeetCode 118 and modified to give just the last row.  I could then delete older rows that are no longer needed to minimize memory usage further. -->
 
 I plan to continue solving more when I find spare time and update this to reflect that when needed.  Questions over anything are welcome at tyler.richey.777@gmail.com (professional) or at tbtaco@hotmail.com (main)
 <!-- End Of File -->
