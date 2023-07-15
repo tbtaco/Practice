@@ -4,9 +4,9 @@
  * Title: Best Time to Buy and Sell Stock II
  * Description: You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
  * Difficulty: Medium
- * Status: Work In Progress
- * Time Complexity: TBD
- * Date: 7/12/2023
+ * Status: Solved
+ * Time Complexity: O(n)
+ * Date: 7/14/2023
  * Notes: Similar to LeetCode 121 except I can buy and sell multiple times instead of just one pair.
  */
 
@@ -75,41 +75,14 @@ namespace Practice
         // Solution
         public int MaxProfit(int[] prices)
         {
-            /* Thoughts
-            Low on time tonight so I'll continue this tomorrow.  I think my first approach to this will be use LeetCode 121's solution to
-            get the max profit of a small section.  Modify the solution to return the buy and sell indexes, or better yet return two arrays
-            from before and after these purchases.  Call the same on those until I get no profit at all from the arrays.
-            This may not give the result I want but it's a start.  Until tomorrow.
-            */
-
-            throw new Exception("TODO");
-
-            /* From LeetCode 121
             if (prices.Length <= 1)
                 return 0;
 
-            int[] fromLeft = new int[prices.Length];
-            int tempMin = prices[0];
-            fromLeft[0] = tempMin;
-            for (int i = 1; i < fromLeft.Length; i++)
-            {
-                if (prices[i] < tempMin)
-                    tempMin = prices[i];
-                fromLeft[i] = tempMin;
-            }
-
-            int tempMax = 0;
-            int overallMax = 0;
-            for (int i = fromLeft.Length - 1; i >= 0; i--)
-            {
-                if (prices[i] > tempMax)
-                    tempMax = prices[i];
-                if (overallMax < tempMax - fromLeft[i])
-                    overallMax = tempMax - fromLeft[i];
-            }
-
-            return overallMax;
-            */
+            int result = 0;
+            for(int i = 1; i < prices.Length; i++)
+                if (prices[i] > prices[i - 1])
+                    result += prices[i] - prices[i - 1];
+            return result;
         }
     }
 }

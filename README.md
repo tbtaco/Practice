@@ -1,9 +1,9 @@
-<!-- Last updated on 7/11/2023 -->
+<!-- Last updated on 7/14/2023 -->
 This repository is where I'll be saving my solutions to [LeetCode](https://leetcode.com/) problems.  You can also see a summary of my LeetCode [here](https://leetcode.com/tbtaco/).
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 58 (Easy: 16, Medium: 33, Hard: 9)
+Total Solved: 59 (Easy: 16, Medium: 34, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -193,6 +193,12 @@ Total Solved: 58 (Easy: 16, Medium: 33, Hard: 9)
 
 [LeetCode0121.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0121.cs) - Easy - Solved - Best Time to Buy and Sell Stock - You are given an array prices where prices[i] is the price of a given stock on the ith day.
 <!-- Other info on LeetCode0121.cs - Author: Tyler Richey - Date: 7/11/2023 - Time Complexity: O(n) -->
+
+[LeetCode0122.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0122.cs) - Medium - Solved - Best Time to Buy and Sell Stock II - You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+<!-- Other info on LeetCode0122.cs - Author: Tyler Richey - Date: 7/14/2023 - Time Complexity: O(n) - Notes: Similar to LeetCode 121 except I can buy and sell multiple times instead of just one pair. -->
+
+[LeetCode0123.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0123.cs) - Hard - Work In Progress - Best Time to Buy and Sell Stock III - You are given an array prices where prices[i] is the price of a given stock on the ith day.
+<!-- Other info on LeetCode0123.cs - Author: Tyler Richey - Date: 7/14/2023 - Time Complexity: TBD - Notes: Similar to LeetCode 121 and 122 but I can complete at most 2 transactions to get my result. -->
 
 I plan to continue solving more when I find spare time and update this to reflect that when needed.  Questions over anything are welcome at tyler.richey.777@gmail.com (professional) or at tbtaco@hotmail.com (main)
 <!-- End Of File -->
