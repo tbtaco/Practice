@@ -83,9 +83,7 @@ namespace Practice
             int currentBuy = prices[0];
             for(int i = 1; i < prices.Length; i++)
             {
-                //I'll start here tomorrow.  It seems fairly easy honestly, I'm just out of time.  I'm probably overlooking the "Hard" aspect of this, but I'll find it.
-
-
+                //Two and a half weeks of hardware issues later...  I'm back.
             }
 
 
