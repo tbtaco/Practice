@@ -84,18 +84,9 @@ namespace Practice
             for(int i = 1; i < prices.Length; i++)
             {
                 //Two and a half weeks of hardware issues later...  I'm back.
+
+                //Welp followed by software issues so test push.
             }
-
-
-
-
-
-
-
-
-
-
-
 
             return highestSell + secondHighestSell;
         }
