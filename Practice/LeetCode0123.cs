@@ -6,7 +6,7 @@
  * Difficulty: Hard
  * Status: Work In Progress
  * Time Complexity: TBD
- * Date: 7/14/2023
+ * Date: 8/7/2023
  * Notes: Similar to LeetCode 121 and 122 but I can complete at most 2 transactions to get my result.
  */
 
@@ -83,9 +83,7 @@ namespace Practice
             int currentBuy = prices[0];
             for(int i = 1; i < prices.Length; i++)
             {
-                //Two and a half weeks of hardware issues later...  I'm back.
-
-                //Welp followed by software issues so test push.
+                // I'll come back to this later.
             }
 
             return highestSell + secondHighestSell;
