@@ -3,7 +3,7 @@ This repository is where I'll be saving my solutions to [LeetCode](https://leetc
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 63 (Easy: 20, Medium: 34, Hard: 9)
+Total Solved: 64 (Easy: 21, Medium: 34, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -172,6 +172,9 @@ Total Solved: 63 (Easy: 20, Medium: 34, Hard: 9)
 <!-- Other info on LeetCode0059.cs - Author: Tyler Richey - Date: 11/7/2022 - Time Complexity: O(n) -->
 
 ...
+
+[LeetCode0066.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0066.cs) - Easy - Solved - Plus One - You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order.
+<!-- Other info on LeetCode0066.cs - Author: Tyler Richey - Date: 8/20/2023 - Time Complexity: O(n) -->
 
 [LeetCode0067.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0067.cs) - Easy - Solved - Add Binary - Given two binary strings a and b, return their sum as a binary string.
 <!-- Other info on LeetCode0067.cs - Author: Tyler Richey - Date: 4/1/2023 - Time Complexity: O(n) -->
