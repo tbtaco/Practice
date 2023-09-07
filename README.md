@@ -3,7 +3,7 @@ This repository is where I'll be saving my solutions to [LeetCode](https://leetc
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 65 (Easy: 22, Medium: 34, Hard: 9)
+Total Solved: 66 (Easy: 23, Medium: 34, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -232,6 +232,11 @@ Total Solved: 65 (Easy: 22, Medium: 34, Hard: 9)
 
 [LeetCode0160.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0160.cs) - Easy - Solved - Intersection of Two Linked Lists - Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect.
 <!-- Other info on LeetCode0160.cs - Author: Tyler Richey - Date: 8/8/2023 - Time Complexity: O(n) -->
+
+...
+
+[LeetCode0258.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0258.cs) - Easy - Solved - Add Digits - Given an integer num, repeatedly add all its digits until the result has only one digit, and return it.
+<!-- Other info on LeetCode0258.cs - Author: Tyler Richey - Date: 9/7/2023 - Time Complexity: O(n) -->
 
 I plan to continue solving more when I find spare time and update this to reflect that when needed.  Questions over anything are welcome at tyler.richey.777@gmail.com (professional) or at tbtaco@hotmail.com (main)
 <!-- End Of File -->
