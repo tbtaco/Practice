@@ -1,9 +1,9 @@
-<!-- Last updated on 9/7/2023 -->
+<!-- Last updated on 9/14/2023 -->
 This repository is where I'll be saving my solutions to [LeetCode](https://leetcode.com/) problems.  You can also see a summary of my LeetCode [here](https://leetcode.com/tbtaco/).
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 66 (Easy: 23, Medium: 34, Hard: 9)
+Total Solved: 67 (Easy: 24, Medium: 34, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -180,6 +180,9 @@ Total Solved: 66 (Easy: 23, Medium: 34, Hard: 9)
 <!-- Other info on LeetCode0067.cs - Author: Tyler Richey - Date: 4/1/2023 - Time Complexity: O(n) -->
 
 ...
+
+[LeetCode0069.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0069.cs) - Easy - Solved - Sqrt(x) - Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.
+<!-- Other info on LeetCode0069.cs - Author: Tyler Richey - Date: 9/14/2023 - Time Complexity: O(n) -->
 
 [LeetCode0070.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0070.cs) - Easy - Solved - Climbing Stairs - You are climbing a staircase. It takes n steps to reach the top.
 <!-- Other info on LeetCode0070.cs - Author: Tyler Richey - Date: 8/9/2023 - Time Complexity: O(n) -->
