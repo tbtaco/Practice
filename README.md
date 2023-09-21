@@ -1,9 +1,9 @@
-<!-- Last updated on 9/14/2023 -->
+<!-- Last updated on 9/21/2023 -->
 This repository is where I'll be saving my solutions to [LeetCode](https://leetcode.com/) problems.  You can also see a summary of my LeetCode [here](https://leetcode.com/tbtaco/).
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 67 (Easy: 24, Medium: 34, Hard: 9)
+Total Solved: 68 (Easy: 25, Medium: 34, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -240,6 +240,11 @@ Total Solved: 67 (Easy: 24, Medium: 34, Hard: 9)
 
 [LeetCode0258.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0258.cs) - Easy - Solved - Add Digits - Given an integer num, repeatedly add all its digits until the result has only one digit, and return it.
 <!-- Other info on LeetCode0258.cs - Author: Tyler Richey - Date: 9/7/2023 - Time Complexity: O(n) -->
+
+...
+
+[LeetCode0268.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0268.cs) - Easy - Solved - Missing Number - Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+<!-- Other info on LeetCode0268.cs - Author: Tyler Richey - Date: 9/21/2023 - Time Complexity: O(n) -->
 
 I plan to continue solving more when I find spare time and update this to reflect that when needed.  Questions over anything are welcome at tyler.richey.777@gmail.com (professional) or at tbtaco@hotmail.com (main)
 <!-- End Of File -->
