@@ -3,7 +3,7 @@ This repository is where I'll be saving my solutions to [LeetCode](https://leetc
 
 [Program.cs](https://github.com/tbtaco/Practice/blob/master/Practice/Program.cs) - The starting point for this group of solutions.  It runs different LeetCode solutions along with other functions like generating this [README.md](https://github.com/tbtaco/Practice/blob/master/README.md)
 
-Total Solved: 69 (Easy: 25, Medium: 35, Hard: 9)
+Total Solved: 70 (Easy: 26, Medium: 35, Hard: 9)
 
 [LeetCode0001.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0001.cs) - Easy - Solved - Two Sum - Given an array of integers, return the indices for the two numbers that add to equal a target.
 <!-- Other info on LeetCode0001.cs - Author: Tyler Richey - Date: 6/23/2021 - Time Complexity: O(n^2) -->
@@ -231,6 +231,11 @@ Total Solved: 69 (Easy: 25, Medium: 35, Hard: 9)
 
 [LeetCode0136.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0136.cs) - Easy - Solved - Single Number - Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
 <!-- Other info on LeetCode0136.cs - Author: Tyler Richey - Date: 9/7/2023 - Time Complexity: O(n) -->
+
+...
+
+[LeetCode0141.cs](https://github.com/tbtaco/Practice/blob/master/Practice/LeetCode0141.cs) - Easy - Solved - Linked List Cycle - Given head, the head of a linked list, determine if the linked list has a cycle in it.
+<!-- Other info on LeetCode0141.cs - Author: Tyler Richey - Date: 10/5/2023 - Time Complexity: O(n) - Notes: By using 2 pointers where one is faster than the other, if a loop is present they will collide in at most 2 loops. -->
 
 ...
 
